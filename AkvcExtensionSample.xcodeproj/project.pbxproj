@@ -160,15 +160,15 @@
 		9F934DD021931E430054F734 /* AkvcExtension */ = {
 			isa = PBXGroup;
 			children = (
-				9F934DD121931E430054F734 /* AkvcExtension.m */,
-				9F934DD221931E430054F734 /* NSObject+AkvcExtension.h */,
-				9F934DD321931E430054F734 /* AkvcClass.m */,
-				9F934DD421931E430054F734 /* NSValue+AkvcExtension.m */,
-				9F934DD521931E430054F734 /* AkvcExtension.h */,
 				9F934DD621931E430054F734 /* AkvcClass.h */,
-				9F934DD721931E430054F734 /* NSObject+AkvcExtension.m */,
+				9F934DD321931E430054F734 /* AkvcClass.m */,
+				9F934DD521931E430054F734 /* AkvcExtension.h */,
+				9F934DD121931E430054F734 /* AkvcExtension.m */,
 				9F934DD821931E430054F734 /* ExtensionPath */,
+				9F934DD221931E430054F734 /* NSObject+AkvcExtension.h */,
+				9F934DD721931E430054F734 /* NSObject+AkvcExtension.m */,
 				9F934DE621931E430054F734 /* NSValue+AkvcExtension.h */,
+				9F934DD421931E430054F734 /* NSValue+AkvcExtension.m */,
 			);
 			path = AkvcExtension;
 			sourceTree = "<group>";
@@ -176,15 +176,15 @@
 		9F934DD821931E430054F734 /* ExtensionPath */ = {
 			isa = PBXGroup;
 			children = (
-				9F934DD921931E430054F734 /* PathBiList */,
-				9F934DDE21931E430054F734 /* NSString+AkvcStringFormat.m */,
-				9F934DDF21931E430054F734 /* AkvcPathReader.h */,
 				9F934DE021931E430054F734 /* AkvcExtensionPath.h */,
-				9F934DE121931E430054F734 /* AkvcPathComponent.h */,
 				9F934DE221931E430054F734 /* AkvcExtensionPath.m */,
+				9F934DE121931E430054F734 /* AkvcPathComponent.h */,
+				9F934DE521931E430054F734 /* AkvcPathComponent.m */,
+				9F934DDF21931E430054F734 /* AkvcPathReader.h */,
 				9F934DE321931E430054F734 /* AkvcPathReader.m */,
 				9F934DE421931E430054F734 /* NSString+AkvcStringFormat.h */,
-				9F934DE521931E430054F734 /* AkvcPathComponent.m */,
+				9F934DDE21931E430054F734 /* NSString+AkvcStringFormat.m */,
+				9F934DD921931E430054F734 /* PathBiList */,
 			);
 			path = ExtensionPath;
 			sourceTree = "<group>";
@@ -192,9 +192,9 @@
 		9F934DD921931E430054F734 /* PathBiList */ = {
 			isa = PBXGroup;
 			children = (
+				9F934DDC21931E430054F734 /* AkvcPathReadBiList.h */,
 				9F934DDA21931E430054F734 /* AkvcPathReadBiList.m */,
 				9F934DDB21931E430054F734 /* AkvcPathReadNode.h */,
-				9F934DDC21931E430054F734 /* AkvcPathReadBiList.h */,
 				9F934DDD21931E430054F734 /* AkvcPathReadNode.m */,
 			);
 			path = PathBiList;

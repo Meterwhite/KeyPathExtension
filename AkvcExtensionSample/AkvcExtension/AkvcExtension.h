@@ -6,8 +6,8 @@
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
-#import "NSObject+AKVCExtension.h"
-#import "NSValue+AKVCExtension.h"
+#import "NSObject+AkvcExtension.h"
+#import "NSValue+AkvcExtension.h"
 
 @interface AkvcExtension : NSProxy
 

@@ -1,14 +1,14 @@
 //
 //  AkvcExtensionPath.m
-//  AKVCExtensionSample
+//  AkvcExtensionSample
 //
 //  Created by NOVO on 2018/10/27.
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
 #import "AkvcExtensionPath.h"
-#import "AkvcPathReader.h"
 #import "AkvcPathComponent.h"
+#import "AkvcPathReader.h"
 
 @interface AkvcExtensionPath ()
 @property (nonatomic,strong) NSMutableArray<AkvcPathComponent*>* components;

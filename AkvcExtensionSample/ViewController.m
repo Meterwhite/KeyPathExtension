@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  AKVCExtensionSample
+//  AkvcExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
@@ -15,7 +15,7 @@
 #import "Dog.h"
 
 @interface ViewController ()
-
+@property (nonatomic,strong) id warning;
 @end
 
 @implementation ViewController
@@ -80,16 +80,23 @@
     }
     
     
-    id text0 = [jack valueForExtensionPath:@"dogs.@[0].{age,number}.@:SELF[SIZE]==2?"];
-
-    id text1 = [jack valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
-
-    id text2 = [alice valueForExtensionPath:@"dogs.@:food != nil!"];
+//    id test0 = [jack valueForExtensionPath:@"dogs.@[0].{age,number}.@:SELF[SIZE]==2?"];
+//
+//    id test1 = [jack valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
+//
+//    id test2 = [alice valueForExtensionPath:@"dogs.@:food != nil!"];
+//    
+//    id test3 = [jack valueForExtensionPath:AkvcPath(@"dogs.@[%d].frame->size->width", 0)];
     
-    id text3 = [alice valueForExtensionPathWithPredicateFormat:@"dogs.@:SELF[%@]!",@0, nil];
+    id test4 = [jack valueForExtensionPath:@"dogs.<name>"];
     
 //    [jack setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
     
+//    [test0 copy];
+//    [test1 copy];
+//    [test2 copy];
+//    [test3 copy];
+    [test4 copy];
     NSLog(@"%@",jack);
 }
 

@@ -1,6 +1,6 @@
 //
 //  AkvcPathReadNode.m
-//  AKVCExtensionSample
+//  AkvcExtensionSample
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.

@@ -105,6 +105,18 @@
 
 - (NSArray *)valuesForSubkey:(NSString *)subkey
 {
+    if([self respondsToSelector:@selector(objectEnumerator)]){
+        
+        id              item        = nil;
+        NSMutableArray* rets        = [NSMutableArray array];
+        NSEnumerator*   enumerator  = [(id)self objectEnumerator];
+        while ((item = enumerator.nextObject)) {
+            
+            [rets addObject:[item _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch]];
+        }
+        return rets;
+    }
+    
     return [self _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch];
 }
 
@@ -458,7 +470,7 @@
     }
 }
 
-- (NSArray*)_akvc_valuesForSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
+- (NSArray* _Nonnull)_akvc_valuesForSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
 {
     __block objc_property_t* properties;
     NSMutableArray* retValues = [NSMutableArray array];

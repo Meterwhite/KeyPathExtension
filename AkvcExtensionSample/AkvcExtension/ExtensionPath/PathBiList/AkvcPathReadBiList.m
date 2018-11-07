@@ -1,6 +1,6 @@
 //
 //  AkvcPathReadBiList.m
-//  AKVCExtensionSample
+//  AkvcExtensionSample
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.
@@ -159,14 +159,14 @@
         ANode* regkeyContent = [ANode nodeMatchAnyChar].asTrueNodeFor(regkey)
         .thatBanCharacters(@"$").thatTrueNodeSelf;
         ANode* regkey2 = [ANode nodeMatchValue:@"$"].asFalseNodeFor(regkeyContent);
-        ANode* regkey3 = [ANode nodeMatchValue:@">"].asTrueNodeFor(regkey2)
+        ANode* regkey3 = [ANode nodeMatchValue:@">"].asTrueNodeFor(regkey2).thatFalseNode(regkeyContent)
         .thatFinishable.thatResultType(AkvcPathComponentRegkey);
-        [ANode nodeMatchValue:@"."].asTrueNodeFor(regkey3).asFalseNodeFor(regkeyContent)
+        [ANode nodeMatchValue:@"."].asTrueNodeFor(regkey3).thatFalseNode(regkeyContent)
         .thatFinished.thatResultType(AkvcPathComponentRegkey);//Node at end
         
         
         ANode* subKeyContent = [ANode nodeMatchBaseName].thatBanCharacters(@">")
-        .asTrueNodeFor(regkey).thatTrueNodeSelf;
+        .asFalseNodeFor(regkey).thatTrueNodeSelf;
         ANode* subKeyEndable = [ANode nodeMatchValue:@">"].asFalseNodeFor(subKeyContent).thatFalseNode(error)
         .thatFinishable.thatResultType(AkvcPathComponentSubkey);
         [ANode nodeMatchValue:@"."].asTrueNodeFor(subKeyEndable).thatFalseNode(error)

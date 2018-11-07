@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef AkvcFormatPath
-#define AkvcFormatPath(path,args...) ([NSString stringWithFormat:path,##args])
+#ifndef AkvcPath
+#define AkvcPath(path,args...) ([NSString stringWithFormat:path,##args])
 #endif
 
 @interface NSObject(NSObjectAkvcExtension)

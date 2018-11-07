@@ -1,6 +1,6 @@
 //
 //  Dog.h
-//  AKVCExtensionSample
+//  AkvcExtensionSample
 //
 //  Created by NOVO on 2018/11/1.
 //  Copyright © 2018 NOVO. All rights reserved.
@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Dog : NSObject
 @property (nonatomic,strong) Person* master;
+@property (nonatomic,copy) NSString* name;
 @property (nonatomic,copy) NSString* nickName;
 @property (nonatomic,assign) NSInteger age;
 @property (nonatomic,assign) NSInteger number;
