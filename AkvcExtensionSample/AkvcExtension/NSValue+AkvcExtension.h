@@ -16,11 +16,9 @@
 - (BOOL)valueIsStructRepresentation;
 
 - (__kindof NSValue* _Nullable)structValueForKey:(NSString* _Nonnull)key;
-
-- (__kindof NSValue* _Nullable)structValueForKeyPath:(NSString* _Nonnull)keyPath;
-
 - (NSValue* _Nonnull)setStructValue:(id _Nullable)value forKey:(NSString* _Nonnull)key;
 
+- (__kindof NSValue* _Nullable)structValueForKeyPath:(NSString* _Nonnull)keyPath;
 - (NSValue* _Nonnull)setStructValue:(id _Nullable)value forKeyPath:(NSString* _Nonnull)keyPath;
 @end
 

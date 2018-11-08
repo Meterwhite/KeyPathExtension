@@ -95,8 +95,6 @@
 {
     if(!key) {//only key
         
-    CALL_RET_NULL:
-        
         return nil;
     }
     
@@ -104,7 +102,7 @@
     
     NSDictionary* currentMap = pathMap[@(self.objCType)];
     
-    if(!currentMap) goto CALL_RET_NULL;//wrong path
+    if(!currentMap) return nil;//wrong path
     
     NSValue*(^worker)(NSValue* value)  = currentMap[key];
     
@@ -118,15 +116,13 @@
     
     if(pathNodes.count == 0) {//only key
         
-    CALL_RET_NULL:
-        
         return nil;
     }
     
     NSDictionary* pathMap = [self.class pathMapForGetStructValue_AKVC];
     NSDictionary* currentMap = pathMap[@(self.objCType)];
     
-    if(!currentMap) goto CALL_RET_NULL;//wrong path
+    if(!currentMap) return nil;//wrong path
     
     NSString* currentPath = pathNodes.firstObject;
     
@@ -138,7 +134,7 @@
     
     NSUInteger dotIdx = [keyPath rangeOfString:@"."].location + 1;
     
-    if(dotIdx >= keyPath.length) goto CALL_RET_NULL;///next path wrong
+    if(dotIdx >= keyPath.length) return nil;///next path wrong
     
     NSString* nextPath = [keyPath substringFromIndex:dotIdx];
     return [newValue structValueForKeyPath:nextPath];

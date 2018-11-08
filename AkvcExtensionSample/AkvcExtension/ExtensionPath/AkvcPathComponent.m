@@ -257,6 +257,110 @@
     return NSNotFound;
 }
 
+- (id)indexerSubarray:(NSArray*)array
+{
+    
+    NSString* content = [_stringValue substringWithRange:NSMakeRange(2, _stringValue.length - 3)];
+    content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if([content containsString:@"%"] == NO)
+    {
+        ///@[Number]
+        return array[[content integerValue]];
+    }
+    
+    
+    NSEnumerator* componentsEnumerator = [content componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]].objectEnumerator;
+    
+    NSString*   component;
+    NSRange     left    =   NSMakeRange(0, 0);
+    NSRange     right   =   NSMakeRange(0, 0);
+    unichar     aChar   ,   keyChar = 0;
+    BOOL        hasEqChar;
+    /**
+     %>= , %!= , %<=
+     Step
+     :
+     0  :   %
+     1  :   !><
+     2  :   =
+     3  :   Number
+     */
+    NSUInteger  step;
+    while ((component = componentsEnumerator.nextObject)) {
+        
+        step        =   0;
+        left        =   NSMakeRange(0, component.length);
+        right       =   left;
+        hasEqChar   =   NO;
+        for (NSUInteger i = 0; i < component.length; i++)
+        {
+            aChar = [component characterAtIndex:i];
+            
+            switch (step)
+            {
+                case 0      :   goto CALL_STEP_0;
+                case 1      :   goto CALL_STEP_1;
+                case 2      :   goto CALL_STEP_2;
+                case 3      :   goto CALL_STEP_3;
+            }
+            
+        CALL_STEP_0:
+            {
+                NSAssert(aChar == '%', @"AkvcExtension:\n Wrong indexer format!");
+                step = 1;
+                continue;
+            }
+        CALL_STEP_1:
+            {
+                ///!><
+                NSAssert(aChar == '<' || aChar == '!' || aChar == '>', @"AkvcExtension:\n Wrong indexer format!");
+                keyChar = aChar;
+                step = 2;
+                continue;
+            }
+        CALL_STEP_2:
+            {
+                if((hasEqChar = (aChar == '='))){
+                    step = 3;
+                    continue;
+                }
+            }
+        CALL_STEP_3:
+            {
+                NSAssert(aChar >= '0' && aChar <= '9', @"AkvcExtension:\n Wrong indexer format!");
+                NSInteger number = [[component substringFromIndex:i] integerValue];
+                switch (keyChar)
+                {
+                    case '<':
+                    {
+                        left.length = number + hasEqChar;
+                    }
+                        break;
+                    case '!':
+                    {
+                        left.length = number + hasEqChar;
+                    }
+                        break;
+                    case '>':
+                    {
+                        right.location = 1 + number - hasEqChar;
+                        right.length -= right.location;
+                    }
+                        break;
+                }
+                ///Finish step 3.
+                break;
+            }
+        }
+    }
+    
+    left = NSIntersectionRange(left, right);
+    
+    
+    return [array subarrayWithRange:left];
+}
+
 - (instancetype)copy
 {
     AkvcPathComponent* _copy = [[self.class alloc] init];

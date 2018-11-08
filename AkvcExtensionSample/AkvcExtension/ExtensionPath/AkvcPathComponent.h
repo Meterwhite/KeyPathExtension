@@ -76,11 +76,6 @@ typedef enum AkvcPathComponentType{
 - (instancetype)copy;
 
 
-
-
-
-
-
 #pragma mark - Predicate component
 @property (nonatomic,copy)      NSString*   predicateString;
 @property (nonatomic,assign)    NSUInteger  predicateArgumentCount;
@@ -95,7 +90,7 @@ typedef enum AkvcPathComponentType{
 /**
  NSNotFound means not contains index.
  */
-@property (nonatomic,assign)                    NSInteger   indexForindexer;
+@property (nonatomic,assign)    NSInteger   indexForindexer;
 
 #pragma mark - Subkey component
 @property (nonatomic,copy)  NSString*   subkey;
