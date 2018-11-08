@@ -36,7 +36,6 @@
 {
     
     static NSSet *_baseDataClasses;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
@@ -59,7 +58,7 @@
     ///Root
     if(self == [NSObject class] || self == [NSManagedObject class]) return YES;
     
-    id object;
+    id object = nil;
     NSEnumerator* enumertor = [_baseDataClasses objectEnumerator];
     while ((object = enumertor.nextObject)) {
         

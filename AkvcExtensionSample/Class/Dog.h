@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger number;
 @property (nonatomic,assign) CGRect frame;
 @property (nonatomic,strong) Food* food;
+@property (nonatomic,strong) Food* food0;
+@property (nonatomic,strong) Food* food1;
+@property (nonatomic,strong) Food* food2;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

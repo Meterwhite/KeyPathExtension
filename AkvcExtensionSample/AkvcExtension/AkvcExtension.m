@@ -14,7 +14,7 @@
 static NSMutableDictionary* _akvc_custom_function_map;
 + (void)registFunction:(NSString*)name withBlock:(id(^)(id caller))block
 {
-    NSAssert(name && block, @"Block or name can not be nil!");
+    NSAssert(name && block, @"AkvcExtension:\n  Block or name can not be nil!");
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -36,7 +36,7 @@ static NSMutableDictionary* _akvc_custom_function_map;
 
 + (id(^)(id))customFunctionNamed:(NSString*)name
 {
-    NSAssert(name, @"Function name can not be nil!");
+    NSAssert(name, @"AkvcExtension:\n  Function name can not be nil!");
     return _akvc_custom_function_map[name];
 }
 

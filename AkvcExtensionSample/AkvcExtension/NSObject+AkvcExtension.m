@@ -24,14 +24,29 @@
         return nil;
     }
     
+    
+    if([self respondsToSelector:@selector(objectEnumerator)] == YES
+       &&
+       [self respondsToSelector:@selector(keyEnumerator)] == NO){
+        
+        id              item        = nil;
+        NSMutableArray  *rets        = [NSMutableArray array];
+        NSEnumerator    *enumerator  = [(id)self objectEnumerator];
+        while ((item = enumerator.nextObject)) {
+            
+            [rets addObject:[item valueForFullPath:fullPath]];
+        }
+        return [rets copy];
+    }
+    
     if(![fullPath containsString:@"->"]){
         
     CALL_NORMAL_KVC:
-        
+        /// <CGRect> ==> @"size"
         if([self isKindOfClass:NSValue.class]){
             
-            if([(NSValue*)self valueIsStructRepresentation]){
-                return [(NSValue*)self structValueForKey:fullPath];
+            if([((NSValue*)self) valueIsStructRepresentation]){
+                return [((NSValue*)self) structValueForKey:fullPath];
             }
         }
         
@@ -40,13 +55,13 @@
     }
     
     ///separete struct path from full path
-    NSUInteger opIdx = [fullPath rangeOfString:@"->"].location;
-    NSString* keyPath = [fullPath substringToIndex:opIdx];
+    NSUInteger   opIdx       = [fullPath rangeOfString:@"->"].location;
+    NSString*    keyPath     = [fullPath substringToIndex:opIdx];
     if(opIdx + 1 == fullPath.length-1) goto CALL_NORMAL_KVC;//wrong struct path like @"...->"
-    NSString* structPath = [fullPath substringFromIndex:opIdx+2];
+    NSString*    structPath  = [fullPath substringFromIndex:opIdx+2];
     
     
-    NSValue* keyPathValue = [self valueForKeyPath:keyPath];
+    NSValue*     keyPathValue = [self valueForKeyPath:keyPath];
     if(![keyPathValue isKindOfClass:NSValue.class]) goto CALL_RET_NULL;//wrong keypath befor structPath
     
     ///Adjust oprator : @"->" => @"."
@@ -56,9 +71,18 @@
 
 - (void)setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath
 {
-    if(!fullPath){
+    if(!fullPath) return;
+    
+    if([self respondsToSelector:@selector(objectEnumerator)] == YES
+       &&
+       [self respondsToSelector:@selector(keyEnumerator)] == NO){
         
-        return;
+        id              item        = nil;
+        NSEnumerator*   enumerator  = [(id)self objectEnumerator];
+        while ((item = enumerator.nextObject)) {
+            
+            [item setValue:value forFullPath:fullPath];
+        }
     }
     
     if(![fullPath containsString:@"->"]){
@@ -71,31 +95,21 @@
         return;
     }
     
-    ///separete struct path from full path
-    NSUInteger opIdx = [fullPath rangeOfString:@"->"].location;
-    NSString* keyPath = [fullPath substringToIndex:opIdx];
+    ///Separete struct path from full path
+    NSUInteger  opIdx       = [fullPath rangeOfString:@"->"].location;
+    NSString*   keyPath     = [fullPath substringToIndex:opIdx];
     if(opIdx + 1 == fullPath.length-1) return;//wrong struct path like @"...->"
-    NSString* structPath = [fullPath substringFromIndex:opIdx+2];
+    NSString*   structPath  = [fullPath substringFromIndex:opIdx+2];
     
     ///Find new value
-    NSValue* keyPathValue = [self valueForKeyPath:keyPath];
+    NSValue* keyPathValue= [self valueForKeyPath:keyPath];
     if(![keyPathValue isKindOfClass:NSValue.class]) return;//wrong
-    ///Adjust oprator : @"->" => @"."
+    ///Instead oprator : @"->" => @"."
     structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
     
     NSValue* newKeyPathValue = [keyPathValue setStructValue:value forKeyPath:structPath];
     [self setValue:newKeyPathValue forKeyPath:keyPath];
     return;
-}
-
-- (void)setValue:(id)value forRegkey:(NSString*)regkey
-{
-    [self _akvc_setValue:value forSearchingKey:regkey option:NSRegularExpressionSearch];
-}
-
-- (NSArray *)valuesForRegkey:(NSString *)regkey
-{
-   return [self _akvc_valuesForSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
 - (void)setValue:(id)value forSubkey:(NSString *)subkey
@@ -105,25 +119,24 @@
 
 - (NSArray *)valuesForSubkey:(NSString *)subkey
 {
-    if([self respondsToSelector:@selector(objectEnumerator)]){
-        
-        id              item        = nil;
-        NSMutableArray* rets        = [NSMutableArray array];
-        NSEnumerator*   enumerator  = [(id)self objectEnumerator];
-        while ((item = enumerator.nextObject)) {
-            
-            [rets addObject:[item _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch]];
-        }
-        return rets;
-    }
-    
     return [self _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch];
+}
+
+- (void)setValue:(id)value forRegkey:(NSString*)regkey
+{
+    [self _akvc_setValue:value forSearchingKey:regkey option:NSRegularExpressionSearch];
+}
+
+- (NSArray *)valuesForRegkey:(NSString *)regkey
+{
+    return [self _akvc_valuesForSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
 - (id _Nullable)valueForExtensionPath:(NSString* _Nonnull)extensionPath
 {
     return [self valueForExtensionPathWithPredicateFormat:extensionPath, nil];
 }
+
 - (void)setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
 {
     [self setValue:value forExtensionPathWithPredicateFormat:extensionPath, nil];
@@ -151,6 +164,9 @@
 
 - (void)setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
 {
+    
+    if(extendPathWithPredicateFormat == nil) return;
+    
     ///ArgumentList
     NSMutableArray* arguments = [NSMutableArray new];
     va_list args;
@@ -161,15 +177,15 @@
     }
     va_arg(args, id);
     
-    NSUInteger indexForArgument = 0;
+    NSUInteger  indexForArgument    = 0;
     
-    id _self = self;
+    id          _self               = self;
     
     NSEnumerator<AkvcPathComponent*>* enumerator = [AkvcExtensionPath pathFast:extendPathWithPredicateFormat].componentEnumerator;
-    AkvcPathComponent* currentComponent;
-    AkvcPathComponent* nextComponent = enumerator.nextObject;
-    id objectBeforeStructPath;
-    AkvcPathComponent* componentBeforeStructPath;
+    AkvcPathComponent*  currentComponent;
+    AkvcPathComponent*  nextComponent = enumerator.nextObject;
+    AkvcPathComponent*  componentBeforeStructPath;
+    id                  objectBeforeStructPath;
     while (nextComponent && _self) {
         
         currentComponent = nextComponent;
@@ -184,6 +200,7 @@
          *  第二次设置值需要针对持有结构体的对象，把第一步获取的对象设置给它，这里需要记录持有对象的相关信息
          */
         if(nextComponent.componentType & AkvcPathComponentStructKeyPath){
+            
             objectBeforeStructPath = _self;
             componentBeforeStructPath = currentComponent;
         }
@@ -215,10 +232,13 @@
                 
                 ///Get struct value for NSValue.
                 if(currentComponent.isKeyPath){
+                    
                     _self = [_self setStructValue:value forKeyPath:currentComponent.stringValue];
                 }else{
+                    
                     _self = [_self setStructValue:value forKey:currentComponent.stringValue];
                 }
+                
                 if(objectBeforeStructPath){
                     
                     value = _self;
@@ -228,40 +248,40 @@
                 }
             }else{
                 
-                NSAssert(NO, @"Struct key path must be the last component!");
+                NSAssert(NO, @"AkvcExtension:\n  Struct key path must be the last component!");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentSubkey){
             
             if(!nextComponent){
                 
-                [_self setValue:value forSubkey:currentComponent.stringValue];
+                [_self setValue:value forSubkey:currentComponent.subkey];
             }else{
                 
-                _self = [_self valuesForSubkey:currentComponent.stringValue];
+                _self = [_self valuesForSubkey:currentComponent.regkey];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentRegkey){
             
             if(!nextComponent){
                 
-                [_self setValue:value forRegkey:currentComponent.stringValue];
+                [_self setValue:value forRegkey:currentComponent.regkey];
             }else{
                 
-                _self = [_self valuesForRegkey:currentComponent.stringValue];
+                _self = [_self valuesForRegkey:currentComponent.regkey];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
             
             NSInteger index = currentComponent.indexForindexer;
-            NSAssert(index != NSNotFound, @"Indexer missing index:%@.",currentComponent.stringValue);
+            NSAssert(index != NSNotFound, @"AkvcExtension:\n  Indexer missing index:%@.",currentComponent.stringValue);
             if(nextComponent){
                 
-                NSAssert([_self isKindOfClass:NSArray.class], @"Indexer must be used for NSArray:%@",_self);
+                NSAssert([_self isKindOfClass:NSArray.class], @"AkvcExtension:\n  Indexer must be used for NSArray:%@",_self);
                 _self = _self[index];
             }else{
                 
-                NSAssert([_self isKindOfClass:NSMutableArray.class], @"Setter for Indexer must be used for NSMutableArray:%@",_self);
+                NSAssert([_self isKindOfClass:NSMutableArray.class], @"AkvcExtension:\n  Setter for Indexer must be used for NSMutableArray:%@",_self);
                 _self[index] = value;
             }
         }
@@ -280,7 +300,7 @@
                     _self = [_self filteredArrayUsingPredicate:predicate];
                 }
             }else{
-                NSAssert(NO, @"Predicate path unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  Predicate path unable be used to set value.");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentCustomFunction){
@@ -290,7 +310,7 @@
                 _self = [currentComponent callFunctionByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"Function path unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  Function path unable be used to set value.");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentKeys){
@@ -300,7 +320,7 @@
                 _self = [currentComponent callKeysByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"Keys component unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  Keys component unable be used to set value.");
             }
         }
     }
@@ -310,6 +330,8 @@
 
 - (id)valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
 {
+    if(extendPathWithPredicateFormat == nil) return nil;
+    
     ///ArgumentList
     NSMutableArray* arguments = [NSMutableArray new];
     va_list         args;
@@ -369,16 +391,16 @@
         }
         else if(currentComponent.componentType & AkvcPathComponentSubkey){
             
-            _self = [_self valuesForSubkey:currentComponent.stringValue];
+            _self = [_self valuesForSubkey:currentComponent.subkey];
         }
         else if(currentComponent.componentType & AkvcPathComponentRegkey){
             
-            _self = [_self valuesForRegkey:currentComponent.stringValue];
+            _self = [_self valuesForRegkey:currentComponent.regkey];
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
             
             NSInteger index = currentComponent.indexForindexer;
-            NSAssert(index != NSNotFound, @"Indexer missing index:%@.",currentComponent.stringValue);
+            NSAssert(index != NSNotFound, @"AkvcExtension:\n  Indexer missing index:%@.",currentComponent.stringValue);
             _self = _self[index];
         }
         else if(currentComponent.componentType & AkvcPathComponentIsPredicate){
@@ -412,9 +434,45 @@
     return _self;
 }
 
+#pragma mark - private methos
 
 - (void)_akvc_setValue:(id)value forSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
 {
+    NSAssert(key != nil, @"AkvcExtension:\n  Key can not be nil!");
+    
+    if([self respondsToSelector:@selector(objectEnumerator)] == YES){
+        
+        NSEnumerator*   enumerator  = nil;
+        id              object      = nil;
+        
+        ///Key value pairs
+        if([self respondsToSelector:@selector(keyEnumerator)] == YES){
+            
+            NSAssert([self respondsToSelector:@selector(setObject:forKey:)], @"AkvcExtension:\n  object:%@ for key:%@ is not mutable object!",self , key);
+            
+            enumerator  = [(id)self keyEnumerator];
+            while ((object = enumerator.nextObject)) {
+                
+                if([object rangeOfString:key options:option].length == 0)
+                    continue;
+                
+                if(value)
+                    [(id)self setObject:value forKey:object];
+            }
+        }
+        ///Collection
+        else{
+            
+            enumerator  = [(id)self objectEnumerator];
+            
+            
+            while ((object = enumerator.nextObject)) {
+                
+                [object _akvc_setValue:value forSearchingKey:key option:option];
+            }
+        }
+    }
+    
     __block objc_property_t* properties;
     @try {
         
@@ -422,21 +480,26 @@
             
             unsigned int outCount, i;
             properties = class_copyPropertyList(clazz, &outCount);
+            
+            NSString    *attrs;
+            NSUInteger  dotLoc;
+            NSArray     *attrInfos;
+            NSString    *code;
+            NSString    *pName;
             for(i=0 ; i< outCount; i++){
                 
-                NSString* pName = @(property_getName(properties[i]));
+                pName = @(property_getName(properties[i]));
                 ///Filter
                 if(![pName rangeOfString:key options:option].length) continue;
                 
-                NSString *attrs = @(property_getAttributes(properties[i]));
-                NSUInteger dotLoc = [attrs rangeOfString:@","].location;
-                NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
-                NSString *code = nil;
-                NSUInteger loc = 1;
+                attrs = @(property_getAttributes(properties[i]));
+                dotLoc = [attrs rangeOfString:@","].location;
+                attrInfos = [attrs componentsSeparatedByString:@","];
+                code = nil;
                 if (dotLoc == NSNotFound) { //None
-                    code = [attrs substringFromIndex:loc];
+                    code = [attrs substringFromIndex:1];
                 } else {
-                    code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                    code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
                 if([attrInfos containsObject:@"R"]){
@@ -466,36 +529,79 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        NSLog(@"Error from :%s;NSException=%@;",__func__,[exception description]);
+        NSLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
 }
 
 - (NSArray* _Nonnull)_akvc_valuesForSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
 {
-    __block objc_property_t* properties;
-    NSMutableArray* retValues = [NSMutableArray array];
-    __block id value;
+    
+    NSAssert(key != nil, @"AkvcExtension:\n  Key can not be nil!");
+    
+    if([self respondsToSelector:@selector(objectEnumerator)] == YES){
+        
+        
+        NSEnumerator*   enumerator  = nil;
+        id              object      = nil;
+        NSMutableArray* rets        = [NSMutableArray array];
+        
+        ///Key value pairs
+        if([self respondsToSelector:@selector(keyEnumerator)] == YES){
+            
+            enumerator  = [(id)self keyEnumerator];
+            while ((object = enumerator.nextObject)) {
+                
+                if([object rangeOfString:key options:option].length == 0)
+                    continue;
+                
+                [rets addObject:[(id)self objectForKey:object]];
+            }
+        }
+        ///Collection
+        else{
+
+            enumerator  = [(id)self objectEnumerator];
+            
+            
+            while ((object = enumerator.nextObject)) {
+                
+                [rets addObject:[object _akvc_valuesForSearchingKey:key option:option]];
+            }
+        }
+        
+        return [rets copy];
+    }
+    
+    
+    __block objc_property_t*     properties;
+    __block id                   value;
+    NSMutableArray*              retValues = [NSMutableArray array];
     @try {
         
         [self.class akvc_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
             
             unsigned int outCount, i;
             properties = class_copyPropertyList(clazz, &outCount);
+            
+            NSString*    attrs;
+            NSUInteger  dotLoc;
+            NSArray*     attrInfos;
+            NSString*    code;
+            NSString*    pName;
             for(i=0 ; i< outCount; i++){
                 
-                NSString* pName = @(property_getName(properties[i]));
+                pName = @(property_getName(properties[i]));
                 ///Filter
                 if(![pName rangeOfString:key options:option].length) continue;
                 
-                NSString *attrs = @(property_getAttributes(properties[i]));
-                NSUInteger dotLoc = [attrs rangeOfString:@","].location;
-                NSArray* attrInfos = [attrs componentsSeparatedByString:@","];
-                NSString *code = nil;
-                NSUInteger loc = 1;
+                attrs = @(property_getAttributes(properties[i]));
+                dotLoc = [attrs rangeOfString:@","].location;
+                attrInfos = [attrs componentsSeparatedByString:@","];
+                code = nil;
                 if (dotLoc == NSNotFound) { //None
-                    code = [attrs substringFromIndex:loc];
+                    code = [attrs substringFromIndex:1];
                 } else {
-                    code = [attrs substringWithRange:NSMakeRange(loc, dotLoc - loc)];
+                    code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
                 if([attrInfos containsObject:@"R"]){
@@ -526,7 +632,7 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        NSLog(@"Error from :%s;NSException=%@;",__func__,[exception description]);
+        NSLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
     
     return [retValues copy];

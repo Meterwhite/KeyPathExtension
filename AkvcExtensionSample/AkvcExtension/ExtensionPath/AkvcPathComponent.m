@@ -14,17 +14,25 @@
     NSString* _functionName;
 }
 
+- (NSString*)subkey
+{
+    return [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
+}
+
+- (NSString*)regkey
+{
+    return [_stringValue substringWithRange:NSMakeRange(2, _stringValue.length - 4)];
+}
+
 - (id)callKeysByTarget:(id)target
 {
-#warning Security checks need.
-    
     ///Empty keys : `{}`
-    NSAssert(_stringValue.length > 2, @"Keys component must contain at least one key.");
+    NSAssert(_stringValue.length > 2, @"AkvcExtension:\n  Keys component must contain at least one key.");
     ///Get content.
     _stringValue = [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
     ///Check if illegal character sets are included.
     NSAssert([_stringValue rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@":<$"]].length == 0,
-             @"Predicate, subkey, regkey are disable in keys component.");
+             @"AkvcExtension:\n  Predicate, subkey, regkey are disable in keys component.");
     
     
     NSEnumerator*   enumerator  = [[_stringValue componentsSeparatedByString:@","] objectEnumerator];
@@ -162,8 +170,8 @@
     CALL_STEP_2_4:
         {
             ///Number
-            ///%3
-            ///%-3.3
+            ///%2
+            ///%-2.4
             if([_formatNumberChars characterIsMember:charString]){
                 
                 searchStep = (searchStep == 3) ? 4 : 2;
@@ -177,7 +185,7 @@
             
             if (searchStep < 4 && charString == '.')
             {
-                ///%%
+                ///%*.
                 searchStep = 4;
                 return;
             }

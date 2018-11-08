@@ -18,7 +18,7 @@
 
 + (instancetype)pathFast:(NSString *)path
 {
-    NSAssert(path != nil, @"Path can not be nil!");
+    NSAssert(path != nil, @"AkvcExtension:\n  Path can not be nil!");
     
     ///Try get data from cache first.
     AkvcExtensionPath* _self = [self cachedExtensionPath:path];
@@ -38,7 +38,7 @@
         
         if(component){
             
-            NSAssert(component.componentType != AkvcPathComponentError, @"Unrecognize path:%@",component.stringValue);
+            NSAssert(component.componentType != AkvcPathComponentError, @"AkvcExtension:\n  Unrecognize path:%@",component.stringValue);
             [unfinishedComponents addObject:component];
         }
     }];
@@ -46,7 +46,7 @@
     component = [reader endRead];
     if(component){
         
-        NSAssert(component.componentType != AkvcPathComponentError, @"Unrecognize path:%@",component.stringValue);
+        NSAssert(component.componentType != AkvcPathComponentError, @"AkvcExtension:\n  Unrecognize path:%@",component.stringValue);
         
         if([unfinishedComponents.lastObject componentType] == AkvcPathComponentStructKeyPath){
             
@@ -123,7 +123,7 @@
                  (StructPath->)(?)
                  :
                  */
-                NSAssert(NO, @"Error:StructPath of ExtensionPath must be the last one.");
+                NSAssert(NO, @"AkvcExtension:\n  StructPath of ExtensionPath must be the last one.");
                 /**
                  reorganizationNeedFinish = NO;
                  componentNeedFinish = YES;

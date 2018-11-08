@@ -95,7 +95,13 @@ typedef enum AkvcPathComponentType{
 /**
  NSNotFound means not contains index.
  */
-@property (nonatomic,assign)    NSInteger   indexForindexer;
+@property (nonatomic,assign)                    NSInteger   indexForindexer;
+
+#pragma mark - Subkey component
+@property (nonatomic,copy)  NSString*   subkey;
+
+#pragma mark - Regkey component
+@property (nonatomic,copy)  NSString*   regkey;
 
 
 #pragma mark - Custom function component

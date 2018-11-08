@@ -48,7 +48,10 @@
             Food* food = [Food new];
             food.foodName = @"Sausage";
             food.amount = 1;
-            dog1.food = food;
+            dog1.food  =  food;
+            dog1.food0 = food;
+            dog1.food1 = food;
+            dog1.food2 = food;
             
             alice.dogs = [NSMutableArray arrayWithObjects:dog0,dog1,nil];
         }
@@ -85,18 +88,33 @@
 //    id test1 = [jack valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
 //
 //    id test2 = [alice valueForExtensionPath:@"dogs.@:food != nil!"];
-//    
+//
 //    id test3 = [jack valueForExtensionPath:AkvcPath(@"dogs.@[%d].frame->size->width", 0)];
+//
+//    id test4 = [jack valueForExtensionPath:@"dogs.<name>"];
     
-    id test4 = [jack valueForExtensionPath:@"dogs.<name>"];
+//    id test5 = [alice valueForExtensionPath:@"dogs.@[1].<$food\\d+$>"];
     
-//    [jack setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
+//    [alice setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
+    
+    id testDictionaryObject  = @{
+                                 @"Interest1":@"Eat",
+                                 @"Interest2":@"Spleep",
+                                 @"Interest3":@"Sexual",
+                                 @"location":[NSValue valueWithCGRect:CGRectMake(10, 20, 30, 40)],
+                                 }.mutableCopy;
+    
+//    id xx = [testDictionaryObject valueForFullPath:@"location->size->width"];
+    
+//    [testDictionaryObject setValue:@(1024) forFullPath:@"location->size->width"];
+    [testDictionaryObject setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
     
 //    [test0 copy];
 //    [test1 copy];
 //    [test2 copy];
 //    [test3 copy];
-    [test4 copy];
+//    [test4 copy];
+//    [test5 copy];
     NSLog(@"%@",jack);
 }
 

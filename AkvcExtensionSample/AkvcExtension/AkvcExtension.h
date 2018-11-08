@@ -12,17 +12,22 @@
 @interface AkvcExtension : NSProxy
 
 /**
- Regist a functin for user.
- Example-
+ Regist a CollectionOperator function for user in AkvcExtension.
+ 注册自定义的@CollectionOperator函数
+ Example -
  :
  [self registFunction:@"firstObject" withBlock:^id(id caller) {
     return [caller firstObject];
  }];
 
  @param name Function name
- @param block Process caller and then function returns results
+ @param block Caller is the object that calls this block.
  */
 + (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable caller))block;
 
-+ (id(^)(id caller))customFunctionNamed:(NSString*)name;
+
+/**
+ Get custom function from AkvcExtension
+ */
++ (id(^)(id caller))customFunctionNamed:(NSString* _Nonnull)name;
 @end

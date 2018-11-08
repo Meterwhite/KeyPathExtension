@@ -13,10 +13,16 @@
 
 /**
  Determines whether the type is Common Foundation Class.
+ (Not fully overwrite all base types.)
+ 判断基础类型(并不能完全覆盖)
  */
 + (BOOL)akvc_isBaseClass;
 
 
+/**
+ Enumerate class.
+ 遍历类型
+ */
 + (void)akvc_classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block includeBaseClass:(BOOL)includeBaseClass;
 
 @end
