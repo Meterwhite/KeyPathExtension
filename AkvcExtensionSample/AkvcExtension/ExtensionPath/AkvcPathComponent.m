@@ -339,7 +339,10 @@
                         break;
                     case '!':
                     {
+#warning ???
                         left.length = number + hasEqChar;
+                        right.location = 1 + number - hasEqChar;
+                        right.length -= right.location;
                     }
                         break;
                     case '>':
