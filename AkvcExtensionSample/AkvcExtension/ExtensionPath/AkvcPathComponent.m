@@ -24,7 +24,7 @@
     return [_stringValue substringWithRange:NSMakeRange(2, _stringValue.length - 4)];
 }
 
-- (id)callKeysByTarget:(id)target
+- (id)callKeysAccessorByTarget:(id)target
 {
     ///Empty keys : `{}`
     NSAssert(_stringValue.length > 2, @"AkvcExtension:\n  Keys component must contain at least one key.");
@@ -245,61 +245,84 @@
     return [_stringValue containsString:@"."];
 }
 
-- (NSInteger)indexForindexer
-{
-    NSInteger   ret;
-    NSScanner*  scanner  = [NSScanner scannerWithString:_stringValue];
-    scanner.scanLocation = 2;
-    
-    if([scanner scanInteger:&ret])
-        return ret;
-    
-    return NSNotFound;
-}
 
 - (id)indexerSubarray:(__kindof NSArray*)array
+{
+    return [self indexerValue:nil array:array flag:0];
+}
+
+- (void)indexerSetValue:(id)value forMutableArray:(NSMutableArray*)mArray
+{
+    [self indexerValue:value array:mArray flag:1];
+}
+
+/**
+ @param flag setValue:1/getValue:0
+ */
+- (id)indexerValue:(id)value array:(__kindof NSArray*)array flag:(BOOL)flag
 {
     
     NSString* content = [_stringValue substringWithRange:NSMakeRange(2, _stringValue.length - 3)];
     content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    if([content containsString:@"i"] == NO &&
-       [content containsString:@"!"] == NO &&
-       [content containsString:@","] == NO  )
-    {
-        ///@[index] overflow ?
-        return array[[content integerValue]];
+    const char* charString = content.UTF8String;
+    NSAssert(strlen(charString) == 0, @"Index accessor missing content!");
+    
+    for (NSUInteger i = 0; i < strlen(charString); i++) {
+        
+        if(charString[i] == 'i'
+           ||
+           charString[i] == '!'
+           ||
+           charString[i] == ',')
+        {
+            goto CALL_CONDITION_WORDS;
+        }
     }
+    
+    if(flag){
+        
+        [array setObject:value atIndexedSubscript:[content integerValue]];
+        return nil;
+    }
+    return array[[content integerValue]];
+    
+    
+CALL_CONDITION_WORDS:;
     
     
     NSEnumerator* componentsEnumerator = [content componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]].objectEnumerator;
     
-    NSMutableIndexSet* noIdxSet = [NSMutableIndexSet indexSet];
-    NSMutableIndexSet* trueIdxSet = [NSMutableIndexSet indexSet];
-    NSString*   component;
-    NSRange     left    =   NSMakeRange(0, array.count-1);///Default i > 0
-    NSRange     right   =   NSMakeRange(array.count-1, 0);
-    unichar     aChar   ,   keyChar = 0;
+    NSMutableIndexSet* assertIdxSet      =   [NSMutableIndexSet indexSet];
+    NSRange     left    =   NSMakeRange(NSNotFound, 0);///left direction ==>
+    NSRange     right   =   NSMakeRange(NSNotFound, 0);//right direction <==
+    char        aChar   ,   keyChar = 0;
     BOOL        hasEqChar;
-    BOOL        hasRange= NO;
     /**
-     i>= , i!= , i<=
+     Indicates that the assertIdxSet content is true or false
+     -1 : false
+     1 : true
+     0 : none
+     */
+    NSInteger   boolFlag    =   0;
+    /**
+     i>= , i!= , i<= , !5 , 5
      Step
      :
-     0  :   i,!
+     0  :   i or !(+=3)
      1  :   !><
      2  :   =
      3  :   Number
      */
     NSUInteger  step;
-    while ((component = componentsEnumerator.nextObject)) {
+    while ((charString = [componentsEnumerator.nextObject UTF8String])) {
         
         keyChar     =   0;
         step        =   0;
         hasEqChar   =   NO;
-        for (NSUInteger i = 0; i < component.length; i++)
+        for (NSUInteger i = 0; i < strlen(charString); i++)
         {
-            aChar = [component characterAtIndex:i];
+            aChar = charString[i];
             
             switch (step)
             {
@@ -345,30 +368,32 @@
         CALL_STEP_3:
             {
                 NSAssert(aChar >= '0' && aChar <= '9', @"AkvcExtension:\n Wrong indexer format!");
-                NSInteger number = [[component substringFromIndex:i] integerValue];
+                
+                NSInteger number = [[NSString stringWithUTF8String:charString + i] integerValue];
                 switch (keyChar)
                 {
                     case '<':
                     {
+                        left.location = 0;
                         left.length = number + hasEqChar;
-                        hasRange = YES;
                     }
                         break;
                     case '!':
                     {
-                        [noIdxSet addIndex:number];
+                        boolFlag = -1;
+                        [assertIdxSet addIndex:number];
                     }
                         break;
                     case '>':
                     {
                         right.location = 1 + number - hasEqChar;
                         right.length = array.count -  right.location;
-                        hasRange = YES;
                     }
                         break;
                     default:
                     {
-                        [trueIdxSet addIndex:number];
+                        boolFlag = 1;
+                        [assertIdxSet addIndex:number];
                     }
                         break;
                 }
@@ -380,30 +405,42 @@
     
     NSMutableIndexSet* idxSet = [NSMutableIndexSet indexSet];
     
-    if(left.length - 1 < right.location){
+    if(left.location == NSNotFound || right.location == NSNotFound){
         
-        [idxSet addIndexesInRange:left];
-        [idxSet addIndexesInRange:right];
-    }else{
-        
-        [idxSet addIndexesInRange:NSIntersectionRange(left, right)];
+        [idxSet addIndexesInRange:(right.location == NSNotFound) ? left : right];
     }
-#warning <#message#>
-    if(noIdxSet.count){
+    else if(left.location != NSNotFound && right.location != NSNotFound){
         
-        [idxSet removeIndexes:noIdxSet];
+        if(left.length - 1 < right.location){
+            
+            [idxSet addIndexesInRange:left];
+            [idxSet addIndexesInRange:right];
+        }
+        else{
+            
+            [idxSet addIndexesInRange:NSIntersectionRange(left, right)];
+        }
     }
     
-    if(trueIdxSet.count){
+    if(boolFlag){
         
-        if(hasRange ){
+        if(boolFlag == 1){
             
-            [idxSet addIndexes:trueIdxSet];
-        }else{
-            
-            [array objectsAtIndexes:trueIdxSet];
+            [idxSet addIndexes:assertIdxSet];
         }
+        else{
+            
+            [idxSet removeIndexes:assertIdxSet];
+        }
+    }
+    
+    if(flag){
         
+        [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [array setObject:value atIndexedSubscript:idx];
+        }];
+        return nil;
     }
     
     return [array objectsAtIndexes:idxSet];

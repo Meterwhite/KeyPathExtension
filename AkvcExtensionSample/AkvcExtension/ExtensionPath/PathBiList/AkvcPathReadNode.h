@@ -18,11 +18,14 @@ typedef enum AkvcPathSearchMatchFeature{
     AkvcPathSearchFinishable              =  1 << 5,
     AkvcPathSearchFinished                =  1 << 6,
     AkvcPathSearchError                   =  1 << 7,
-    AkvcPathIsSearchForCharacterSet       =  AkvcPathSearchForBaseNameCharacterSet
-                                             |AkvcPathSearchForSelectorCharacterSet
-                                             |AkvcPathSearchForNumberCharacterSet
-                                             |AkvcPathSearchForAnyCharacterSet,
     AkvcPathSearchBanCharacterSet         =  1 << 8,
+    
+    AkvcPathIsSearchForCharacterSet       =
+    AkvcPathSearchForBaseNameCharacterSet   |
+    AkvcPathSearchForSelectorCharacterSet   |
+    AkvcPathSearchForNumberCharacterSet     |
+    AkvcPathSearchForAnyCharacterSet        ,
+    
 }AkvcPathSearchMatchFeature;
 
 
@@ -47,6 +50,10 @@ typedef enum AkvcPathSearchMatchFeature{
 @property (nonatomic,strong) AkvcPathReadNode* falseNode;
 @property (nonatomic,strong) AkvcPathReadNode* trueNode;
 
+/**
+ SuffixLenth indicates the length of the end of the path that needs to be intercepted.
+ `.` or `->`
+ */
 @property (nonatomic,assign) NSUInteger suffixLenth;
 
 

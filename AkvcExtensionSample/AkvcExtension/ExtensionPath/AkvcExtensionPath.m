@@ -16,27 +16,32 @@
 
 @implementation AkvcExtensionPath
 
+
+/**
+ Most important!
+ */
 + (instancetype)pathFast:(NSString *)path
 {
     NSAssert(path != nil, @"AkvcExtension:\n  Path can not be nil!");
     
     ///Try get data from cache first.
     AkvcExtensionPath* _self = [self cachedExtensionPath:path];
+    
     if(_self) return _self;
     
-    
-    ///New path.
-    _self = [[self alloc] init];
+    ///Create new path.
+    _self               = [[self alloc] init];
     _self->_stringValue = path;
     
+    __block AkvcPathComponent*  component;
+    AkvcPathReader*             reader   = [AkvcPathReader defaultReder];
+    ///This objects need to be reassembled.需要重组
     NSMutableArray* unfinishedComponents = [NSMutableArray new];
-    AkvcPathReader* reader = [AkvcPathReader defaultReder];
-    __block AkvcPathComponent* component;
     [path enumerateSubstringsInRange:NSMakeRange(0, path.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString* value, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
         
-        component = [reader readValueFast:value];
+        component = [reader readValueFast:value];///nil means continue.
         
-        if(component){
+        if(component != nil){
             
             NSAssert(component.componentType != AkvcPathComponentError, @"AkvcExtension:\n  Unrecognize path:%@",component.stringValue);
             [unfinishedComponents addObject:component];
@@ -56,13 +61,13 @@
     }
     
     
-    NSMutableArray* components = [NSMutableArray new];
-    NSUInteger suffixLength = 0;
-    AkvcPathComponent* reorganizedComponents;
-    AkvcPathComponentType lastComponentType = AkvcPathComponentNon;
-    AkvcPathComponentType componentType = AkvcPathComponentNon;
-    BOOL reorganizationNeedFinish = NO;
-    BOOL componentNeedFinish = NO;
+    NSUInteger              suffixLength        = 0;
+    AkvcPathComponent*      reorganizedComponents;
+    NSMutableArray*         finishedComponents  = [NSMutableArray new];
+    AkvcPathComponentType   lastComponentType   = AkvcPathComponentNon;
+    AkvcPathComponentType   componentType       = AkvcPathComponentNon;
+    BOOL                    reorganizationNeedFinish = NO;
+    BOOL                    componentNeedFinish = NO;
     for (NSUInteger i = 0; i < unfinishedComponents.count; i++) {
         
         component = unfinishedComponents[i];
@@ -77,17 +82,11 @@
             ///`\@Function.`
             NSString* funcName = [component.stringValue substringWithRange:NSMakeRange(1, component.stringValue.length-2)];
             
-            if([self.class isNSKeyValueOperatorForFunction:funcName]){
-                
-                component.componentType=AkvcPathComponentNSKeyValueOperator;
-                componentType = AkvcPathComponentNSKeyValueOperator;
-            }else{
-                component.componentType = AkvcPathComponentCustomFunction;
-                componentType = AkvcPathComponentCustomFunction;
-            }
+            componentType = ([self.class isNSKeyValueOperatorForFunction:funcName])
+            ?
+            AkvcPathComponentNSKeyValueOperator:AkvcPathComponentCustomFunction;
+            component.componentType = componentType;
         }
-        
-        
         
         if(lastComponentType & AkvcPathComponentStructKeyPath){
             
@@ -101,8 +100,8 @@
                 reorganizedComponents.stringValue = [reorganizedComponents.stringValue stringByReplacingOccurrencesOfString:@"->" withString:@"."];
                 reorganizedComponents.suffixLength = 0;
                 
-                reorganizationNeedFinish = YES;
-                componentNeedFinish = NO;
+                reorganizationNeedFinish    = YES;
+                componentNeedFinish         = NO;
                 goto CALL_END;
             }
             
@@ -179,8 +178,8 @@
                      Append and continue;
                      */
                     reorganizedComponents.suffixLength = 0;
-                    reorganizationNeedFinish = YES;
-                    componentNeedFinish = NO;
+                    reorganizationNeedFinish    = YES;
+                    componentNeedFinish         = NO;
                 }
                 else{
                     /**
@@ -201,8 +200,8 @@
                  Finish last NSKeyPath.
                  Add the component.
                  */
-                reorganizationNeedFinish = YES;
-                componentNeedFinish = YES;
+                reorganizationNeedFinish    = YES;
+                componentNeedFinish         = YES;
             }
         }
         else
@@ -218,12 +217,12 @@
                  Change type as NSKey and adding component.
                  Make an empty StructPath body
                  */
-                reorganizedComponents = [component copy];
                 reorganizedComponents.stringValue = [NSString string];
+                reorganizedComponents       = [component copy];
                 
-                component.componentType = AkvcPathComponentNSKey;
-                reorganizationNeedFinish = NO;
-                componentNeedFinish = YES;
+                component.componentType     = AkvcPathComponentNSKey;
+                reorganizationNeedFinish    = NO;
+                componentNeedFinish         = YES;
             }
             else if (componentType & (AkvcPathComponentNSKey|AkvcPathComponentNSKeyValueOperator)){
                 /**
@@ -244,8 +243,8 @@
                  :
                  Add component
                  */
-                reorganizationNeedFinish = NO;
-                componentNeedFinish = YES;
+                reorganizationNeedFinish    = NO;
+                componentNeedFinish         = YES;
             }
         }
         
@@ -258,10 +257,10 @@
                 
                 reorganizedComponents.stringValue = [reorganizedComponents.stringValue substringToIndex:reorganizedComponents.stringValue.length-reorganizedComponents.suffixLength];
             }
-            [components addObject:reorganizedComponents];
-            lastComponentType = reorganizedComponents.componentType;
-            reorganizationNeedFinish = NO;
-            reorganizedComponents = nil;
+            [finishedComponents addObject:reorganizedComponents];
+            lastComponentType           = reorganizedComponents.componentType;
+            reorganizationNeedFinish    = NO;
+            reorganizedComponents       = nil;
         }
         
         if(componentNeedFinish){
@@ -270,7 +269,7 @@
                 
                 component.stringValue = [component.stringValue substringToIndex:component.stringValue.length-component.suffixLength];
             }
-            [components addObject:component];
+            [finishedComponents addObject:component];
             lastComponentType = component.componentType;
         }
         
@@ -283,10 +282,10 @@
             
             reorganizedComponents.stringValue = [reorganizedComponents.stringValue substringToIndex:reorganizedComponents.stringValue.length-reorganizedComponents.suffixLength];
         }
-        [components addObject:reorganizedComponents];
+        [finishedComponents addObject:reorganizedComponents];
     }
     
-    _self.components = components;
+    _self.components = finishedComponents;
     [_self cache];
     return _self;
 }

@@ -117,13 +117,14 @@
 //    [test4 copy];
 //    [test5 copy];
     
-    NSArray* arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"];
+    id arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"].mutableCopy;
     
     AkvcPathComponent* cmp = [AkvcPathComponent new];
     // % >= 2 , % <= 5 , !3
-    cmp.stringValue = @"@[ 2 ,3 , 4]";
+    cmp.stringValue = @"@[]";
     id rte = [cmp indexerSubarray:arr];
     
+    [cmp indexerSetValue:@"X" forMutableArray:arr];
     NSLog(@"%@",jack);
 }
 

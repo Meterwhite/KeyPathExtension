@@ -19,10 +19,12 @@ typedef enum AkvcPathComponentType{
     AkvcPathComponentSubkey             =   1   <<  1,
     /**  <$regkey$>  */
     AkvcPathComponentRegkey             =   1   <<  2,
-    /**  any key  */
-    AkvcPathComponentIsKey              =   AkvcPathComponentNSKey
-                                            |AkvcPathComponentSubkey
-                                            |AkvcPathComponentRegkey,
+    
+    /**  one key  */
+    AkvcPathComponentIsKey              =
+    AkvcPathComponentNSKey              |
+    AkvcPathComponentSubkey             |
+    AkvcPathComponentRegkey             ,
     
     
     /** @avg,@count */
@@ -42,15 +44,18 @@ typedef enum AkvcPathComponentType{
     AkvcPathComponentPredicateEvaluate  =   1   <<  6,
     /** @:Predicate! */
     AkvcPathComponentPredicateFilter    =   1   <<  7,
-    AkvcPathComponentIsPredicate        =   AkvcPathComponentPredicateEvaluate
-                                            |AkvcPathComponentPredicateFilter,
+    
+    AkvcPathComponentIsPredicate        =
+    AkvcPathComponentPredicateEvaluate  |
+    AkvcPathComponentPredicateFilter    ,
     
     /** @CustomFunc */
     AkvcPathComponentCustomFunction     =   1   <<  8,
     
     /** \@Function */
-    AkvcPathComponentIsFunction         =   AkvcPathComponentNSKeyValueOperator
-                                            |AkvcPathComponentCustomFunction,
+    AkvcPathComponentIsFunction         =
+    AkvcPathComponentNSKeyValueOperator |
+    AkvcPathComponentCustomFunction     ,
     
     /** @SEL(~)? */
     AkvcPathComponentSELInspector       =   1   <<  9,
@@ -59,7 +64,7 @@ typedef enum AkvcPathComponentType{
     /** @[Number] */
     AkvcPathComponentIndexer            =   1   <<  11,
     /** {Key,KeyPath,Indexer} */
-    AkvcPathComponentKeys               =   1   <<  12,
+    AkvcPathComponentKeysAccessor       =   1   <<  12,
     
     /** unrecognized content */
     AkvcPathComponentError              =   1   <<  13,
@@ -87,17 +92,14 @@ typedef enum AkvcPathComponentType{
 
 
 #pragma mark - Indexser component
-/**
- NSNotFound means not contains index.
- */
-@property (nonatomic,assign)    NSInteger   indexForindexer;
-- (id)indexerSubarray:(__kindof NSArray* _Nonnull)array;
+- (id _Nonnull)indexerSubarray:(__kindof NSArray* _Nonnull)array;
+- (void)indexerSetValue:(id _Nonnull)value forMutableArray:(NSMutableArray* _Nonnull)mArray;
 
 #pragma mark - Subkey component
-@property (nonatomic,copy)  NSString*   subkey;
+@property (nonatomic,copy)      NSString*   subkey;
 
 #pragma mark - Regkey component
-@property (nonatomic,copy)  NSString*   regkey;
+@property (nonatomic,copy)      NSString*   regkey;
 
 
 #pragma mark - Custom function component
@@ -105,7 +107,7 @@ typedef enum AkvcPathComponentType{
 
 
 #pragma mark - Keys component
-- (id _Nullable)callKeysByTarget:(id _Nullable)target;
+- (id _Nullable)callKeysAccessorByTarget:(id _Nullable)target;
 @end
 
 

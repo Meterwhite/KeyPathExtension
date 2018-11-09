@@ -184,10 +184,10 @@
         .thatBanCharacters(@"}").thatTrueNodeSelf;
         
         ANode* keys2 = [ANode nodeMatchValue:@"}"].asFalseNodeFor(keysContent)
-        .thatFinishable.thatResultType(AkvcPathComponentKeys);
+        .thatFinishable.thatResultType(AkvcPathComponentKeysAccessor);
         
         [ANode nodeMatchValue:@"."].asTrueNodeFor(keys2).thatFalseNode(keysContent)
-        .thatFinished.thatResultType(AkvcPathComponentKeys);
+        .thatFinished.thatResultType(AkvcPathComponentKeysAccessor);
     }
     /// { ///
     /////////

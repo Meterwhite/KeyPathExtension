@@ -23,7 +23,6 @@
 		9F934DED21931E430054F734 /* NSObject+AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DD721931E430054F734 /* NSObject+AkvcExtension.m */; };
 		9F934DEE21931E430054F734 /* AkvcPathReadBiList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DDA21931E430054F734 /* AkvcPathReadBiList.m */; };
 		9F934DEF21931E430054F734 /* AkvcPathReadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DDD21931E430054F734 /* AkvcPathReadNode.m */; };
-		9F934DF021931E430054F734 /* NSString+AkvcStringFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DDE21931E430054F734 /* NSString+AkvcStringFormat.m */; };
 		9F934DF121931E430054F734 /* AkvcExtensionPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DE221931E430054F734 /* AkvcExtensionPath.m */; };
 		9F934DF221931E430054F734 /* AkvcPathReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DE321931E430054F734 /* AkvcPathReader.m */; };
 		9F934DF321931E430054F734 /* AkvcPathComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F934DE521931E430054F734 /* AkvcPathComponent.m */; };
@@ -70,13 +69,11 @@
 		9F934DDB21931E430054F734 /* AkvcPathReadNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcPathReadNode.h; sourceTree = "<group>"; };
 		9F934DDC21931E430054F734 /* AkvcPathReadBiList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcPathReadBiList.h; sourceTree = "<group>"; };
 		9F934DDD21931E430054F734 /* AkvcPathReadNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcPathReadNode.m; sourceTree = "<group>"; };
-		9F934DDE21931E430054F734 /* NSString+AkvcStringFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AkvcStringFormat.m"; sourceTree = "<group>"; };
 		9F934DDF21931E430054F734 /* AkvcPathReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcPathReader.h; sourceTree = "<group>"; };
 		9F934DE021931E430054F734 /* AkvcExtensionPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcExtensionPath.h; sourceTree = "<group>"; };
 		9F934DE121931E430054F734 /* AkvcPathComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcPathComponent.h; sourceTree = "<group>"; };
 		9F934DE221931E430054F734 /* AkvcExtensionPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtensionPath.m; sourceTree = "<group>"; };
 		9F934DE321931E430054F734 /* AkvcPathReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcPathReader.m; sourceTree = "<group>"; };
-		9F934DE421931E430054F734 /* NSString+AkvcStringFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AkvcStringFormat.h"; sourceTree = "<group>"; };
 		9F934DE521931E430054F734 /* AkvcPathComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcPathComponent.m; sourceTree = "<group>"; };
 		9F934DE621931E430054F734 /* NSValue+AkvcExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+AkvcExtension.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +96,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F3907462195FE010091DD3E /* AkvcClass */ = {
+			isa = PBXGroup;
+			children = (
+				9F934DD621931E430054F734 /* AkvcClass.h */,
+				9F934DD321931E430054F734 /* AkvcClass.m */,
+			);
+			path = AkvcClass;
+			sourceTree = "<group>";
+		};
 		9F934D9921931DFB0054F734 = {
 			isa = PBXGroup;
 			children = (
@@ -160,15 +166,14 @@
 		9F934DD021931E430054F734 /* AkvcExtension */ = {
 			isa = PBXGroup;
 			children = (
-				9F934DD621931E430054F734 /* AkvcClass.h */,
-				9F934DD321931E430054F734 /* AkvcClass.m */,
 				9F934DD521931E430054F734 /* AkvcExtension.h */,
 				9F934DD121931E430054F734 /* AkvcExtension.m */,
-				9F934DD821931E430054F734 /* ExtensionPath */,
 				9F934DD221931E430054F734 /* NSObject+AkvcExtension.h */,
 				9F934DD721931E430054F734 /* NSObject+AkvcExtension.m */,
 				9F934DE621931E430054F734 /* NSValue+AkvcExtension.h */,
 				9F934DD421931E430054F734 /* NSValue+AkvcExtension.m */,
+				9F3907462195FE010091DD3E /* AkvcClass */,
+				9F934DD821931E430054F734 /* ExtensionPath */,
 			);
 			path = AkvcExtension;
 			sourceTree = "<group>";
@@ -182,8 +187,6 @@
 				9F934DE521931E430054F734 /* AkvcPathComponent.m */,
 				9F934DDF21931E430054F734 /* AkvcPathReader.h */,
 				9F934DE321931E430054F734 /* AkvcPathReader.m */,
-				9F934DE421931E430054F734 /* NSString+AkvcStringFormat.h */,
-				9F934DDE21931E430054F734 /* NSString+AkvcStringFormat.m */,
 				9F934DD921931E430054F734 /* PathBiList */,
 			);
 			path = ExtensionPath;
@@ -305,7 +308,6 @@
 				9F934DF221931E430054F734 /* AkvcPathReader.m in Sources */,
 				9F934DF321931E430054F734 /* AkvcPathComponent.m in Sources */,
 				9F934DED21931E430054F734 /* NSObject+AkvcExtension.m in Sources */,
-				9F934DF021931E430054F734 /* NSString+AkvcStringFormat.m in Sources */,
 				9F934DEB21931E430054F734 /* AkvcClass.m in Sources */,
 				9F934DEE21931E430054F734 /* AkvcPathReadBiList.m in Sources */,
 				9F934DE821931E430054F734 /* Food.m in Sources */,

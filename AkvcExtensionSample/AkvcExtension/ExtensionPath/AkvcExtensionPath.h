@@ -13,7 +13,10 @@
 @interface AkvcExtensionPath : NSObject
 
 @property (nonatomic,copy,readonly) NSString* stringValue;
+
 + (instancetype)pathFast:(NSString* _Nonnull)path;
+
 - (NSEnumerator<AkvcPathComponent*>* _Nonnull)componentEnumerator;
+
 @end
 

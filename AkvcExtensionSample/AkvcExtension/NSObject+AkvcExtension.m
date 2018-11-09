@@ -10,8 +10,8 @@
 #import "NSValue+AkvcExtension.h"
 #import "AkvcExtensionPath.h"
 #import "AkvcPathComponent.h"
-#import "AkvcClass.h"
 #import <objc/runtime.h>
+#import "AkvcClass.h"
 
 @implementation NSObject(NSObjectAkvcExtension)
 
@@ -273,16 +273,15 @@
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
             
-            NSInteger index = currentComponent.indexForindexer;
-            NSAssert(index != NSNotFound, @"AkvcExtension:\n  Indexer missing index:%@.",currentComponent.stringValue);
             if(nextComponent){
                 
                 NSAssert([_self isKindOfClass:NSArray.class], @"AkvcExtension:\n  Indexer must be used for NSArray:%@",_self);
-                _self = _self[index];
+                
+                _self = [currentComponent indexerSubarray:_self];
             }else{
                 
                 NSAssert([_self isKindOfClass:NSMutableArray.class], @"AkvcExtension:\n  Setter for Indexer must be used for NSMutableArray:%@",_self);
-                _self[index] = value;
+                [currentComponent indexerSetValue:value forMutableArray:_self];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentIsPredicate){
@@ -313,11 +312,11 @@
                 NSAssert(NO, @"AkvcExtension:\n  Function path unable be used to set value.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentKeys){
+        else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
             
             if(nextComponent){
                 
-                _self = [currentComponent callKeysByTarget:_self];
+                _self = [currentComponent callKeysAccessorByTarget:_self];
             }else{
                 
                 NSAssert(NO, @"AkvcExtension:\n  Keys component unable be used to set value.");
@@ -399,9 +398,7 @@
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
             
-            NSInteger index = currentComponent.indexForindexer;
-            NSAssert(index != NSNotFound, @"AkvcExtension:\n  Indexer missing index:%@.",currentComponent.stringValue);
-            _self = _self[index];
+            _self = [currentComponent indexerSubarray:_self];
         }
         else if(currentComponent.componentType & AkvcPathComponentIsPredicate){
             
@@ -423,9 +420,9 @@
             
             _self = [currentComponent callFunctionByTarget:_self];
         }
-        else if(currentComponent.componentType & AkvcPathComponentKeys){
+        else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
             
-            _self = [currentComponent callKeysByTarget:_self];
+            _self = [currentComponent callKeysAccessorByTarget:_self];
         }
     }
     

@@ -6,10 +6,10 @@
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
-#import "AkvcPathReader.h"
 #import "AkvcPathReadBiList.h"
-#import "AkvcPathReadNode.h"
 #import "AkvcPathComponent.h"
+#import "AkvcPathReadNode.h"
+#import "AkvcPathReader.h"
 
 @interface AkvcPathReader ()
 
@@ -17,7 +17,7 @@
 @property (nonatomic,strong) AkvcPathReadNode* node;
 @property (nonatomic,strong) NSMutableString* currentValue;
 
-/** singleton */
+/** Singleton */
 @property (nonatomic,weak) AkvcPathReadBiList* defaultList;
 
 @end
@@ -49,9 +49,9 @@
         if(self.node.matchFeature & AkvcPathSearchFinished){
             
             AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
-            result.stringValue = self.currentValue.copy;
-            result.componentType = self.node.resultType;
-            result.suffixLength = self.node.suffixLenth;
+            result.stringValue      = self.currentValue.copy;
+            result.componentType    = self.node.resultType;
+            result.suffixLength     = self.node.suffixLenth;
             [self clean];
             return result;
         }
@@ -72,9 +72,9 @@ CALL_ENUMERATE_FALSE_NODE:
            ||
            (self.node.falseNode.matchFeature & AkvcPathSearchError)){
             
-            AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
-            result.stringValue = self.currentValue.copy;
-            result.componentType = AkvcPathComponentError;
+            AkvcPathComponent* result   = [[AkvcPathComponent alloc] init];
+            result.stringValue          = self.currentValue.copy;
+            result.componentType        = AkvcPathComponentError;
             [self clean];
             return result;
         }
@@ -87,9 +87,9 @@ CALL_ENUMERATE_FALSE_NODE:
             if(self.node.matchFeature & AkvcPathSearchFinished){
                 
                 AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
-                result.stringValue = self.currentValue.copy;
-                result.componentType = self.node.resultType;
-                result.suffixLength = self.node.suffixLenth;
+                result.stringValue      = self.currentValue.copy;
+                result.componentType    = self.node.resultType;
+                result.suffixLength     = self.node.suffixLenth;
                 [self clean];
                 return result;
             }
@@ -112,6 +112,7 @@ CALL_ENUMERATE_FALSE_NODE:
         
         result.componentType = AkvcPathComponentError;
     }else{
+        
         result.componentType = self.node.resultType;
     }    
     
@@ -125,8 +126,8 @@ CALL_ENUMERATE_FALSE_NODE:
  */
 - (void)clean
 {
-    self.node = nil;
-    self.currentValue = nil;
+    self.node           = nil;
+    self.currentValue   = nil;
     [self.resultList removeAllObjects];
 }
 
