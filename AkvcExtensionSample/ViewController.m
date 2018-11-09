@@ -121,9 +121,8 @@
     
     AkvcPathComponent* cmp = [AkvcPathComponent new];
     // % >= 2 , % <= 5 , !3
-    cmp.stringValue = @"@[ % >= 2 , % <= 5 , !3]";
+    cmp.stringValue = @"@[ 2 ,3 , 4]";
     id rte = [cmp indexerSubarray:arr];
-    
     
     NSLog(@"%@",jack);
 }
