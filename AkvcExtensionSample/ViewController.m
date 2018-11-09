@@ -7,6 +7,7 @@
 //
 
 #import "AkvcExtensionPath.h"
+#import "AkvcPathComponent.h"
 #import "ViewController.h"
 #import "AkvcExtension.h"
 #import "AkvcClass.h"
@@ -107,7 +108,7 @@
 //    id xx = [testDictionaryObject valueForFullPath:@"location->size->width"];
     
 //    [testDictionaryObject setValue:@(1024) forFullPath:@"location->size->width"];
-    [testDictionaryObject setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
+//    [testDictionaryObject setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
     
 //    [test0 copy];
 //    [test1 copy];
@@ -115,6 +116,15 @@
 //    [test3 copy];
 //    [test4 copy];
 //    [test5 copy];
+    
+    NSArray* arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"];
+    
+    AkvcPathComponent* cmp = [AkvcPathComponent new];
+    // % >= 2 , % <= 5 , !3
+    cmp.stringValue = @"@[ % >= 2 , % <= 5 , !3]";
+    id rte = [cmp indexerSubarray:arr];
+    
+    
     NSLog(@"%@",jack);
 }
 

@@ -257,13 +257,13 @@
     return NSNotFound;
 }
 
-- (id)indexerSubarray:(NSArray*)array
+- (id)indexerSubarray:(__kindof NSArray*)array
 {
     
     NSString* content = [_stringValue substringWithRange:NSMakeRange(2, _stringValue.length - 3)];
-    content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    if([content containsString:@"%"] == NO)
+    if([content containsString:@"%"] == NO && [content containsString:@"!"] == NO)
     {
         ///@[Number]
         return array[[content integerValue]];
@@ -272,16 +272,17 @@
     
     NSEnumerator* componentsEnumerator = [content componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]].objectEnumerator;
     
+    NSMutableIndexSet* noIdxSet = [NSMutableIndexSet indexSet];
     NSString*   component;
-    NSRange     left    =   NSMakeRange(0, 0);
-    NSRange     right   =   NSMakeRange(0, 0);
+    NSRange     left    =   NSMakeRange(0, array.count-1);///Default % > 0
+    NSRange     right   =   NSMakeRange(array.count-1, 0);
     unichar     aChar   ,   keyChar = 0;
     BOOL        hasEqChar;
     /**
      %>= , %!= , %<=
      Step
      :
-     0  :   %
+     0  :   %,!
      1  :   !><
      2  :   =
      3  :   Number
@@ -289,10 +290,11 @@
     NSUInteger  step;
     while ((component = componentsEnumerator.nextObject)) {
         
+        keyChar     =   0;
         step        =   0;
-        left        =   NSMakeRange(0, component.length);
-        right       =   left;
         hasEqChar   =   NO;
+//        left        =   NSMakeRange(0, 0);
+//        right       =   NSMakeRange(array.count-1, 0);
         for (NSUInteger i = 0; i < component.length; i++)
         {
             aChar = [component characterAtIndex:i];
@@ -307,9 +309,18 @@
             
         CALL_STEP_0:
             {
-                NSAssert(aChar == '%', @"AkvcExtension:\n Wrong indexer format!");
-                step = 1;
-                continue;
+                
+                if(aChar == '%'){
+                    
+                    step = 1;
+                    continue;
+                }else if (aChar == '!'){
+                    
+                    keyChar = aChar;
+                    step = 3;
+                    continue;
+                }
+                NSAssert(NO, @"AkvcExtension:\n Wrong indexer format!");
             }
         CALL_STEP_1:
             {
@@ -339,16 +350,13 @@
                         break;
                     case '!':
                     {
-#warning ???
-                        left.length = number + hasEqChar;
-                        right.location = 1 + number - hasEqChar;
-                        right.length -= right.location;
+                        [noIdxSet addIndex:number];
                     }
                         break;
                     case '>':
                     {
                         right.location = 1 + number - hasEqChar;
-                        right.length -= right.location;
+                        right.length = array.count -  right.location;
                     }
                         break;
                 }
@@ -358,10 +366,22 @@
         }
     }
     
-    left = NSIntersectionRange(left, right);
+    NSMutableIndexSet* idxSet = [NSMutableIndexSet indexSet];
+    if(left.length - 1 < right.location){
+        
+        [idxSet addIndexesInRange:left];
+        [idxSet addIndexesInRange:right];
+    }else{
+        
+        [idxSet addIndexesInRange:NSIntersectionRange(left, right)];
+    }
     
+    if(noIdxSet.count){
+        
+        [idxSet removeIndexes:noIdxSet];
+    }
     
-    return [array subarrayWithRange:left];
+    return [array objectsAtIndexes:idxSet];
 }
 
 - (instancetype)copy

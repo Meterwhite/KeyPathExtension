@@ -91,6 +91,7 @@ typedef enum AkvcPathComponentType{
  NSNotFound means not contains index.
  */
 @property (nonatomic,assign)    NSInteger   indexForindexer;
+- (id)indexerSubarray:(__kindof NSArray* _Nonnull)array;
 
 #pragma mark - Subkey component
 @property (nonatomic,copy)  NSString*   subkey;
