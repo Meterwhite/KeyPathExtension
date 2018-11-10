@@ -36,7 +36,7 @@
 
 @implementation NSValue(NSValueAkvcExtension)
 
-- (BOOL)valueIsNumberRepresentation
+- (BOOL)akvc_valueIsNumberRepresentation
 {
     if([self isKindOfClass:[NSNumber class]]){
         return YES;
@@ -63,7 +63,7 @@
     
     return NO;
 }
-- (BOOL)valueIsStructRepresentation
+- (BOOL)akvc_valueIsStructRepresentation
 {
     if([self isKindOfClass:[NSNumber class]]){
         return NO;
@@ -91,7 +91,7 @@
     return (idxOfEq>1 && idxOfEq<len-2);
 }
 
-- (__kindof NSValue* _Nullable)structValueForKey:(NSString* _Nonnull)key
+- (__kindof NSValue* _Nullable)akvc_structValueForKey:(NSString* _Nonnull)key
 {
     if(!key) {//only key
         
@@ -110,7 +110,7 @@
 }
 
 
-- (__kindof NSValue* _Nullable)structValueForKeyPath:(NSString* _Nonnull)keyPath
+- (__kindof NSValue* _Nullable)akvc_structValueForKeyPath:(NSString* _Nonnull)keyPath
 {
     NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
     
@@ -137,7 +137,7 @@
     if(dotIdx >= keyPath.length) return nil;///next path wrong
     
     NSString* nextPath = [keyPath substringFromIndex:dotIdx];
-    return [newValue structValueForKeyPath:nextPath];
+    return [newValue akvc_structValueForKeyPath:nextPath];
 }
 
 - (NSValue* _Nonnull)setStructValue:(id _Nullable)value forKey:(NSString* _Nonnull)key
@@ -187,7 +187,41 @@
 }
 
 
++ (void)akvc_registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap
+{
+    static dispatch_semaphore_t signalSemaphore;
+    static dispatch_once_t onceTokenSemaphore;
+    dispatch_once(&onceTokenSemaphore, ^{
+        signalSemaphore = dispatch_semaphore_create(1);
+    });
+    
+    dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
+    
+    id map = [[self pathMapForGetStructValue_AKVC] mutableCopy];
+    map[encode] = getterMap;
+    
+    _akvc_struct_getmap = [map copy];
+    
+    dispatch_semaphore_signal(signalSemaphore);
+}
 
++ (void)akvc_registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap
+{
+    static dispatch_semaphore_t signalSemaphore;
+    static dispatch_once_t onceTokenSemaphore;
+    dispatch_once(&onceTokenSemaphore, ^{
+        signalSemaphore = dispatch_semaphore_create(1);
+    });
+    
+    dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
+    
+    id map = [[self pathMapForSetStructValue_AKVC] mutableCopy];
+    map[encode] = setterMap;
+    
+    _akvc_struct_setmap = [map copy];
+    
+    dispatch_semaphore_signal(signalSemaphore);
+}
 
 
 

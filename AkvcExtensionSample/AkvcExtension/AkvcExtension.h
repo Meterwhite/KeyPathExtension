@@ -25,6 +25,12 @@
  */
 + (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable caller))block;
 
++ (void)registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap;
+
++ (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap;
+
+
+
 
 /**
  Get custom function from AkvcExtension

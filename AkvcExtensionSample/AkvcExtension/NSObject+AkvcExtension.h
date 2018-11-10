@@ -29,9 +29,9 @@
 
  @return The return values are boxed.返回值都是装箱的
  */
-- (id _Nullable)valueForFullPath:(NSString* _Nonnull)fullPath;
+- (id _Nullable)akvc_valueForFullPath:(NSString* _Nonnull)fullPath;
 
-- (void)setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath;
+- (void)akvc_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath;
 
 
 /**
@@ -49,9 +49,9 @@
  @param subkey substring of key.Search is ignoring Case.
  @return The properties that match to are unordered.匹配到的属性是无序的
  */
-- (NSArray* _Nonnull)valuesForSubkey:(NSString* _Nonnull)subkey;
-/** Refer to valuesForSubkey: */
-- (void)setValue:(id _Nullable)value forSubkey:(NSString* _Nonnull)subkey;
+- (NSArray* _Nonnull)akvc_valuesForSubkey:(NSString* _Nonnull)subkey;
+/** Refer to akvc_valuesForSubkey: */
+- (void)akvc_setValue:(id _Nullable)value forSubkey:(NSString* _Nonnull)subkey;
 
 
 /**
@@ -69,9 +69,9 @@
  @param regkey Regular expressions to match properties.
  @return The properties that match to are unordered.匹配到的属性是无序的
  */
-- (NSArray* _Nonnull)valuesForRegkey:(NSString* _Nonnull)regkey;
-/** Refer to valuesForRegkey: */
-- (void)setValue:(id _Nullable)value forRegkey:(NSString* _Nonnull)regkey;
+- (NSArray* _Nonnull)akvc_valuesForRegkey:(NSString* _Nonnull)regkey;
+/** Refer to akvc_valuesForRegkey: */
+- (void)akvc_setValue:(id _Nullable)value forRegkey:(NSString* _Nonnull)regkey;
 
 
 #warning <#message#>
@@ -93,7 +93,7 @@
  
  StructPath -
  :
- Refer to valueForFullPath:
+ Refer to akvc_valueForFullPath:
  
  Indexer -
  :
@@ -121,11 +121,11 @@
  
  Subkey -
  :
- Refer to valuesForSubkey:
+ Refer to akvc_valuesForSubkey:
  
  Regkey -
  :
- Refer to valuesForRegkey:
+ Refer to akvc_valuesForRegkey:
  
  SELInspector -
  :
@@ -159,14 +159,14 @@
  
  @return All return values are boxed,except nil.除nil,所有返回值都是装箱的.
  */
-- (id _Nullable)valueForExtensionPath:(NSString* _Nonnull)extensionPath;
-- (void)setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;
+- (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath;
+- (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;
 
-- (id _Nullable)valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
-- (void)setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
+- (id _Nullable)akvc_valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
+- (void)akvc_setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
 
-- (id _Nullable)valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
-- (void)setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
+- (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
+- (void)akvc_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
 @end
 
 

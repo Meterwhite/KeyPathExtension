@@ -40,7 +40,7 @@
     NSMutableArray* results     = [NSMutableArray array];
     while ((path = enumerator.nextObject)) {
         
-        ret = [target valueForExtensionPath:path];
+        ret = [target akvc_valueForExtensionPath:path];
         [results addObject:ret?:NSNull.null];
     }
     

@@ -84,19 +84,19 @@
     }
     
     
-//    id test0 = [jack valueForExtensionPath:@"dogs.@[0].{age,number}.@:SELF[SIZE]==2?"];
+//    id test0 = [jack akvc_valueForExtensionPath:@"dogs.@[0].{age,number}.@:SELF[SIZE]==2?"];
 //
-//    id test1 = [jack valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
+//    id test1 = [jack akvc_valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
 //
-//    id test2 = [alice valueForExtensionPath:@"dogs.@:food != nil!"];
+//    id test2 = [alice akvc_valueForExtensionPath:@"dogs.@:food != nil!"];
 //
-//    id test3 = [jack valueForExtensionPath:AkvcPath(@"dogs.@[%d].frame->size->width", 0)];
+//    id test3 = [jack akvc_valueForExtensionPath:AkvcPath(@"dogs.@[%d].frame->size->width", 0)];
 //
-//    id test4 = [jack valueForExtensionPath:@"dogs.<name>"];
+//    id test4 = [jack akvc_valueForExtensionPath:@"dogs.<name>"];
     
-//    id test5 = [alice valueForExtensionPath:@"dogs.@[1].<$food\\d+$>"];
+//    id test5 = [alice akvc_valueForExtensionPath:@"dogs.@[1].<$food\\d+$>"];
     
-//    [alice setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
+//    [alice akvc_setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
     
     id testDictionaryObject  = @{
                                  @"Interest1":@"Eat",
@@ -105,10 +105,10 @@
                                  @"location":[NSValue valueWithCGRect:CGRectMake(10, 20, 30, 40)],
                                  }.mutableCopy;
     
-//    id xx = [testDictionaryObject valueForFullPath:@"location->size->width"];
+//    id xx = [testDictionaryObject akvc_valueForFullPath:@"location->size->width"];
     
-//    [testDictionaryObject setValue:@(1024) forFullPath:@"location->size->width"];
-//    [testDictionaryObject setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
+//    [testDictionaryObject akvc_setValue:@(1024) forFullPath:@"location->size->width"];
+//    [testDictionaryObject akvc_setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
     
 //    [test0 copy];
 //    [test1 copy];
@@ -128,7 +128,7 @@
     NSLog(@"%@",jack);
     
     NSPredicate* pred;
-    [pred evaluateWithObject:<#(nullable id)#>]
+    
 }
 
 

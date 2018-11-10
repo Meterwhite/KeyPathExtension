@@ -34,6 +34,16 @@ static NSMutableDictionary* _akvc_custom_function_map;
     dispatch_semaphore_signal(signalSemaphore);
 }
 
++ (void)registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap
+{
+    [NSValue akvc_registStruct:encode getterMap:getterMap];
+}
+
++ (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap
+{
+    [NSValue akvc_registStruct:encode setterMap:setterMap];
+}
+
 + (id(^)(id))customFunctionNamed:(NSString*)name
 {
     NSAssert(name, @"AkvcExtension:\n  Function name can not be nil!");

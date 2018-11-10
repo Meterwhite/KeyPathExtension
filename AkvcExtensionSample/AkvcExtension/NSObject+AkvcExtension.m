@@ -15,7 +15,7 @@
 
 @implementation NSObject(NSObjectAkvcExtension)
 
-- (id _Nullable)valueForFullPath:(NSString* _Nonnull)fullPath;
+- (id _Nullable)akvc_valueForFullPath:(NSString* _Nonnull)fullPath;
 {
     if(!fullPath){
         
@@ -34,7 +34,7 @@
         NSEnumerator    *enumerator  = [(id)self objectEnumerator];
         while ((item = enumerator.nextObject)) {
             
-            [rets addObject:[item valueForFullPath:fullPath]];
+            [rets addObject:[item akvc_valueForFullPath:fullPath]];
         }
         return [rets copy];
     }
@@ -45,8 +45,8 @@
         /// <CGRect> ==> @"size"
         if([self isKindOfClass:NSValue.class]){
             
-            if([((NSValue*)self) valueIsStructRepresentation]){
-                return [((NSValue*)self) structValueForKey:fullPath];
+            if([((NSValue*)self) akvc_valueIsStructRepresentation]){
+                return [((NSValue*)self) akvc_structValueForKey:fullPath];
             }
         }
         
@@ -66,10 +66,10 @@
     
     ///Adjust oprator : @"->" => @"."
     structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
-    return [keyPathValue structValueForKeyPath:structPath];
+    return [keyPathValue akvc_structValueForKeyPath:structPath];
 }
 
-- (void)setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath
+- (void)akvc_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath
 {
     if(!fullPath) return;
     
@@ -81,7 +81,7 @@
         NSEnumerator*   enumerator  = [(id)self objectEnumerator];
         while ((item = enumerator.nextObject)) {
             
-            [item setValue:value forFullPath:fullPath];
+            [item akvc_setValue:value forFullPath:fullPath];
         }
     }
     
@@ -112,57 +112,57 @@
     return;
 }
 
-- (void)setValue:(id)value forSubkey:(NSString *)subkey
+- (void)akvc_setValue:(id)value forSubkey:(NSString *)subkey
 {
     [self _akvc_setValue:value forSearchingKey:subkey option:NSCaseInsensitiveSearch];
 }
 
-- (NSArray *)valuesForSubkey:(NSString *)subkey
+- (NSArray *)akvc_valuesForSubkey:(NSString *)subkey
 {
     return [self _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch];
 }
 
-- (void)setValue:(id)value forRegkey:(NSString*)regkey
+- (void)akvc_setValue:(id)value forRegkey:(NSString*)regkey
 {
     [self _akvc_setValue:value forSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
-- (NSArray *)valuesForRegkey:(NSString *)regkey
+- (NSArray *)akvc_valuesForRegkey:(NSString *)regkey
 {
     return [self _akvc_valuesForSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
-- (id _Nullable)valueForExtensionPath:(NSString* _Nonnull)extensionPath
+- (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    return [self valueForExtensionPathWithPredicateFormat:extensionPath, nil];
+    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPath, nil];
 }
 
-- (void)setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
+- (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    [self setValue:value forExtensionPathWithPredicateFormat:extensionPath, nil];
+    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPath, nil];
 }
 
-- (id)valueForExtensionPathWithFormat:(NSString *)extensionPathWithFormat, ...
-{
-    va_list args;
-    va_start(args, extensionPathWithFormat);
-    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:args];
-    va_arg(args, id);
-    
-    return [self valueForExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
-}
-
-- (void)setValue:(id)value forExtensionPathWithFormat:(NSString * _Nonnull)extensionPathWithFormat, ...
+- (id)akvc_valueForExtensionPathWithFormat:(NSString *)extensionPathWithFormat, ...
 {
     va_list args;
     va_start(args, extensionPathWithFormat);
     extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:args];
     va_arg(args, id);
     
-    [self setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
+    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
 }
 
-- (void)setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
+- (void)akvc_setValue:(id)value forExtensionPathWithFormat:(NSString * _Nonnull)extensionPathWithFormat, ...
+{
+    va_list args;
+    va_start(args, extensionPathWithFormat);
+    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:args];
+    va_arg(args, id);
+    
+    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
+}
+
+- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
 {
     
     if(extendPathWithPredicateFormat == nil) return;
@@ -255,20 +255,20 @@
             
             if(!nextComponent){
                 
-                [_self setValue:value forSubkey:currentComponent.subkey];
+                [_self akvc_setValue:value forSubkey:currentComponent.subkey];
             }else{
                 
-                _self = [_self valuesForSubkey:currentComponent.regkey];
+                _self = [_self akvc_valuesForSubkey:currentComponent.regkey];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentRegkey){
             
             if(!nextComponent){
                 
-                [_self setValue:value forRegkey:currentComponent.regkey];
+                [_self akvc_setValue:value forRegkey:currentComponent.regkey];
             }else{
                 
-                _self = [_self valuesForRegkey:currentComponent.regkey];
+                _self = [_self akvc_valuesForRegkey:currentComponent.regkey];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
@@ -327,7 +327,7 @@
     va_end(args);
 }
 
-- (id)valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
+- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
 {
     if(extendPathWithPredicateFormat == nil) return nil;
     
@@ -383,18 +383,18 @@
 
             ///Get struct value for NSValue.
             if(currentComponent.isKeyPath){
-                _self = [_self structValueForKeyPath:currentComponent.stringValue];
+                _self = [_self akvc_structValueForKeyPath:currentComponent.stringValue];
             }else{
-                _self = [_self structValueForKey:currentComponent.stringValue];
+                _self = [_self akvc_structValueForKey:currentComponent.stringValue];
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentSubkey){
             
-            _self = [_self valuesForSubkey:currentComponent.subkey];
+            _self = [_self akvc_valuesForSubkey:currentComponent.subkey];
         }
         else if(currentComponent.componentType & AkvcPathComponentRegkey){
             
-            _self = [_self valuesForRegkey:currentComponent.regkey];
+            _self = [_self akvc_valuesForRegkey:currentComponent.regkey];
         }
         else if(currentComponent.componentType & AkvcPathComponentIndexer){
             
