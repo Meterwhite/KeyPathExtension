@@ -36,7 +36,7 @@
 
 /**
  Get values by sub string of key.
- `Subkey` can be used as a sub string to match properties.(Case insensitive)
+ `Subkey` can be used as a sub string to match properties.(Case insensitive/不区分大小写)
  This method is invalid for the `base type` propertys.It works for custom propertys.Because the Foundation Class is a black box.
  
  Example -
@@ -78,15 +78,86 @@
 /**
  ExtensionPath is a versatile path.
  
- StructPath     :       NSPath->StructPath->StructPath->...
- SubKey         :       <...>
- RegKey         :       <$...$>
- ArrayIndexer   :       @[...]
  
- CustomFunction :       @CustomFunction
+ StructPath         :   NSKeyPath->StructPath->StructPath->...
+ Indexer            :   @[...]
+ CustomFunction     :   @CustomFunction
+ Subkey             :   <...>
+ Regkey             :   <$...$>
+ SELInspector       :   SEL(...)?
+ ClassInspector     :   Class(...)?
+ KeysAccessor       :   {KeyPath,KeyPath, ...}
+ PredicateFilter    :   @:...!
+ PredicateEvaluate  :   @:...?
  
- @param extensionPath d
- @return d
+ 
+ StructPath -
+ :
+ Refer to valueForFullPath:
+ 
+ Indexer -
+ :
+ Provides a simple way to access array elements in key path.
+ @[0] , @[0,1]
+ Use the index symbol 'i' to find elements within the array range.
+ @[i <= 3 , i > 5]
+ Use the index symbol '! ' You can exclude elements from an array.
+ @[!0,!1] , @[i != 0 , i != 1]
+ Or combine them.
+ @[i<5 , 9] , @[i<5 , !3]
+ Confirm elements and deny elements cannot exist at the same time.
+ It's wrong:
+ @[0,!1]
+ 
+ CustomFunction -
+ :
+ Defining some special function to enable Extensionpath to handle more complex things.
+ [AkvcExtension registFunction:@"blackList" withBlock:^id(id  _Nullable caller) {
+ 
+    ... ...
+    return objectForNextPath;
+ }];
+ Use CustomFunction like : `...user.@blackList...`
+ 
+ Subkey -
+ :
+ Refer to valuesForSubkey:
+ 
+ Regkey -
+ :
+ Refer to valuesForRegkey:
+ 
+ SELInspector -
+ :
+ SELInspector equates to respondsToSelector:
+ `SEL(addObject:)?`
+ 
+ ClassInspector -
+ :
+ ClassInspector equates to isKindOfClass:
+ `Class(NSString)?`
+ 
+ KeysAccessor -
+ :
+ Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array
+ `...{tody.food.name,yesterday.food.name}.@isEachEqual`
+ Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!
+ 
+ PredicateFilter -
+ :
+ PredicateFilter equates to  filteredArrayUsingPredicate:
+ Expressions : `@:...!`; Using predicate at the symbol `...`
+ `...users.@: age >= 18 && sex == 1 !...`
+ Discussion : Can't use symbol `!.` or `?.` , but `?`, `!` or `.` are ok.
+ 
+ PredicateEvaluate -
+ :
+ PredicateEvaluate equates to  evaluateWithObject:
+ Expressions : `@:...?`; Using predicate at the symbol `...`
+ `...user.@: age >= 18 && sex == 1 !...`
+ Discussion : Can't use symbol `!.` or `?.` , but `?`, `!` or `.` are ok.
+ 
+ @return All return values are boxed,except nil.除nil,所有返回值都是装箱的.
  */
 - (id _Nullable)valueForExtensionPath:(NSString* _Nonnull)extensionPath;
 - (void)setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;

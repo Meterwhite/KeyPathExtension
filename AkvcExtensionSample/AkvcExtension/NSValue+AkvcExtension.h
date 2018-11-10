@@ -20,6 +20,8 @@
 
 - (__kindof NSValue* _Nullable)structValueForKeyPath:(NSString* _Nonnull)keyPath;
 - (NSValue* _Nonnull)setStructValue:(id _Nullable)value forKeyPath:(NSString* _Nonnull)keyPath;
+
+#warning regist
 @end
 
 

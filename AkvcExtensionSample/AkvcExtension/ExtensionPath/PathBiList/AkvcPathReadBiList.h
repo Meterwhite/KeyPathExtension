@@ -13,6 +13,7 @@
 
 /**
  Binary linked list of match
+ 用于读取路径小节的二叉链表
  
  A --NO-> B --NO-> C...
  ⇣YES     ⇣YES

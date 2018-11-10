@@ -126,6 +126,9 @@
     
     [cmp indexerSetValue:@"X" forMutableArray:arr];
     NSLog(@"%@",jack);
+    
+    NSPredicate* pred;
+    [pred evaluateWithObject:<#(nullable id)#>]
 }
 
 
