@@ -49,13 +49,13 @@ typedef enum AkvcPathComponentType{
     AkvcPathComponentPredicateEvaluate  |
     AkvcPathComponentPredicateFilter    ,
     
-    /** @CustomFunc */
-    AkvcPathComponentCustomFunction     =   1   <<  8,
+    /** @PathFunction */
+    AkvcPathComponentPathFunction       =   1   <<  8,
     
     /** \@Function */
     AkvcPathComponentIsFunction         =
     AkvcPathComponentNSKeyValueOperator |
-    AkvcPathComponentCustomFunction     ,
+    AkvcPathComponentPathFunction     ,
     
     /** @SEL(~)? */
     AkvcPathComponentSELInspector       =   1   <<  9,
@@ -108,7 +108,7 @@ typedef enum AkvcPathComponentType{
 @property (nonatomic,copy,readonly)      NSString*   regkey;
 
 
-#pragma mark - Custom function component
+#pragma mark - Path function component
 - (id _Nullable)callFunctionByTarget:(id _Nullable)target;
 
 

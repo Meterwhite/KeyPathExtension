@@ -75,7 +75,7 @@
         suffixLength = component.suffixLength;
         componentNeedFinish = YES;
         
-        ///Mark NSKeyValueOperatorForFunction and custom.
+        ///Mark NSKeyValueOperatorForFunction and users.
         if (componentType == AkvcPathComponentIsFunction){
             
             
@@ -84,7 +84,7 @@
             
             componentType = ([self.class isNSKeyValueOperatorForFunction:funcName])
             ?
-            AkvcPathComponentNSKeyValueOperator:AkvcPathComponentCustomFunction;
+            AkvcPathComponentNSKeyValueOperator:AkvcPathComponentPathFunction;
             component.componentType = componentType;
         }
         

@@ -12,7 +12,7 @@
 @interface AkvcExtension : NSProxy
 
 /**
- Regist a CollectionOperator function for user in AkvcExtension.
+ Regist a path function for user in AkvcExtension.
  注册自定义的@CollectionOperator函数
  Example -
  :
@@ -25,15 +25,51 @@
  */
 + (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable caller))block;
 
+
+/**
+ Regist a structure in AkvcExtension(Getter).
+ 
+ GetBlockType -
+ :
+ __kindof NSValue*(^GetBlockType)(NSValue* value);
+ 
+ Example -
+ :
+ [AkvcExtension registStruct:@(\@encode(CGSize))
+                   getterMap:@{
+                                @"size"   : ^(NSValue* value){ Get value and return ... }
+                                          ,
+                                @"origin" : ^(NSValue* value){ ... }
+ }];
+ 
+ */
 + (void)registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap;
 
+
+/**
+ Regist a structure in AkvcExtension(Setter).
+ 
+ SetBlockType -
+ :
+ __kindof NSValue*(^SetBlockType)(NSValue* value , id newValue);
+ 
+ Example -
+ :
+ [AkvcExtension registStruct:@(\@encode(CGSize))
+                   setterMap:@{
+                                @"size"   : ^(NSValue* value){ ...Set value and return... }
+                                          ,
+                                @"origin" : ^(NSValue* value){ ... }
+ }];
+ 
+ */
 + (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap;
 
 
 
 
 /**
- Get custom function from AkvcExtension
+ Get path function from AkvcExtension
  */
-+ (id(^)(id caller))customFunctionNamed:(NSString* _Nonnull)name;
++ (id(^)(id caller))pathFunctionNamed:(NSString* _Nonnull)name;
 @end

@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-/**
- Main methods is here
- */
 @interface NSObject(NSObjectAkvcExtension)
 
 
 /**
- Get value from FullPath that can access the structure.
+ Get value by FullPath that can access the structure.
  FullPath adds the ability to access the structure on the basis of NSKeyPath.
  Accessing properties in a structure using the accessor '->'.
  
@@ -83,7 +80,7 @@
  -------------------------------------
  StructPath         :   NSKeyPath->StructPath->StructPath->...
  Indexer            :   @[...]
- CustomFunction     :   @CustomFunction
+ PathFunction       :   @PathFunction
  Subkey             :   <...>
  Regkey             :   <$...$>
  SELInspector       :   SEL(...)?
@@ -111,15 +108,15 @@
  It's wrong:
  @[0,!1]
  
- CustomFunction -
+ PathFunction -
  :
  Defining some special function to enable Extensionpath to handle more complex things.
- [AkvcExtension registFunction:@"blackList" withBlock:^id(id  _Nullable caller) {
+ [AkvcExtension registFunction:@"sortFirends" withBlock:^id(id  _Nullable caller) {
  
     ... ...
     return thisObjectToNextPath;
  }];
- Use CustomFunction like : `...user.@blackList...`
+ Use PathFunction like : `...user.firendList.@sortFirends...`
  
  Subkey -
  :

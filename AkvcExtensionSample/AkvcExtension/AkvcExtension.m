@@ -11,14 +11,14 @@
 @implementation AkvcExtension
 
 
-static NSMutableDictionary* _akvc_custom_function_map;
+static NSMutableDictionary* _akvc_path_function_map;
 + (void)registFunction:(NSString*)name withBlock:(id(^)(id caller))block
 {
     NSAssert(name && block, @"AkvcExtension:\n  Block or name can not be nil!");
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _akvc_custom_function_map = [NSMutableDictionary dictionary];
+        _akvc_path_function_map = [NSMutableDictionary dictionary];
         [self _akvc_regist_privateFunction];
     });
     
@@ -29,7 +29,7 @@ static NSMutableDictionary* _akvc_custom_function_map;
     });
     dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
     
-    _akvc_custom_function_map[name] = block;///Regist function.
+    _akvc_path_function_map[name] = block;///Regist function.
     
     dispatch_semaphore_signal(signalSemaphore);
 }
@@ -44,10 +44,10 @@ static NSMutableDictionary* _akvc_custom_function_map;
     [NSValue akvc_registStruct:encode setterMap:setterMap];
 }
 
-+ (id(^)(id))customFunctionNamed:(NSString*)name
++ (id(^)(id))pathFunctionNamed:(NSString*)name
 {
     NSAssert(name, @"AkvcExtension:\n  Function name can not be nil!");
-    return _akvc_custom_function_map[name];
+    return _akvc_path_function_map[name];
 }
 
 + (void)_akvc_regist_privateFunction

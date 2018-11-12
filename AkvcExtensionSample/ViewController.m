@@ -132,9 +132,10 @@
 //    id anyObject;
 //    [self akvc_valueForExtensionPathWithPredicateFormat:AkvcPath(@"...@[%d]...@:SELF != %@", index), anyObject, nil];
     
-//    id xxx = AkvcPath(@"...@[%d]...@:SELF != %@",50);
     
     NSLog(@"End");
+    id value;
+    
 }
 
 

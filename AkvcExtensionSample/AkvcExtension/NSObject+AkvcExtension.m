@@ -302,7 +302,7 @@
                 NSAssert(NO, @"AkvcExtension:\n  Predicate path unable be used to set value.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentCustomFunction){
+        else if(currentComponent.componentType & AkvcPathComponentPathFunction){
             
             if(nextComponent){
             
@@ -416,7 +416,7 @@
                 _self = @([predicate evaluateWithObject:_self]);
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentCustomFunction){
+        else if(currentComponent.componentType & AkvcPathComponentPathFunction){
             
             _self = [currentComponent callFunctionByTarget:_self];
         }

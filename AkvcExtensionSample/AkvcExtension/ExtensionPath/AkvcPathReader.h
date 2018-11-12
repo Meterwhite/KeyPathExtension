@@ -12,7 +12,7 @@
 
 /**
  Object that make a response to each component string read.
- Call [endRead] while read finished.
+ Call -[endRead] while read finished.
  逐字阅读逐小节解释
  */
 @interface AkvcPathReader : NSObject

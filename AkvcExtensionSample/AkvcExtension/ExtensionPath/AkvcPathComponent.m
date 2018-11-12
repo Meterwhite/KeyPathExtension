@@ -52,7 +52,7 @@
     if(!target)
         return nil;
     
-    return [AkvcExtension customFunctionNamed:self.functionName](target);
+    return [AkvcExtension pathFunctionNamed:self.functionName](target);
 }
 
 - (NSString*)functionName
