@@ -10,6 +10,10 @@
 
 @class AkvcPathComponent;
 
+
+/**
+ A full extension key path.
+ */
 @interface AkvcExtensionPath : NSObject
 
 @property (nonatomic,copy,readonly) NSString* stringValue;

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef AkvcPath
-#define AkvcPath(path,args...) ([NSString stringWithFormat:path,##args])
-#endif
 
+/**
+ Main methods is here
+ */
 @interface NSObject(NSObjectAkvcExtension)
 
 
@@ -30,12 +30,12 @@
  @return The return values are boxed.返回值都是装箱的
  */
 - (id _Nullable)akvc_valueForFullPath:(NSString* _Nonnull)fullPath;
-
+/** Refer to : akvc_valueForFullPath: . */
 - (void)akvc_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath;
 
 
 /**
- Get values by sub string of key.
+ Get values by sub string of property key.属性名模糊匹配
  `Subkey` can be used as a sub string to match properties.(Case insensitive/不区分大小写)
  This method is invalid for the `base type` propertys.It works for custom propertys.Because the Foundation Class is a black box.
  
@@ -55,9 +55,10 @@
 
 
 /**
- Get values by regular expressions of key.
+ Get values by regular expressions of property key.属性名正则匹配
  `regkey` is regular expressions to match properties.
  This method is invalid for the `base type` propertys.It works for custom propertys.Because the Foundation Class is a black box.
+ 
  
  Example -
  :
@@ -74,11 +75,12 @@
 - (void)akvc_setValue:(id _Nullable)value forRegkey:(NSString* _Nonnull)regkey;
 
 
-#warning <#message#>
 /**
- ExtensionPath is a versatile path.
+ ExtensionPath is a versatile key path.
+ 扩展路径
  
- 
+ Name                   Representation
+ -------------------------------------
  StructPath         :   NSKeyPath->StructPath->StructPath->...
  Indexer            :   @[...]
  CustomFunction     :   @CustomFunction
@@ -89,7 +91,7 @@
  KeysAccessor       :   {KeyPath,KeyPath, ...}
  PredicateFilter    :   @:...!
  PredicateEvaluate  :   @:...?
- 
+ -------------------------------------
  
  StructPath -
  :
@@ -101,7 +103,7 @@
  @[0] , @[0,1]
  Use the index symbol 'i' to find elements within the array range.
  @[i <= 3 , i > 5]
- Use the index symbol '! ' You can exclude elements from an array.
+ Use the index symbol '!' You can exclude elements from an array.
  @[!0,!1] , @[i != 0 , i != 1]
  Or combine them.
  @[i<5 , 9] , @[i<5 , !3]
@@ -115,7 +117,7 @@
  [AkvcExtension registFunction:@"blackList" withBlock:^id(id  _Nullable caller) {
  
     ... ...
-    return objectForNextPath;
+    return thisObjectToNextPath;
  }];
  Use CustomFunction like : `...user.@blackList...`
  
@@ -141,30 +143,61 @@
  :
  Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array
  `...{tody.food.name,yesterday.food.name}.@isEachEqual`
- Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!
+ Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition, the nil value will be replaced by Nsnull.
  
  PredicateFilter -
  :
  PredicateFilter equates to  filteredArrayUsingPredicate:
  Expressions : `@:...!`; Using predicate at the symbol `...`
  `...users.@: age >= 18 && sex == 1 !...`
- Discussion : Can't use symbol `!.` or `?.` , but `?`, `!` or `.` are ok.
+ Discussion : Symbol `!.` or `?.` is forbidden to use, but `?`, `!` , `.` are available.
  
  PredicateEvaluate -
  :
  PredicateEvaluate equates to  evaluateWithObject:
  Expressions : `@:...?`; Using predicate at the symbol `...`
  `...user.@: age >= 18 && sex == 1 !...`
- Discussion : Can't use symbol `!.` or `?.` , but `?`, `!` or `.` are ok.
+ Discussion : Symbol `!.` or `?.` is forbidden to use, but `?`, `!` , `.` are available.
  
  @return All return values are boxed,except nil.除nil,所有返回值都是装箱的.
  */
 - (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath;
+
+/**
+ Refer to akvc_valueForExtensionPath:
+ 
+ KeysAccessor -
+ :
+ Discussion : In current method ,you can only use KeysAccessor for mutable object.Like NSMutableArray, NSMutableOrderedSet.
+ */
 - (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;
 
+
+/**
+ This method provides a convenient ability to use placeholders in ExtensionPath.提供便捷的参数化路径
+ 
+ Example -
+ :
+ [anyObject akvc_valueForExtensionPathWithFormat:@"...@[%d]...",index];
+ */
 - (id _Nullable)akvc_valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
 - (void)akvc_setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
 
+
+/**
+ This method provides a convenient ability to use predicate placeholders in ExtensionPath.提供参数化的谓词
+ 
+ Example -
+ :
+ [anObject akvc_valueForExtensionPathWithPredicateFormat:@"...@:SELF != %@!...", anyObject];
+ 
+ Discussion :
+ Format and Predicateformat can't be used at the same time.
+ If you need to do this, you can call xxxExtensionPathWithFormat: first , then call xxxExtensionPathWithPredicateFormat: .
+ Format和Predicateformat不能同时在一条路径中使用，可以拆成两个方法来实现
+ 
+ @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or bodex number value.此处只能接受装箱参数不接受基础值类型
+ */
 - (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
 - (void)akvc_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
 @end

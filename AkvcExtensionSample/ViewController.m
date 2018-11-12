@@ -117,18 +117,24 @@
 //    [test4 copy];
 //    [test5 copy];
     
-    id arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"].mutableCopy;
+//    id arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"].mutableCopy;
+//
+//    AkvcPathComponent* cmp = [AkvcPathComponent new];
+//    // % >= 2 , % <= 5 , !3
+//    cmp.stringValue = @"@[10]";
+//    id rte = [cmp indexerSubarray:arr];
+//
+//    [cmp indexerSetValue:@"X" forMutableArray:arr];
+//    NSLog(@"%@",jack);
+//
+//    NSPredicate* pred;
+//    int index = 0;
+//    id anyObject;
+//    [self akvc_valueForExtensionPathWithPredicateFormat:AkvcPath(@"...@[%d]...@:SELF != %@", index), anyObject, nil];
     
-    AkvcPathComponent* cmp = [AkvcPathComponent new];
-    // % >= 2 , % <= 5 , !3
-    cmp.stringValue = @"@[]";
-    id rte = [cmp indexerSubarray:arr];
+//    id xxx = AkvcPath(@"...@[%d]...@:SELF != %@",50);
     
-    [cmp indexerSetValue:@"X" forMutableArray:arr];
-    NSLog(@"%@",jack);
-    
-    NSPredicate* pred;
-    
+    NSLog(@"End");
 }
 
 

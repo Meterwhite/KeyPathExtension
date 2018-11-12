@@ -73,22 +73,28 @@ typedef enum AkvcPathComponentType{
 
 
 @interface AkvcPathComponent : NSObject
-#pragma mark - Component properties
+
 @property (nonatomic,assign)    AkvcPathComponentType   componentType;
+
 @property (nonatomic,copy)      NSString*               stringValue;
+
+/**
+ SuffixLenth indicates the length of the end of the path that needs to be intercepted.
+ `.` or `->`
+ */
 @property (nonatomic,assign)    NSUInteger              suffixLength;
 
 - (instancetype)copy;
 
 
 #pragma mark - Predicate component
-@property (nonatomic,copy)      NSString*   predicateString;
-@property (nonatomic,assign)    NSUInteger  predicateArgumentCount;
+@property (nonatomic,copy,readonly)      NSString*   predicateString;
+@property (nonatomic,assign,readonly)    NSUInteger  predicateArgumentCount;
 
 
 
 #pragma mark - keypath component
-@property (nonatomic,assign)    BOOL        isKeyPath;
+@property (nonatomic,assign,readonly)    BOOL        isKeyPath;
 
 
 #pragma mark - Indexser component
@@ -96,10 +102,10 @@ typedef enum AkvcPathComponentType{
 - (void)indexerSetValue:(id _Nonnull)value forMutableArray:(NSMutableArray* _Nonnull)mArray;
 
 #pragma mark - Subkey component
-@property (nonatomic,copy)      NSString*   subkey;
+@property (nonatomic,copy,readonly)      NSString*   subkey;
 
 #pragma mark - Regkey component
-@property (nonatomic,copy)      NSString*   regkey;
+@property (nonatomic,copy,readonly)      NSString*   regkey;
 
 
 #pragma mark - Custom function component

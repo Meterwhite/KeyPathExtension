@@ -74,7 +74,8 @@
         if([self superclass] == [NSObject class]       ||
            [self superclass] == [UIResponder class]    ||
            [self superclass] == [UIView class]         ||
-           [self superclass] == [CALayer class]
+           [self superclass] == [CALayer class]        ||
+           [self superclass] == [CAAnimation class]    
            ){
             
             if(([object isEqualToString:@"NS"])     ||

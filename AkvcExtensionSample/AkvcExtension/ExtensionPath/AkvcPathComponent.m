@@ -266,7 +266,7 @@
     content = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     const char* charString = content.UTF8String;
-    NSAssert(strlen(charString) == 0, @"Index accessor missing content!");
+    NSAssert(strlen(charString) != 0, @"Index accessor missing content!");
     
     for (NSUInteger i = 0; i < strlen(charString); i++) {
         
