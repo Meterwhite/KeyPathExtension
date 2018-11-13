@@ -3,7 +3,6 @@
 
 ## 【Introduction】
 * AkvcExtension is an extension of KVC in the Foundation Framework,which extends the many functions of the KeyPath.
-*  Use in ARC.
 
 ## 【Import】
 * Drag directory `AkvcExtension` into project or use `CocoaPods`.
@@ -24,39 +23,31 @@
 [person akvc_setValue:@(YES) forExtensionPath:@"dogs.@:age<1!.smallDog"];
 
 [person akvc_valueForExtensionPath:@"firendList.@sortFirends"];
-///Custom function in key path.
+///Custom function 'sortFirends' in key path.
 
-[person akvc_valueForExtensionPath:@"firendList.@[i>0]"];
 ```
 
 ## 【FullPath】
-###   Get value by FullPath that can access the structure.
+###  Get value by FullPath that can access the structure.
 -  Accessing properties in a structure using the accessor '->'.
 ```objc
-@"...NSKeyPath->StructPath->StructPath->....";
+"...NSKeyPath->StructPath->StructPath->....";
 ```
 ### Regist Struct
--  Use the following two functions at the same time to register struct.
-```objc
-[AkvcExtension registStruct: getterMap:];
-[AkvcExtension registStruct: setterMap:];
-```
+-  Use the following two functions at the same time to register struct,Refer to `AkvcExtension.h`
 
 ## 【Subkey】
 ### Get values by sub string of property key.
-```objc
-[anyObject akvc_setValue: forSubkey:];
-```
+- Refer to `NSObject+AkvcExtension.h`
 
 ## 【Regkey】
 ### Get values by regular expressions of property key.
-```objc
-[anyObject akvc_setValue: forRegkey:];
-```
+- Refer to `NSObject+AkvcExtension.h`
 
 
 ## 【ExtensionPath】
-### ExtensionPath  integrated with all features.
+### Multifunctional key path
+- All features in ExtensionPath
 ```objc
 Name                   Representation
 -------------------------------------
@@ -75,15 +66,8 @@ PredicateEvaluate  :   @:...?
 
 
 ## 【Regist PathFunction】
-```objc
+- Refer to `AkvcExtension.h`
 
-```
-
-## 【Others】
-- Waiting...
-```objc
-
-```
 
 ## Author
 - Contact or join AkvcExtension : quxingyi@outlook.com

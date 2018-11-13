@@ -4,6 +4,7 @@
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
+//  https://github.com/qddnovo/AkvcExtension
 //
 
 #import "NSObject+AkvcExtension.h"
@@ -165,13 +166,14 @@
 - (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
 {
     
-    if(extendPathWithPredicateFormat == nil) return;
+    if(extendPathWithPredicateFormat == nil)
+        return;
     
     ///ArgumentList
-    NSMutableArray* arguments = [NSMutableArray new];
-    va_list args;
+    NSMutableArray*     arguments = [NSMutableArray new];
+    va_list             args;
+    id                  arg;
     va_start(args, extendPathWithPredicateFormat);
-    id arg;
     while ((arg = va_arg(args, id))) {
         [arguments addObject:arg];
     }
@@ -188,8 +190,9 @@
     id                  objectBeforeStructPath;
     while (nextComponent && _self) {
         
-        currentComponent = nextComponent;
-        nextComponent = enumerator.nextObject;///nextComponent == nil means here is last component.
+        currentComponent    = nextComponent;
+        ///nextComponent == nil means here is last component.
+        nextComponent       = enumerator.nextObject;
         
         /**
          *  key path of struct is special.

@@ -4,6 +4,7 @@
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.
+//  https://github.com/qddnovo/AkvcExtension
 //
 
 #import "AkvcPathReadBiList.h"
@@ -99,9 +100,6 @@
         ANode* structPath0 = [ANode nodeMatchValue:@"-"].thatFalseNode(error).asFalseNodeFor(keyPathEnd);
         [ANode nodeMatchValue:@">"].thatFalseNode(error).asTrueNodeFor(structPath0)
         .thatFinishedStructPath.thatResultType(AkvcPathComponentStructKeyPath);
-//        [ANode nodeMatchBaseName].asTrueNodeFor(structPathEnd).thatFalseNode(structPath0)
-//        .thatTrueNodeSelf.thatBanCharacters(@"-")
-//        .thatFinishable.thatResultType(AkvcPathComponentStructKeyPath);//Node at end
     }
     ///FullPath-END///
     //////////////////

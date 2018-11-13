@@ -4,6 +4,7 @@
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
+//  https://github.com/qddnovo/AkvcExtension
 //
 
 #import "AkvcPathComponent.h"
@@ -301,8 +302,8 @@ CALL_CONDITION_WORDS:;
     /**
      Indicates that the assertIdxSet content is true or false
      -1 : false
-     1 : true
-     0 : none
+     1  : true
+     0  : none
      */
     NSInteger   boolFlag    =   0;
     /**

@@ -4,6 +4,7 @@
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
+//  https://github.com/qddnovo/AkvcExtension
 //
 
 #import <Foundation/Foundation.h>
@@ -178,6 +179,10 @@
  [anyObject akvc_valueForExtensionPathWithFormat:@"...@[%d]...",index];
  */
 - (id _Nullable)akvc_valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
+
+/**
+ Refer to akvc_valueForExtensionPathWithFormat:
+ */
 - (void)akvc_setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
 
 
@@ -196,6 +201,10 @@
  @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or bodex number value.此处只能接受装箱参数不接受基础值类型
  */
 - (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
+
+/**
+ Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ */
 - (void)akvc_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
 @end
 
