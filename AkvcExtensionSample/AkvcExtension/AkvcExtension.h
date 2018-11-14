@@ -20,7 +20,18 @@
  [self registFunction:@"firstObject" withBlock:^id(id caller) {
     return [caller firstObject];
  }];
-
+ 
+ Default path function
+ ----------------------
+ @nslog             :   NSLog this object
+ @firstObject
+ @lastObject
+ @isNSNull
+ @isTure
+ @isFalse
+ @isAllEqual        :   Determines whether each subitem of the collection is equal.
+ @isAllDifferent    :   Determines whether each subitem of the collection is not equal.
+ ----------------------
  @param name Function name
  @param block Caller is the object that calls this block.
  */
@@ -58,15 +69,19 @@
  :
  [AkvcExtension registStruct:@(\@encode(CGSize))
                    setterMap:@{
-                                @"size"   : ^(NSValue* value){ ...Set value and return... }
+                                @"size"   : ^(NSValue* value, id newValue){ ...Set value and return... }
                                           ,
-                                @"origin" : ^(NSValue* value){ ... }
+                                @"origin" : ^(NSValue* value, id newValue){ ... }
  }];
  
  */
 + (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap;
 
 
+/**
+ Clean all cached path component.清除缓存路径组件
+ */
++ (void)cleanCache;
 
 
 /**

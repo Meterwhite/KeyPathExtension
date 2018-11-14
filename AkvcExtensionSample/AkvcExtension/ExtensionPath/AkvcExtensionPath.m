@@ -144,7 +144,7 @@
                      (Single.)(NSKey-StructPath-Head.)(StructPath->)
                      */
                     reorganizedComponents.stringValue = [reorganizedComponents.stringValue stringByAppendingString:component.stringValue];//that need append to previous path.
-                    reorganizedComponents.suffixLength = 2;
+                    reorganizedComponents.suffixLength = component.suffixLength;
                     lastComponentType = componentType;
                     continue;
                 }
@@ -218,8 +218,8 @@
                  Change type as NSKey and adding component.
                  Make an empty StructPath body
                  */
-                reorganizedComponents.stringValue = [NSString string];
                 reorganizedComponents       = [component copy];
+                reorganizedComponents.stringValue = [NSString string];
                 
                 component.componentType     = AkvcPathComponentNSKey;
                 reorganizationNeedFinish    = NO;
@@ -359,5 +359,20 @@ static NSMutableDictionary* _cachedComponent;
 + (instancetype)cachedExtensionPath:(NSString*)path
 {
     return _cachedComponent[path];
+}
+
++ (void)cleanCache
+{
+    static dispatch_semaphore_t signalSemaphore;
+    static dispatch_once_t onceTokenSemaphore;
+    dispatch_once(&onceTokenSemaphore, ^{
+        signalSemaphore = dispatch_semaphore_create(1);
+    });
+    
+    dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
+    
+    [_cachedComponent removeAllObjects];
+    
+    dispatch_semaphore_signal(signalSemaphore);
 }
 @end

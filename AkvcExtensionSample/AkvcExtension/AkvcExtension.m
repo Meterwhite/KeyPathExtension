@@ -7,10 +7,20 @@
 //  https://github.com/qddnovo/AkvcExtension
 //
 
+#import "AkvcExtensionPath.h"
 #import "AkvcExtension.h"
 
 @implementation AkvcExtension
 
++ (void)load
+{
+    [self _akvc_regist_privateFunction];
+}
+
++ (void)cleanCache
+{
+    [AkvcExtensionPath performSelector:@selector(cleanCache)];
+}
 
 static NSMutableDictionary* _akvc_path_function_map;
 + (void)registFunction:(NSString*)name withBlock:(id(^)(id caller))block
@@ -20,7 +30,6 @@ static NSMutableDictionary* _akvc_path_function_map;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _akvc_path_function_map = [NSMutableDictionary dictionary];
-        [self _akvc_regist_privateFunction];
     });
     
     static dispatch_semaphore_t signalSemaphore;
@@ -62,16 +71,22 @@ static NSMutableDictionary* _akvc_path_function_map;
         return [caller lastObject];
     }];
     
-    [self registFunction:@"length" withBlock:^id(id caller) {
-        return @([caller length]);
+    [self registFunction:@"isNSNull" withBlock:^id(id caller) {
+        return @(caller == [NSNull null]);
     }];
     
+    [self registFunction:@"isTure" withBlock:^id(id caller) {
+        return @([caller boolValue] == true);
+    }];
     
+    [self registFunction:@"isFalse" withBlock:^id(id caller) {
+        return @([caller boolValue] == false);
+    }];
     
     /**
      Determine whether each subitem is equal.
      */
-    [self registFunction:@"isEachEqual" withBlock:^id(id caller) {
+    [self registFunction:@"isAllEqual" withBlock:^id(id caller) {
         
         NSEnumerator* enumerator = [caller objectEnumerator];
         
@@ -91,6 +106,19 @@ static NSMutableDictionary* _akvc_path_function_map;
             break;
         }
         return @YES;
+    }];
+
+    [self registFunction:@"isAllDifferent" withBlock:^id(id caller) {
+        
+        NSEnumerator*   enumerator  = [caller objectEnumerator];
+        NSMutableSet*   counter     = [NSMutableSet set];
+        id              value;
+        while ((value = enumerator.nextObject)) {
+            
+            [counter addObject:value];
+        }
+        
+        return [NSNumber numberWithBool:counter.count == [caller count]];
     }];
     
     [self registFunction:@"nslog" withBlock:^id(id caller) {

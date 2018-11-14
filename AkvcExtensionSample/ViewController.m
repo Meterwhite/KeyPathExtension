@@ -83,56 +83,29 @@
         }
     }
     
+    id dictionary  = @{
+                       @"Interest1":@"Eat",
+                       @"Interest2":@"Spleep",
+                       @"Interest3":@"Sexual",
+                       @"location":[NSValue valueWithCGRect:CGRectMake(10, 20, 30, 40)],
+                       }.mutableCopy;
+    id array = @[jack , alice , @"123"];
     
-//    id test0 = [jack akvc_valueForExtensionPath:@"dogs.@[0].{age,number}.@:SELF[SIZE]==2?"];
-//
-//    id test1 = [jack akvc_valueForExtensionPathWithFormat:@"dogs.@[%d].frame->size->width",0];
-//
-//    id test2 = [alice akvc_valueForExtensionPath:@"dogs.@:food != nil!"];
-//
-//    id test3 = [jack akvc_valueForExtensionPath:AkvcPath(@"dogs.@[%d].frame->size->width", 0)];
-//
-//    id test4 = [jack akvc_valueForExtensionPath:@"dogs.<name>"];
+    id value;
+//    value = [dictionary akvc_valueForExtensionPath:@"Class(NSDictionary)?"];
+//    value = [dictionary akvc_valueForExtensionPath:@"SEL(copy)?"];
+//    value = [jack akvc_valueForExtensionPath:@"dogs"];
+//    value = [jack akvc_valueForExtensionPath:@"dogs.@[i<2]"];
+//    value = [array akvc_valueForExtensionPath:@"@:name == 'jack'!"];
+//    value = [array akvc_valueForExtensionPath:@"@:SELF[SIZE] == 3?"];
+//    value = [dictionary akvc_valueForExtensionPath:@"location->size"];
+//    value = [dictionary akvc_valueForExtensionPath:@"@nslog"];
+//    value = [dictionary akvc_valueForExtensionPath:@"<Interest>.@nslog"];
+//    value = [dictionary akvc_valueForExtensionPath:@"<$Interest\\d+$>.@nslog"];
+//    value = [jack akvc_valueForExtensionPath:@"{dogs,name}.@nslog"];
     
-//    id test5 = [alice akvc_valueForExtensionPath:@"dogs.@[1].<$food\\d+$>"];
-    
-//    [alice akvc_setValue:@(1000) forExtensionPathWithPredicateFormat:@"dogs.@[0].frame->size->width",nil];
-    
-    id testDictionaryObject  = @{
-                                 @"Interest1":@"Eat",
-                                 @"Interest2":@"Spleep",
-                                 @"Interest3":@"Sexual",
-                                 @"location":[NSValue valueWithCGRect:CGRectMake(10, 20, 30, 40)],
-                                 }.mutableCopy;
-    
-//    id xx = [testDictionaryObject akvc_valueForFullPath:@"location->size->width"];
-    
-//    [testDictionaryObject akvc_setValue:@(1024) forFullPath:@"location->size->width"];
-//    [testDictionaryObject akvc_setValue:nil forExtensionPath:@"<$Interest\\d+$>"];
-    
-//    [test0 copy];
-//    [test1 copy];
-//    [test2 copy];
-//    [test3 copy];
-//    [test4 copy];
-//    [test5 copy];
-    
-//    id arr = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"].mutableCopy;
-//
-//    AkvcPathComponent* cmp = [AkvcPathComponent new];
-//    // % >= 2 , % <= 5 , !3
-//    cmp.stringValue = @"@[10]";
-//    id rte = [cmp indexerSubarray:arr];
-//
-//    [cmp indexerSetValue:@"X" forMutableArray:arr];
-//    NSLog(@"%@",jack);
-//
-//    NSPredicate* pred;
-//    int index = 0;
-//    id anyObject;
-//    [self akvc_valueForExtensionPathWithPredicateFormat:AkvcPath(@"...@[%d]...@:SELF != %@", index), anyObject, nil];
-    
-    id value = [@"123" akvc_valueForExtensionPath:@"Class(NSObject2)?"];
+    value = [array akvc_valueForExtensionPath:@"@isAllEqual"];
+    value = [array akvc_valueForExtensionPath:@"@isAllDifferent"];
     
     NSLog(@"End");
 }
