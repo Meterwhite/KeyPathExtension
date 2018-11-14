@@ -120,7 +120,7 @@
         
         ///Indexer
         ANode* indexer0 = [ANode nodeMatchValue:@"["].asFalseNodeFor(function);
-        ANode* indexerContent = [ANode nodeMatchNumber].thatTrueNodeSelf.asTrueNodeFor(indexer0)
+        ANode* indexerContent = [ANode nodeMatchIndexer].thatTrueNodeSelf.asTrueNodeFor(indexer0)
         .thatBanCharacters(@"]");
         ANode* indexer1 = [ANode nodeMatchValue:@"]"].asFalseNodeFor(indexerContent).thatFalseNode(error)
         .thatFinishable.thatResultType(AkvcPathComponentIndexer);

@@ -132,7 +132,7 @@
 //    id anyObject;
 //    [self akvc_valueForExtensionPathWithPredicateFormat:AkvcPath(@"...@[%d]...@:SELF != %@", index), anyObject, nil];
     
-    id value = [jack akvc_valueForExtensionPath:@"dogs.@[i>5].food.name"];
+    id value = [jack akvc_valueForExtensionPath:@"dogs.@[i<-5].food.name"];
     
     NSLog(@"End");
 }

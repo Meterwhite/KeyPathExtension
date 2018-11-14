@@ -368,7 +368,7 @@ CALL_CONDITION_WORDS:;
             }
         CALL_STEP_3:
             {
-                NSAssert(aChar >= '0' && aChar <= '9', @"AkvcExtension:\n Wrong indexer format!");
+                NSAssert(aChar >= '0' && aChar <= '9', @"AkvcExtension:\n Wrong indexer format ! The character '%c' is forbidden " , aChar);
                 
                 NSInteger number = [[NSString stringWithUTF8String:charString + i] integerValue];
                 switch (keyChar)
@@ -444,6 +444,7 @@ CALL_CONDITION_WORDS:;
         return nil;
     }
     
+    NSAssert(idxSet.count <= array.count, @"AkvcExtension:\n Array overflow!");
     return [array objectsAtIndexes:idxSet];
 }
 

@@ -43,10 +43,10 @@
     _self->_matchFeature = AkvcPathSearchForSelectorCharacterSet;
     return _self;
 }
-+ (instancetype)nodeMatchNumber
++ (instancetype)nodeMatchIndexer
 {
     AkvcPathReadNode* _self = [[self alloc] init];
-    _self->_matchFeature = AkvcPathSearchForNumberCharacterSet;
+    _self->_matchFeature = AkvcPathSearchForIndexerCharacterSet;
     return _self;
 }
 + (instancetype)nodeMatchBaseName
@@ -169,10 +169,22 @@
         return NO;
     }
     
-    if((_matchFeature & AkvcPathSearchForNumberCharacterSet)
-       &&
-       (asUnchar < '0' || asUnchar > '9') ){
-        return NO;
+    if(_matchFeature & AkvcPathSearchForIndexerCharacterSet){
+        
+        if(asUnchar != '<'
+           &&
+           asUnchar != '>'
+           &&
+           asUnchar != '='
+           &&
+           asUnchar != '!'
+           &&
+           asUnchar != 'i'
+           &&
+           (asUnchar < '0' && asUnchar > '9')){
+            
+            return NO;
+        }
     }
     
     return YES;

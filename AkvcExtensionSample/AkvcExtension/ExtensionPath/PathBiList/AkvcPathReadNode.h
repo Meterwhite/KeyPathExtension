@@ -14,7 +14,7 @@ typedef enum AkvcPathSearchMatchFeature{
     AkvcPathSearchForMatchingValue        =  1 << 0,
     AkvcPathSearchForBaseNameCharacterSet =  1 << 1,
     AkvcPathSearchForSelectorCharacterSet =  1 << 2,
-    AkvcPathSearchForNumberCharacterSet   =  1 << 3,
+    AkvcPathSearchForIndexerCharacterSet  =  1 << 3,
     AkvcPathSearchForAnyCharacterSet      =  1 << 4,
     AkvcPathSearchFinishable              =  1 << 5,
     AkvcPathSearchFinished                =  1 << 6,
@@ -24,7 +24,7 @@ typedef enum AkvcPathSearchMatchFeature{
     AkvcPathIsSearchForCharacterSet       =
     AkvcPathSearchForBaseNameCharacterSet   |
     AkvcPathSearchForSelectorCharacterSet   |
-    AkvcPathSearchForNumberCharacterSet     |
+    AkvcPathSearchForIndexerCharacterSet    |
     AkvcPathSearchForAnyCharacterSet        ,
     
 }AkvcPathSearchMatchFeature;
@@ -64,7 +64,7 @@ typedef enum AkvcPathSearchMatchFeature{
 + (instancetype)nodeMatchAnyChar;
 + (instancetype)nodeMatchBaseName;
 + (instancetype)nodeMatchSelector;
-+ (instancetype)nodeMatchNumber;
++ (instancetype)nodeMatchIndexer;
 
 
 - (AkvcPathReadNode*(^)(AkvcPathReadNode* falseNode))thatFalseNode;
