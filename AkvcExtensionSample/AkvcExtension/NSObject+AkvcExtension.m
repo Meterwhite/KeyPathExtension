@@ -427,6 +427,14 @@
             
             _self = [currentComponent callKeysAccessorByTarget:_self];
         }
+        else if(currentComponent.componentType & AkvcPathComponentSELInspector){
+            
+            _self = [currentComponent callSELInspectorByTarget:_self];
+        }
+        else if(currentComponent.componentType & AkvcPathComponentClassInspector){
+            
+            _self = [currentComponent callClassInspectorByTarget:_self];
+        }
     }
     
     va_end(args);

@@ -56,6 +56,45 @@
     return [AkvcExtension pathFunctionNamed:self.functionName](target);
 }
 
+- (id _Nullable)callClassInspectorByTarget:(id _Nullable)target
+{
+    ///Class(~)?
+    
+    return
+    
+    [NSNumber numberWithBool:
+     
+     [target isKindOfClass:
+      
+      NSClassFromString
+      (
+       [[_stringValue substringWithRange: NSMakeRange(6, _stringValue.length - 8)]
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+      )
+     ]
+    ];
+}
+
+- (id)callSELInspectorByTarget:(id)target
+{
+    ///SEL(~)?
+    
+    return
+    
+    [NSNumber numberWithBool:
+     
+     [target respondsToSelector:
+      
+      NSSelectorFromString
+      (
+       [[_stringValue substringWithRange: NSMakeRange(4, _stringValue.length - 6)]
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+      )
+     ]
+    ];
+}
+
+
 - (NSString*)functionName
 {
     if(!_functionName){
