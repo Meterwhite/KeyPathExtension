@@ -115,7 +115,7 @@ CALL_ENUMERATE_FALSE_NODE:
     }else{
         
         result.componentType = self.node.resultType;
-    }    
+    }
     
     [self clean];
     

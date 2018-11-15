@@ -91,7 +91,7 @@
     .asFalseNodeFor(class2).asFalseNodeFor(class3).asFalseNodeFor(class4);
     {
         ANode* fullPathContent = [ANode nodeMatchBaseName].asTrueNodeFor(fullPath).thatTrueNodeSelf
-        .thatBanCharacters(@".-")
+        .thatBanCharacters(@".-!?}")
         .thatFinishable.thatResultType(AkvcPathComponentNSKey);
         ///Key path : keyPath.
         ANode* keyPathEnd = [ANode nodeMatchValue:@"."].asFalseNodeFor(fullPathContent)

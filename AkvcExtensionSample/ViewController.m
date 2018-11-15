@@ -89,23 +89,20 @@
                        @"Interest3":@"Sexual",
                        @"location":[NSValue valueWithCGRect:CGRectMake(10, 20, 30, 40)],
                        }.mutableCopy;
-    id array = @[jack , alice , @"123"];
+    id array = @[jack , alice ];
     
     id value;
-//    value = [dictionary akvc_valueForExtensionPath:@"Class(NSDictionary)?"];
-//    value = [dictionary akvc_valueForExtensionPath:@"SEL(copy)?"];
-//    value = [jack akvc_valueForExtensionPath:@"dogs"];
-//    value = [jack akvc_valueForExtensionPath:@"dogs.@[i<2]"];
-//    value = [array akvc_valueForExtensionPath:@"@:name == 'jack'!"];
-//    value = [array akvc_valueForExtensionPath:@"@:SELF[SIZE] == 3?"];
-//    value = [dictionary akvc_valueForExtensionPath:@"location->size"];
-//    value = [dictionary akvc_valueForExtensionPath:@"@nslog"];
-//    value = [dictionary akvc_valueForExtensionPath:@"<Interest>.@nslog"];
-//    value = [dictionary akvc_valueForExtensionPath:@"<$Interest\\d+$>.@nslog"];
-//    value = [jack akvc_valueForExtensionPath:@"{dogs,name}.@nslog"];
+
+//    [jack akvc_setValue:jack forExtensionPath:@"dogs"];
+//    [jack akvc_setValue:jack forExtensionPath:@"dogs.@[i<2]"];
+//    [array akvc_setValue:nil forExtensionPath:@"@:name == 'jack'!"];
+//    [array akvc_setValue:nil forExtensionPath:@"@:SELF[SIZE] == 3?"];
+//    [dictionary akvc_setValue:[NSValue valueWithCGSize:CGSizeMake(53, 52)] forExtensionPath:@"location->size"];
+//    [dictionary akvc_setValue:nil forExtensionPath:@"@nslog"];
+//    [dictionary akvc_setValue:nil forExtensionPath:@"<Interest>"];
+//    [dictionary akvc_setValue:jack forExtensionPath:@"<$Interest\\d+$>"];
+    value =[self.view akvc_valueForExtensionPath:@"{frame,frame->size}"];
     
-    value = [array akvc_valueForExtensionPath:@"@isAllEqual"];
-    value = [array akvc_valueForExtensionPath:@"@isAllDifferent"];
     
     NSLog(@"End");
 }

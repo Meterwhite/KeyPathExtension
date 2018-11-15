@@ -33,7 +33,7 @@
     _stringValue = [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
     ///Check if illegal character sets are included.
     NSAssert([_stringValue rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@":<$"]].length == 0,
-             @"AkvcExtension:\n  Predicate, subkey, regkey are disable in keys component.");
+             @"AkvcExtension:\n  Predicate, subkey, regkey are disable in KeysAccessor.");
     
     
     NSEnumerator*   enumerator  = [[_stringValue componentsSeparatedByString:@","] objectEnumerator];

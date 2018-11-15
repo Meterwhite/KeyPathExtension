@@ -251,7 +251,7 @@
                 }
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  Struct key path must be the last component!");
+                NSAssert(NO, @"AkvcExtension:\n  Wrong path component after StructPath!");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentSubkey){
@@ -302,7 +302,7 @@
                     _self = [_self filteredArrayUsingPredicate:predicate];
                 }
             }else{
-                NSAssert(NO, @"AkvcExtension:\n  Predicate path unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  Predicate component unable be used to setter.");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentPathFunction){
@@ -312,7 +312,7 @@
                 _self = [currentComponent callFunctionByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  Function path unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  PathFunction unable be used to set value.");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
@@ -322,7 +322,7 @@
                 _self = [currentComponent callKeysAccessorByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  Keys component unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  KeysAccessor unable be used to setter.");
             }
         }
     }
@@ -464,8 +464,7 @@
                 if([object rangeOfString:key options:option].length == 0)
                     continue;
                 
-                if(value)
-                    [(id)self setObject:value forKey:object];
+                [(id)self setObject:value forKey:object];
             }
         }
         ///Collection
