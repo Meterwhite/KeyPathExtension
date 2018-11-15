@@ -2,7 +2,7 @@
 ![AkvcExtension icon](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)
 
 ## 【Introduction】
-* AkvcExtension is an extension of KVC in the Foundation Framework,which extends the many functions of the KeyPath.
+* AkvcExtension is an extension of KVC in the Foundation Framework,which extends the many functions of the KeyPath.It can help you do more when you access deep path.
 
 ## 【Import】
 * Drag directory `AkvcExtension` into project or use `CocoaPods`.
@@ -15,33 +15,30 @@
 ### Examples
 ```objc
 
-[self akvc_setValue:value forFullPath:@"aView.frame->size->width"];
-
-[person akvc_setValue:value forSubkey:@"name"];
-///Matched `name` and `nickName`
-
 [person akvc_setValue:@(YES) forExtensionPath:@"dogs.@:age<1!.smallDog"];
 
+[person akvc_valueForExtensionPath:@"dogs.@:name == 'Loli'!.location->x"];
+
 [person akvc_valueForExtensionPath:@"firendList.@sortFirends"];
-///Custom function 'sortFirends' in key path.
+///Use custom path-function 'sortFirends' in key path.
 
 ```
 
 ## 【FullPath】
-###  Get value by FullPath that can access the structure.
+###  FullPath can access the structure.
 -  Accessing properties in a structure using the accessor '->'.
 ```objc
-"...NSKeyPath->StructPath->StructPath->....";
+@"...NSKeyPath->StructKey->StructKey->....";
 ```
-### Regist Struct
+### Regist custom struct
 -  Use the following two functions at the same time to register struct,Refer to `AkvcExtension.h`
 
 ## 【Subkey】
-### Get values by sub string of property key.
+### Sub string of property key.
 - Refer to `NSObject+AkvcExtension.h`
 
 ## 【Regkey】
-### Get values by regular expressions of property key.
+### Expressions of property key.
 - Refer to `NSObject+AkvcExtension.h`
 
 

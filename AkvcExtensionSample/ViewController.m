@@ -101,8 +101,7 @@
 //    [dictionary akvc_setValue:nil forExtensionPath:@"@nslog"];
 //    [dictionary akvc_setValue:nil forExtensionPath:@"<Interest>"];
 //    [dictionary akvc_setValue:jack forExtensionPath:@"<$Interest\\d+$>"];
-    value =[self.view akvc_valueForExtensionPath:@"{frame,frame->size}"];
-    
+//    value =[self.view akvc_valueForExtensionPath:@"{frame,frame->size}"];
     
     NSLog(@"End");
 }

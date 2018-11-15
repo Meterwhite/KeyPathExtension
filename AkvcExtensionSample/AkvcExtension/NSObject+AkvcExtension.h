@@ -198,7 +198,7 @@
  If you need to do this, you can call xxxExtensionPathWithFormat: first , then call xxxExtensionPathWithPredicateFormat: .
  Format和Predicateformat不能同时在一条路径中使用，可以拆成两个方法来实现
  
- @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or bodex number value.此处只能接受装箱参数不接受基础值类型
+ @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or boxed number value.Use `AkvcBoxValue(...)` to wrap scalar or struct.只接受装箱参数不接受基础值类型
  */
 - (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
 
