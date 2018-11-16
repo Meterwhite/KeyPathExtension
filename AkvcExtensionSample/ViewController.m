@@ -103,6 +103,8 @@
 //    [dictionary akvc_setValue:jack forExtensionPath:@"<$Interest\\d+$>"];
 //    value =[self.view akvc_valueForExtensionPath:@"{frame,frame->size}"];
     
+    [self akvc_valueForExtensionPath:@"<time>.@isAllEqual"];
+    
     NSLog(@"End");
 }
 

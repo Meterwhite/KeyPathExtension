@@ -117,10 +117,10 @@ typedef enum AkvcPathComponentType{
 - (id _Nullable)callKeysAccessorByTarget:(id _Nullable)target;
 
 #pragma mark - ClassInspector
-- (id _Nullable)callClassInspectorByTarget:(id _Nullable)target;
+- (BOOL)callClassInspectorByTarget:(id _Nullable)target;
 
 #pragma mark - SELInspector
-- (id _Nullable)callSELInspectorByTarget:(id _Nullable)target;
+- (BOOL)callSELInspectorByTarget:(id _Nullable)target;
 @end
 
 

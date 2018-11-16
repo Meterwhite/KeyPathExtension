@@ -24,11 +24,11 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
 
 /**
  Regist a path function for user in AkvcExtension.
- 注册自定义的@CollectionOperator函数
+ 注册自定义的PathFunction
  Example -
  :
- [self registFunction:@"firstObject" withBlock:^id(id caller) {
-    return [caller firstObject];
+ [self registFunction:@"firstObject" withBlock:^id(id target) {
+    return [target firstObject];
  }];
  
  Default path function
@@ -43,9 +43,9 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  @isAllDifferent    :   Determines whether each subitem of the collection is not equal.
  ----------------------
  @param name Function name
- @param block Caller is the object that calls this block.
+ @param block Target is the object that calls this block.
  */
-+ (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable caller))block;
++ (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable target))block;
 
 
 /**

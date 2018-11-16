@@ -39,7 +39,7 @@
  
  Example -
  :
- `name` can match 'name' and 'nickName'.
+ `time` can match 'createTime' and 'modifyTime'.
  
  通过键的子字符串获取值
  subkey可以作为字符串进行属性的匹配，但是该方法对基础类型的属性无效
@@ -112,10 +112,10 @@
  PathFunction -
  :
  Defining some special function to enable Extensionpath to handle more complex things.
- [AkvcExtension registFunction:@"sortFirends" withBlock:^id(id  _Nullable caller) {
+ [AkvcExtension registFunction:@"sortFirends" withBlock:^id(id  _Nullable target) {
  
     ... ...
-    return thisObjectToNextPath;
+    return result;
  }];
  Use PathFunction like : `...user.firendList.@sortFirends...`
  
@@ -140,7 +140,7 @@
  KeysAccessor -
  :
  Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array
- `...{tody.food.name,yesterday.food.name}.@isEachEqual`
+ "{tody.food.name,yesterday.food.name}.@isAllEqual"
  Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition, the nil value will be replaced by Nsnull.
  
  PredicateFilter -

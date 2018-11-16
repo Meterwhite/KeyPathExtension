@@ -300,6 +300,11 @@
                 if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
                     
                     _self = [_self filteredArrayUsingPredicate:predicate];
+                }else {
+                    
+                    ///PredicateEvaluate
+                    if([predicate evaluateWithObject:_self] == NO)
+                        break;
                 }
             }else{
                 NSAssert(NO, @"AkvcExtension:\n  Predicate component unable be used to setter.");
@@ -312,7 +317,7 @@
                 _self = [currentComponent callFunctionByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  PathFunction unable be used to set value.");
+                NSAssert(NO, @"AkvcExtension:\n  PathFunction unable be set.");
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
@@ -322,7 +327,29 @@
                 _self = [currentComponent callKeysAccessorByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  KeysAccessor unable be used to setter.");
+                NSAssert(NO, @"AkvcExtension:\n  KeysAccessor unable be set.");
+            }
+        }
+        else if(currentComponent.componentType & AkvcPathComponentClassInspector){
+            
+            if(nextComponent){
+                
+                if([currentComponent callClassInspectorByTarget:_self] == NO)
+                    break;
+            }else{
+                
+                NSAssert(NO, @"AkvcExtension:\n  ClassInspector unable be set.");
+            }
+        }
+        else if(currentComponent.componentType & AkvcPathComponentSELInspector){
+            
+            if(nextComponent){
+                
+                if([currentComponent callSELInspectorByTarget:_self] == NO)
+                    break;
+            }else{
+                
+                NSAssert(NO, @"AkvcExtension:\n  SELInspector unable be set.");
             }
         }
     }
@@ -386,8 +413,10 @@
 
             ///Get struct value for NSValue.
             if(currentComponent.isKeyPath){
+                
                 _self = [_self akvc_structValueForKeyPath:currentComponent.stringValue];
             }else{
+                
                 _self = [_self akvc_structValueForKey:currentComponent.stringValue];
             }
         }
@@ -414,9 +443,20 @@
             if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
                 
                 _self = [_self filteredArrayUsingPredicate:predicate];
-            }else if (currentComponent.componentType & AkvcPathComponentPredicateEvaluate){
+            }else {
                 
-                _self = @([predicate evaluateWithObject:_self]);
+                ///AkvcPathComponentPredicateEvaluate
+                if(nextComponent == nil){
+                    
+                    _self = @([predicate evaluateWithObject:_self]);
+                }else{
+                    
+                    if([predicate evaluateWithObject:_self])
+                        continue;
+                    
+                    _self = nil;
+                    break;
+                }
             }
         }
         else if(currentComponent.componentType & AkvcPathComponentPathFunction){
@@ -429,11 +469,31 @@
         }
         else if(currentComponent.componentType & AkvcPathComponentSELInspector){
             
-            _self = [currentComponent callSELInspectorByTarget:_self];
+            if(nextComponent == nil){
+                
+                _self = [NSNumber numberWithBool:[currentComponent callSELInspectorByTarget:_self]];
+            }else{
+                
+                if([currentComponent callSELInspectorByTarget:_self])
+                    continue;
+                    
+                _self = nil;
+                break;
+            }
         }
         else if(currentComponent.componentType & AkvcPathComponentClassInspector){
             
-            _self = [currentComponent callClassInspectorByTarget:_self];
+            if(nextComponent == nil){
+                
+                _self = [NSNumber numberWithBool:[currentComponent callClassInspectorByTarget:_self]];
+            }else{
+                
+                if([currentComponent callClassInspectorByTarget:_self])
+                    continue;
+                    
+                _self = nil;
+                break;
+            }
         }
     }
     

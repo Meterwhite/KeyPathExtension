@@ -23,7 +23,7 @@
 }
 
 static NSMutableDictionary* _akvc_path_function_map;
-+ (void)registFunction:(NSString*)name withBlock:(id(^)(id caller))block
++ (void)registFunction:(NSString*)name withBlock:(id(^)(id target))block
 {
     NSAssert(name && block, @"AkvcExtension:\n  Block or name can not be nil!");
     
