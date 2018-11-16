@@ -9,7 +9,6 @@
 
 #import <CoreData/CoreData.h>
 #import <objc/runtime.h>
-#import <UIKit/UIKit.h>
 #import "AkvcClass.h"
 
 @implementation  NSObject(AkvcClass)
@@ -73,8 +72,8 @@
         object = [object substringToIndex:2];
         
         if([self superclass] == [NSObject class]       ||
-           [self superclass] == [UIResponder class]    ||
-           [self superclass] == [UIView class]         ||
+           [self superclass] == [AKVC_RESPONDER class] ||
+           [self superclass] == [AKVC_VIEW class]      ||
            [self superclass] == [CALayer class]        ||
            [self superclass] == [CAAnimation class]    
            ){

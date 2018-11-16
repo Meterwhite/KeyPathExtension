@@ -153,12 +153,12 @@
 		9F934DC921931E420054F734 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				9F934DCA21931E420054F734 /* Person.h */,
 				9F934DCB21931E420054F734 /* Dog.h */,
-				9F934DCC21931E420054F734 /* Food.h */,
-				9F934DCD21931E420054F734 /* Person.m */,
-				9F934DCE21931E420054F734 /* Food.m */,
 				9F934DCF21931E420054F734 /* Dog.m */,
+				9F934DCC21931E420054F734 /* Food.h */,
+				9F934DCE21931E420054F734 /* Food.m */,
+				9F934DCA21931E420054F734 /* Person.h */,
+				9F934DCD21931E420054F734 /* Person.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";

@@ -141,7 +141,7 @@
  :
  Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array
  "{tody.food.name,yesterday.food.name}.@isAllEqual"
- Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition, the nil value will be replaced by Nsnull.
+ Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition,and the nil value will be replaced by NSNull.
  
  PredicateFilter -
  :
@@ -194,11 +194,12 @@
  [anObject akvc_valueForExtensionPathWithPredicateFormat:@"...@:SELF != %@!...", anyObject];
  
  Discussion :
+ The parameter list accepts only boxed values.
  Format and Predicateformat can't be used at the same time.
- If you need to do this, you can call xxxExtensionPathWithFormat: first , then call xxxExtensionPathWithPredicateFormat: .
- Format和Predicateformat不能同时在一条路径中使用，可以拆成两个方法来实现
+ If you need to do this, please call these two different methods separately.
+ Format和Predicateformat不能同时在一条路径中使用，请拆成两个方法实现.
  
- @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or boxed number value.Use `AkvcBoxValue(...)` to wrap scalar or struct.只接受装箱参数不接受基础值类型
+ @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or boxed  value.Use `AkvcBoxValue(...)` to wrap scalar or struct.只接受装箱参数不接受基础值类型
  */
 - (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
 
