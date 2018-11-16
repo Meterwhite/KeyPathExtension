@@ -25,22 +25,20 @@ pod 'AkvcExtension'
 ```
 
 # Content
-* [Overview](#Overview)
-* [ExtensionPath](#ExtensionPath)
-    * [StructPath](#StructPath)
-    * [Indexer](#Indexer)
-    * [PathFunction](#PathFunction)
-            * [Regist PathFunction](#Regist_PathFunction)
-            * [Default PathFunction](#Default_PathFunction)
-         * [Subkey](#Subkey)
-         * [Regkey](#Regkey)
-        * [SELInspector](#SELInspector)
-        * [ClassInspector](#ClassInspector)
-        * [KeysAccessor](#KeysAccessor)
-        * [PredicateFilter](#PredicateFilter)
-        * [PredicateEvaluate](#PredicateEvaluate)
-* [Regist custom struct](#Regist_custom_struct)
-* [Clean cache](#Clean_cache)
++ [Overview](#Overview)
++ [ExtensionPath](#ExtensionPath)
+    + [StructPath](#StructPath)
+    + [Indexer](#Indexer)
+    + [PathFunction](#PathFunction) , [Regist PathFunction](#Regist_PathFunction) , [Default PathFunction](#Default_PathFunction)
+    + [Subkey](#Subkey)
+    + [Regkey](#Regkey)
+    + [SELInspector](#SELInspector)
+    + [ClassInspector](#ClassInspector)
+    + [KeysAccessor](#KeysAccessor)
+    + [PredicateFilter](#PredicateFilter)
+    + [PredicateEvaluate](#PredicateEvaluate)
++ [Regist custom struct](#Regist_custom_struct)
++ [Clean cache](#Clean_cache)
 
 ---
 
