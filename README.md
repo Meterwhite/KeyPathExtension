@@ -1,8 +1,8 @@
 ![Logo](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)AkvcExtension
 ===
 - An extension of KeyPath for KVC.
-- Describe complex logic with less code in KeyPath.Reduce programmer doing `work`.
-- 用较少的代码描述复杂的逻辑，减少程序员`做功`
+- Describe complex logic with less code in KeyPath.Reduce programmer doing work.
+- 用较少的代码描述复杂的逻辑，减少程序员做功
 
 # Import
 * Drag all source files under folder `AkvcExtension` to your project.
@@ -182,15 +182,14 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 
 ## Component  that has suffix `?` like `...?`
 ### ClassInspector(`Class(...)?`), SELInspector(`SEL(...)?`), PredicateEvaluate(`@:...?`);
-### All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.
-### 在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后
+- All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后
 
 
 
 # <a id="Regist_custom_struct"></a> Regist custom struct
-## Register a custom struct need 2 method : `+ registStruct:getterMap:` and `+ registStruct:setterMap:`
-### Key of getter map or setter map is member name of structural
-### Value of getter map is a block like ` __kindof NSValue*(^GetBlockType)(NSValue* value)`
+### Register a custom struct need 2 method : `+ registStruct:getterMap:` and `+ registStruct:setterMap:`
+- Key of getter map or setter map is member name of structural
+- Value of getter map is a block like ` __kindof NSValue*(^GetBlockType)(NSValue* value)`
 ```objc
 @{
     @"size"   :   ^(NSValue* value){
@@ -200,7 +199,7 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
     ... ...
 }
 ```
-### Value of setter map is a block like `__kindof NSValue*(^SetBlockType)(NSValue* value , id newValue)`
+- Value of setter map is a block like `__kindof NSValue*(^SetBlockType)(NSValue* value , id newValue)`
 ```objc
 @{
     @"size"   :   ^(NSValue* value , id newValue){
