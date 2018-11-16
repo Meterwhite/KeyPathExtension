@@ -25,7 +25,6 @@ pod 'AkvcExtension'
 ```
 
 # Content
-+ [Overview](#Overview)
 + [ExtensionPath](#ExtensionPath)
     + [StructPath](#StructPath)
     + [Indexer](#Indexer)
@@ -87,11 +86,11 @@ It's wrong : @[0,!1] ;
 ## <a id="PathFunction"></a> PathFunction
 ### PathFunction is a custom NSKeyValueOperator.自定义路径函数
 ```objc
-[... akvc_valueForExtensionPath:@"...firendList.@sortFirends..."];
+[... akvc_valueForExtensionPath:@"...friendList.@sortFriends..."];
 ```
 ### <a id="Regist_PathFunction"></a> Regist PathFunction
 ```objc
-[AkvcExtension registFunction:@"sortFirends" withBlock:^id(id  _Nullable target) {
+[AkvcExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
 
     //... ...
     //return result;

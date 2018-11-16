@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString* nickName;
 @property (nonatomic,assign) CGRect frame;
 @property (nonatomic,strong) Person* spouse;
-@property (nonatomic,strong) NSMutableArray<Person*>* firends;
+@property (nonatomic,strong) NSMutableArray<Person*>* friends;
 @property (nonatomic,strong) NSMutableArray<Dog*>* dogs;
 @end
 

@@ -35,7 +35,7 @@
         alice.frame     = CGRectMake(40, 50, 60, 70);
         alice.age       = 2008;
         alice.spouse    = jack;
-        alice.firends = [NSMutableArray arrayWithObject:jack];
+        alice.friends = [NSMutableArray arrayWithObject:jack];
         {
             Dog* dog0 = [Dog new];
             dog0.nickName = @"Amy";
@@ -67,7 +67,7 @@
         jack.frame      = CGRectMake(50, 50, 50, 50);
         jack.age        = 2018;
         jack.spouse     = alice;
-        jack.firends = [NSMutableArray arrayWithObject:alice];
+        jack.friends = [NSMutableArray arrayWithObject:alice];
         {
             Dog* dog0 = [Dog new];
             dog0.nickName = @"Tom";

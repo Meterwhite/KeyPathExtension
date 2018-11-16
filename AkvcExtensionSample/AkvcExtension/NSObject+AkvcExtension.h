@@ -112,12 +112,12 @@
  PathFunction -
  :
  Defining some special function to enable Extensionpath to handle more complex things.
- [AkvcExtension registFunction:@"sortFirends" withBlock:^id(id  _Nullable target) {
+ [AkvcExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
  
     ... ...
     return result;
  }];
- Use PathFunction like : `...user.firendList.@sortFirends...`
+ Use PathFunction like : `...user.friendList.@sortFriends...`
  
  Subkey -
  :
