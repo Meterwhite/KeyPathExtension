@@ -155,7 +155,7 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 ```
 
 ## <a id="KeysAccessor"></a> KeysAccessor
-### Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array
+### Use Keysaccessor to access multiple paths at once.The returned results are placed sequentially in the array.多键访问，返回按顺的数组
 -  Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition,and the nil value will be replaced by NSNull.
 * Expressions :`{...}`
 ```objc
@@ -180,16 +180,16 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 * Expressions :`@:PredicateString?`
 
 ## Component `...?`
-- ClassInspector(`Class(...)?`), SELInspector(`SEL(...)?`), PredicateEvaluate(`@:...?`);
-- All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.
-- 在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后。
+- `Class(...)?`(ClassInspector), `SEL(...)?`(SELInspector),`@:...?` (PredicateEvaluate)  
+    -All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.
+    - 在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后。
 
 
 
 # <a id="Regist_custom_struct"></a> Regist custom struct
 - Register a custom struct need 2 method : `+ registStruct:getterMap:` and `+ registStruct:setterMap:`
-- Key of getter map or setter map is member name of structural
-- Value of getter map is a block like ` __kindof NSValue*(^GetBlockType)(NSValue* value)`
+    - Key of getter map or setter map is member name of structural
+    - Value of getter map is a block like ` __kindof NSValue*(^GetBlockType)(NSValue* value)`
 ```objc
 @{
     @"size"   :   ^(NSValue* value){

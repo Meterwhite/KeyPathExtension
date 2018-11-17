@@ -97,7 +97,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
 /**
  Get path function from AkvcExtension
  */
-+ (id(^)(id caller))pathFunctionNamed:(NSString* _Nonnull)name;
++ (id(^)(id target))pathFunctionNamed:(NSString* _Nonnull)name;
 @end
 
 

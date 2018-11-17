@@ -63,32 +63,32 @@ static NSMutableDictionary* _akvc_path_function_map;
 + (void)_akvc_regist_privateFunction
 {
     
-    [self registFunction:@"firstObject" withBlock:^id(id caller) {
-        return [caller firstObject];
+    [self registFunction:@"firstObject" withBlock:^id(id target) {
+        return [target firstObject];
     }];
     
-    [self registFunction:@"lastObject" withBlock:^id(id caller) {
-        return [caller lastObject];
+    [self registFunction:@"lastObject" withBlock:^id(id target) {
+        return [target lastObject];
     }];
     
-    [self registFunction:@"isNSNull" withBlock:^id(id caller) {
-        return @(caller == [NSNull null]);
+    [self registFunction:@"isNSNull" withBlock:^id(id target) {
+        return @(target == [NSNull null]);
     }];
     
-    [self registFunction:@"isTure" withBlock:^id(id caller) {
-        return @([caller boolValue] == true);
+    [self registFunction:@"isTure" withBlock:^id(id target) {
+        return @([target boolValue] == true);
     }];
     
-    [self registFunction:@"isFalse" withBlock:^id(id caller) {
-        return @([caller boolValue] == false);
+    [self registFunction:@"isFalse" withBlock:^id(id target) {
+        return @([target boolValue] == false);
     }];
     
     /**
      Determine whether each subitem is equal.
      */
-    [self registFunction:@"isAllEqual" withBlock:^id(id caller) {
+    [self registFunction:@"isAllEqual" withBlock:^id(id target) {
         
-        NSEnumerator* enumerator = [caller objectEnumerator];
+        NSEnumerator* enumerator = [target objectEnumerator];
         
         id value = enumerator.nextObject;
         
@@ -108,9 +108,9 @@ static NSMutableDictionary* _akvc_path_function_map;
         return @YES;
     }];
 
-    [self registFunction:@"isAllDifferent" withBlock:^id(id caller) {
+    [self registFunction:@"isAllDifferent" withBlock:^id(id target) {
         
-        NSEnumerator*   enumerator  = [caller objectEnumerator];
+        NSEnumerator*   enumerator  = [target objectEnumerator];
         NSMutableSet*   counter     = [NSMutableSet set];
         id              value;
         while ((value = enumerator.nextObject)) {
@@ -118,12 +118,12 @@ static NSMutableDictionary* _akvc_path_function_map;
             [counter addObject:value];
         }
         
-        return [NSNumber numberWithBool:counter.count == [caller count]];
+        return [NSNumber numberWithBool:counter.count == [target count]];
     }];
     
-    [self registFunction:@"nslog" withBlock:^id(id caller) {
+    [self registFunction:@"nslog" withBlock:^id(id target) {
         
-        return ((void)(NSLog(@"%@",[caller description])),caller) ;
+        return ((void)(NSLog(@"%@",[target description])),target) ;
     }];
 }
 
