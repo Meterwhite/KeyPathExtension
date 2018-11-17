@@ -179,14 +179,15 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 ###  PredicateEvaluate equates to - evaluateWithObject: . Refert to PredicateFilter
 * Expressions :`@:PredicateString?`
 
-## Component  that has suffix `?` like `...?`
-### ClassInspector(`Class(...)?`), SELInspector(`SEL(...)?`), PredicateEvaluate(`@:...?`);
-- All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后
+## Component `...?`
+- ClassInspector(`Class(...)?`), SELInspector(`SEL(...)?`), PredicateEvaluate(`@:...?`);
+- All this component has this feafure : If it's not the last component,  it will as a condition for whether to execute next path.While false it return nil or do noting, else execute next path.
+- 在路径中时这类组件表示是否执行的条件，false时返回nil或者什么也不做，true时执行之后。
 
 
 
 # <a id="Regist_custom_struct"></a> Regist custom struct
-### Register a custom struct need 2 method : `+ registStruct:getterMap:` and `+ registStruct:setterMap:`
+- Register a custom struct need 2 method : `+ registStruct:getterMap:` and `+ registStruct:setterMap:`
 - Key of getter map or setter map is member name of structural
 - Value of getter map is a block like ` __kindof NSValue*(^GetBlockType)(NSValue* value)`
 ```objc
