@@ -9,6 +9,7 @@
 
 #import "NSObject+AkvcExtension.h"
 #import "NSValue+AkvcExtension.h"
+#import "AkvcExtensionConst.h"
 #import "AkvcExtensionPath.h"
 #import "AkvcPathComponent.h"
 #import <objc/runtime.h>
@@ -569,10 +570,10 @@
                     code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
-                if([attrInfos containsObject:@"R"]){
+                if([attrInfos containsObject:AkvcPropertyReadonly]){
                     //Readonly
                     continue;
-                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){
+                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:AkvcPropertyVoid]){
                     //void
                     continue;
                 }
@@ -581,9 +582,9 @@
                 if (code.length == 0) {
                     continue;
                 }else if (
-                          [code isEqualToString:@":"] ||//SEL
-                          [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
-                          [code isEqualToString:@"^{objc_method=}"]//Method
+                          [code isEqualToString:AkvcTypeSEL]    ||
+                          [code isEqualToString:AkvcTypeIvar]   ||
+                          [code isEqualToString:AkvcTypeMethod]
                           ) {
                     continue;
                 }
@@ -596,7 +597,7 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        NSLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
+        AkvcLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
 }
 
@@ -671,10 +672,7 @@
                     code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
-                if([attrInfos containsObject:@"R"]){
-                    //Readonly
-                    continue;
-                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:@"V"]){
+                if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:AkvcPropertyVoid]){
                     //void
                     continue;
                 }
@@ -683,9 +681,9 @@
                 if (code.length == 0) {
                     continue;
                 }else if (
-                          [code isEqualToString:@":"] ||//SEL
-                          [code isEqualToString:@"^{objc_ivar=}"] ||//ivar
-                          [code isEqualToString:@"^{objc_method=}"]//Method
+                          [code isEqualToString:AkvcTypeSEL]    ||
+                          [code isEqualToString:AkvcTypeIvar]   ||
+                          [code isEqualToString:AkvcTypeMethod]
                           ) {
                     continue;
                 }
@@ -699,7 +697,7 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        NSLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
+        AkvcLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
     
     return [retValues copy];

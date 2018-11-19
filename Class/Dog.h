@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) Food* food0;
 @property (nonatomic,strong) Food* food1;
 @property (nonatomic,strong) Food* food2;
-
+@property (nonatomic,strong,readonly) Food* readOnlyFood;
 
 @end
 

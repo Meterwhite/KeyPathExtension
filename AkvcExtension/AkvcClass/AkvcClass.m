@@ -7,6 +7,7 @@
 //  https://github.com/qddnovo/AkvcExtension
 //
 
+#import "AkvcExtensionConst.h"
 #import <CoreData/CoreData.h>
 #import <objc/runtime.h>
 #import "AkvcClass.h"

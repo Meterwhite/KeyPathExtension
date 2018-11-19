@@ -9,19 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE || TARGET_OS_TV
 
-#import <UIKit/UIKit.h>
-#define AKVC_VIEW UIView
-#define AKVC_RESPONDER UIResponder
-
-#elif TARGET_OS_MAC
-
-#import <AppKit/AppKit.h>
-#define AKVC_VIEW NSView
-#define AKVC_RESPONDER NSResponder
-
-#endif
 
 
 @interface NSObject(AkvcClass)

@@ -123,7 +123,8 @@ static NSMutableDictionary* _akvc_path_function_map;
     
     [self registFunction:@"nslog" withBlock:^id(id target) {
         
-        return ((void)(NSLog(@"%@",[target description])),target) ;
+        AkvcLog(@"%@",[target description]);
+        return target;
     }];
 }
 

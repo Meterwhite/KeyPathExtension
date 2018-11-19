@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45E2D65321A2A3CE00212CBB /* AkvcExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */; };
 		9F7D4C41219FDC9A002B2B48 /* AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */; };
 		9F7D4C42219FDC9A002B2B48 /* NSValue+AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C27219FDC9A002B2B48 /* NSValue+AkvcExtension.m */; };
 		9F7D4C43219FDC9A002B2B48 /* NSObject+AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C29219FDC9A002B2B48 /* NSObject+AkvcExtension.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtensionConst.m; sourceTree = "<group>"; };
+		45E2D65221A2A3CE00212CBB /* AkvcExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcExtensionConst.h; sourceTree = "<group>"; };
 		9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtension.m; sourceTree = "<group>"; };
 		9F7D4C26219FDC9A002B2B48 /* NSObject+AkvcExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AkvcExtension.h"; sourceTree = "<group>"; };
 		9F7D4C27219FDC9A002B2B48 /* NSValue+AkvcExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+AkvcExtension.m"; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				9F7D4C29219FDC9A002B2B48 /* NSObject+AkvcExtension.m */,
 				9F7D4C39219FDC9A002B2B48 /* NSValue+AkvcExtension.h */,
 				9F7D4C27219FDC9A002B2B48 /* NSValue+AkvcExtension.m */,
+				45E2D65221A2A3CE00212CBB /* AkvcExtensionConst.h */,
+				45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */,
 				9F7D4C2A219FDC9A002B2B48 /* AkvcClass */,
 				9F7D4C2D219FDC9A002B2B48 /* ExtensionPath */,
 			);
@@ -114,8 +119,8 @@
 		9F7D4C2A219FDC9A002B2B48 /* AkvcClass */ = {
 			isa = PBXGroup;
 			children = (
-				9F7D4C2B219FDC9A002B2B48 /* AkvcClass.m */,
 				9F7D4C2C219FDC9A002B2B48 /* AkvcClass.h */,
+				9F7D4C2B219FDC9A002B2B48 /* AkvcClass.m */,
 			);
 			path = AkvcClass;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				9F7D4C4A219FDC9A002B2B48 /* Person.m in Sources */,
 				9F7D4C44219FDC9A002B2B48 /* AkvcClass.m in Sources */,
 				9F7D4C4C219FDC9A002B2B48 /* Dog.m in Sources */,
+				45E2D65321A2A3CE00212CBB /* AkvcExtensionConst.m in Sources */,
 				9F934DA721931DFB0054F734 /* AppDelegate.m in Sources */,
 				9F7D4C49219FDC9A002B2B48 /* AkvcPathComponent.m in Sources */,
 			);
