@@ -3,13 +3,13 @@
 - An extension of KeyPath for KVC.
 - Describe complex logic with less code in KeyPath.Reduce programmer doing work.
     1. Access  structural value in the KeyPath.
-    2. Process array objects in the KeyPath
-    3. Implementing  custom function or @NSKeyValueOperator(@avg, @count, ...).
+    2. Using Predicate in the KeyPath
+    3. Implementing custom function or @NSKeyValueOperator(@avg, @count, ...).
     4. Perform type-safe checks directly in the KeyPath.
 - 用较少的代码描述复杂的逻辑，减少程序员做功
     1. 在路径中直接访问结构体成员
-    2. 在路径中处理集合数据
-    3. 实现自定义的@NSKeyValueOperator(@avg, @count, ...)
+    2. 在路径中使用谓词
+    3. 实现自定义函数或@NSKeyValueOperator(@avg, @count, ...)
     4. 在路径中直接进行类型安全的检查
 
 # Import
