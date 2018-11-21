@@ -107,13 +107,20 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    __weak id xx = [self xxx];
+    NSLog(@"END");
+}
+
+- (id)xxx
+{
+    
+    return [self.alice akvc_valueForExtensionPath:@"dogs.@firstObject"];
 }
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
 
 //    [self.alice akvc_valueForExtensionPath:@"dogs"];
-    [self.alice akvc_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
     
     [self measureBlock:^{
         

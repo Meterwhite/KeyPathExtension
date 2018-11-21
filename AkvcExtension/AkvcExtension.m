@@ -57,31 +57,51 @@ static NSMutableDictionary* _akvc_path_function_map;
 + (id(^)(id))pathFunctionNamed:(NSString*)name
 {
     NSAssert(name, @"AkvcExtension:\n  Function name can not be nil!");
-    return _akvc_path_function_map[name];
+    
+    static id _akvc_block_pathFunction;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _akvc_block_pathFunction = ^id(id target){
+            
+            SEL sel = NSSelectorFromString(name);
+            NSMethodSignature *signature = [[target class] instanceMethodSignatureForSelector:sel];
+            
+            NSAssert(signature != nil, @"AkvcExtension:\n Unknown Method: %@", name);
+            
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+            invocation.target = target;
+            invocation.selector = sel;
+            [invocation invoke];
+            id __unsafe_unretained returnValue;
+            if (signature.methodReturnLength) {
+                
+                [invocation getReturnValue:&returnValue];
+            }
+            
+            return returnValue?:target;
+        };
+        
+    });
+    
+    return _akvc_path_function_map[name]?:_akvc_block_pathFunction;
 }
 
 + (void)_akvc_regist_privateFunction
 {
     
-    [self registFunction:@"firstObject" withBlock:^id(id target) {
-        return [target firstObject];
-    }];
-    
-    [self registFunction:@"lastObject" withBlock:^id(id target) {
-        return [target lastObject];
-    }];
+//    [self registFunction:@"firstObject" withBlock:^id(id target) {
+//        return [target firstObject];
+//    }];
+//    
+//    [self registFunction:@"lastObject" withBlock:^id(id target) {
+//        return [target lastObject];
+//    }];
     
     [self registFunction:@"isNSNull" withBlock:^id(id target) {
         return @(target == [NSNull null]);
     }];
     
-    [self registFunction:@"isTure" withBlock:^id(id target) {
-        return @([target boolValue] == true);
-    }];
-    
-    [self registFunction:@"isFalse" withBlock:^id(id target) {
-        return @([target boolValue] == false);
-    }];
     
     /**
      Determine whether each subitem is equal.
