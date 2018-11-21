@@ -128,13 +128,13 @@
 		9F7D4C2D219FDC9A002B2B48 /* ExtensionPath */ = {
 			isa = PBXGroup;
 			children = (
-				9F7D4C2E219FDC9A002B2B48 /* PathBiList */,
-				9F7D4C33219FDC9A002B2B48 /* AkvcPathReader.h */,
 				9F7D4C34219FDC9A002B2B48 /* AkvcExtensionPath.h */,
-				9F7D4C35219FDC9A002B2B48 /* AkvcPathComponent.h */,
 				9F7D4C36219FDC9A002B2B48 /* AkvcExtensionPath.m */,
-				9F7D4C37219FDC9A002B2B48 /* AkvcPathReader.m */,
+				9F7D4C35219FDC9A002B2B48 /* AkvcPathComponent.h */,
 				9F7D4C38219FDC9A002B2B48 /* AkvcPathComponent.m */,
+				9F7D4C33219FDC9A002B2B48 /* AkvcPathReader.h */,
+				9F7D4C37219FDC9A002B2B48 /* AkvcPathReader.m */,
+				9F7D4C2E219FDC9A002B2B48 /* PathBiList */,
 			);
 			path = ExtensionPath;
 			sourceTree = "<group>";
@@ -142,9 +142,9 @@
 		9F7D4C2E219FDC9A002B2B48 /* PathBiList */ = {
 			isa = PBXGroup;
 			children = (
+				9F7D4C31219FDC9A002B2B48 /* AkvcPathReadBiList.h */,
 				9F7D4C2F219FDC9A002B2B48 /* AkvcPathReadBiList.m */,
 				9F7D4C30219FDC9A002B2B48 /* AkvcPathReadNode.h */,
-				9F7D4C31219FDC9A002B2B48 /* AkvcPathReadBiList.h */,
 				9F7D4C32219FDC9A002B2B48 /* AkvcPathReadNode.m */,
 			);
 			path = PathBiList;

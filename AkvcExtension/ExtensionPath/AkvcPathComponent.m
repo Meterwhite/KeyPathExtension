@@ -30,13 +30,18 @@
     ///Empty keys : `{}`
     NSAssert(_stringValue.length > 2, @"AkvcExtension:\n  Keys component must contain at least one key.");
     ///Get content.
-    _stringValue = [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
+    NSString* content = [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
     ///Check if illegal character sets are included.
-    NSAssert([_stringValue rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@":<$"]].length == 0,
+    NSAssert(strchr(content.UTF8String, ':') == NULL
+             &&
+             strchr(content.UTF8String, '<') == NULL
+             &&
+             strchr(content.UTF8String, '$') == NULL
+             ,
              @"AkvcExtension:\n  Predicate, subkey, regkey are disable in KeysAccessor.");
     
     
-    NSEnumerator*   enumerator  = [[_stringValue componentsSeparatedByString:@","] objectEnumerator];
+    NSEnumerator*   enumerator  = [[content componentsSeparatedByString:@","] objectEnumerator];
     id              path , ret;
     NSMutableArray* results     = [NSMutableArray array];
     while ((path = enumerator.nextObject)) {
@@ -112,6 +117,7 @@
 
 - (NSUInteger)predicateArgumentCount
 {
+    static NSMutableDictionary* _cachedFormatCount;
     
     static NSCharacterSet* _formatKeyChars;
     static NSCharacterSet* _formatNumberChars;
@@ -128,8 +134,14 @@
         _formatKeyChars = [NSCharacterSet characterSetWithCharactersInString:@"@dDuUxXoOfeEgGcCsSpsAFp"];
         
         _formatNumberChars = [NSCharacterSet decimalDigitCharacterSet];
+        
+        _cachedFormatCount = [NSMutableDictionary dictionary];
     });
     
+    if(_cachedFormatCount[_stringValue] != nil){
+        
+        return [_cachedFormatCount[_stringValue] unsignedIntegerValue];
+    }
     /**
      
      %-n.nlX
@@ -139,8 +151,11 @@
      
      */
     
-    if([_stringValue rangeOfString:@"%"].length == 0)
+    if(strchr([_stringValue UTF8String], '%') == NULL){
+        
+        _cachedFormatCount[_stringValue] = [NSNumber numberWithUnsignedInteger:0];
         return 0;
+    }
     
     __block NSUInteger  count           = 0;
     __block NSUInteger  searchStep      = 0;
@@ -268,7 +283,7 @@
         
     }];
     
-
+    _cachedFormatCount[_stringValue] = [NSNumber numberWithUnsignedInteger:count];
     return count;
 }
 
@@ -280,7 +295,7 @@
 
 - (BOOL)isKeyPath
 {
-    return [_stringValue containsString:@"."];
+    return strchr([_stringValue UTF8String], '.');
 }
 
 

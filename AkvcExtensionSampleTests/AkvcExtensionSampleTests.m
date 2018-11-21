@@ -112,9 +112,16 @@
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
 
+//    [self.alice akvc_valueForExtensionPath:@"dogs"];
+    [self.alice akvc_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
+    
     [self measureBlock:^{
         
-        [self.alice akvc_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
+        //no chache
+        //0.001421, 0.000446, 0.000279, 0.000307, 0.000260, 0.000246, 0.000224, 0.000224, 0.000193, 0.000229
+//        [self.alice akvc_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
+        //cache
+        //0.000094, 0.000030, 0.000021, 0.000018, 0.000017, 0.000017, 0.000017, 0.000016, 0.000016, 0.000015
     }];
 }
 
