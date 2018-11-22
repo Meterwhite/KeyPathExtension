@@ -21,6 +21,7 @@
 ```ruby
 pod 'AkvcExtension'
 ```
+* `iOS` & `macOS`
 
 # <a id="Overview"></a> Overview
 ### Examples
@@ -69,6 +70,8 @@ PredicateFilter    :   @:...!
 PredicateEvaluate  :   @:...?
 -------------------------------------
 ```
+---
+
 
 ## <a id="StructPath"></a> StructPath
 ###  StructPath can access the structure.

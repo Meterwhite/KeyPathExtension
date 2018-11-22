@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451B7B0521A67E2A00C0F754 /* NSInvocation+AkvcCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 451B7B0421A67E2A00C0F754 /* NSInvocation+AkvcCategory.m */; };
 		451B7B0821A681EA00C0F754 /* NSObject+AkvcCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 451B7B0721A681EA00C0F754 /* NSObject+AkvcCategory.m */; };
 		45E2D65321A2A3CE00212CBB /* AkvcExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */; };
 		9F7D4C41219FDC9A002B2B48 /* AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */; };
@@ -42,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		451B7B0321A67E2A00C0F754 /* NSInvocation+AkvcCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+AkvcCategory.h"; sourceTree = "<group>"; };
-		451B7B0421A67E2A00C0F754 /* NSInvocation+AkvcCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+AkvcCategory.m"; sourceTree = "<group>"; };
 		451B7B0621A681EA00C0F754 /* NSObject+AkvcCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+AkvcCategory.h"; sourceTree = "<group>"; };
 		451B7B0721A681EA00C0F754 /* NSObject+AkvcCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AkvcCategory.m"; sourceTree = "<group>"; };
 		45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtensionConst.m; sourceTree = "<group>"; };
@@ -129,8 +126,6 @@
 				9F7D4C2B219FDC9A002B2B48 /* AkvcClass.m */,
 				451B7B0621A681EA00C0F754 /* NSObject+AkvcCategory.h */,
 				451B7B0721A681EA00C0F754 /* NSObject+AkvcCategory.m */,
-				451B7B0321A67E2A00C0F754 /* NSInvocation+AkvcCategory.h */,
-				451B7B0421A67E2A00C0F754 /* NSInvocation+AkvcCategory.m */,
 			);
 			path = AkvcClass;
 			sourceTree = "<group>";
@@ -319,7 +314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F7D4C48219FDC9A002B2B48 /* AkvcPathReader.m in Sources */,
-				451B7B0521A67E2A00C0F754 /* NSInvocation+AkvcCategory.m in Sources */,
 				9F7D4C4B219FDC9A002B2B48 /* Food.m in Sources */,
 				9F7D4C42219FDC9A002B2B48 /* NSValue+AkvcExtension.m in Sources */,
 				451B7B0821A681EA00C0F754 /* NSObject+AkvcCategory.m in Sources */,

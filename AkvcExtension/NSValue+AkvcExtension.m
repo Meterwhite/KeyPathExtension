@@ -366,10 +366,26 @@ static NSDictionary* _akvc_struct_getmap;
                       return [NSNumber numberWithDouble:[value edgeInsetsValue].right];
                   }
                   }
-          // <>_<>
+          ,@(@encode(CATransform3D))    :   @{
+                  @"m11":Block_GetStructValueForPath_ReNumber(CATransform3D,m11,Double),
+                  @"m12":Block_GetStructValueForPath_ReNumber(CATransform3D,m12,Double),
+                  @"m13":Block_GetStructValueForPath_ReNumber(CATransform3D,m13,Double),
+                  @"m14":Block_GetStructValueForPath_ReNumber(CATransform3D,m14,Double),
+                  @"m21":Block_GetStructValueForPath_ReNumber(CATransform3D,m21,Double),
+                  @"m22":Block_GetStructValueForPath_ReNumber(CATransform3D,m22,Double),
+                  @"m23":Block_GetStructValueForPath_ReNumber(CATransform3D,m23,Double),
+                  @"m24":Block_GetStructValueForPath_ReNumber(CATransform3D,m24,Double),
+                  @"m31":Block_GetStructValueForPath_ReNumber(CATransform3D,m31,Double),
+                  @"m32":Block_GetStructValueForPath_ReNumber(CATransform3D,m32,Double),
+                  @"m33":Block_GetStructValueForPath_ReNumber(CATransform3D,m33,Double),
+                  @"m34":Block_GetStructValueForPath_ReNumber(CATransform3D,m34,Double),
+                  @"m41":Block_GetStructValueForPath_ReNumber(CATransform3D,m41,Double),
+                  @"m42":Block_GetStructValueForPath_ReNumber(CATransform3D,m42,Double),
+                  @"m43":Block_GetStructValueForPath_ReNumber(CATransform3D,m43,Double),
+                  @"m44":Block_GetStructValueForPath_ReNumber(CATransform3D,m44,Double),
+                  }
+          
           };
-        
-        
 #endif
     }
     return _akvc_struct_getmap;
@@ -481,6 +497,114 @@ static NSDictionary* _akvc_struct_setmap;
         
 #elif TARGET_OS_MAC
         
+        _akvc_struct_setmap =
+        @{
+          @(@encode(NSRect))   :   @{
+                  @"size":^(NSValue* value, NSValue* newValue){
+                      
+                      NSRect aValue = [value rectValue];
+                      aValue.size = [newValue sizeValue];
+                      return [NSValue valueWithRect:aValue];
+                  } ,
+                  @"origin":^(NSValue* value, NSValue* newValue){
+                      
+                      NSRect aValue = [value rectValue];
+                      aValue.origin = [newValue pointValue];
+                      return [NSValue valueWithRect:aValue];
+                  }
+                  }
+          ,
+          @(@encode(NSPoint))   :   @{
+                  @"x":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSPoint aValue = [value pointValue];
+                      aValue.x = [newValue doubleValue];
+                      return [NSValue valueWithPoint:aValue];
+                  } ,
+                  @"y":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSPoint aValue = [value pointValue];
+                      aValue.y = [newValue doubleValue];
+                      return [NSValue valueWithPoint:aValue];
+                  }
+                  }
+          ,
+          @(@encode(NSSize))   :   @{
+                  @"width":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSSize aValue = [value sizeValue];
+                      aValue.width = [newValue doubleValue];
+                      return [NSValue valueWithSize:aValue];
+                  } ,
+                  @"height":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSSize aValue = [value sizeValue];
+                      aValue.height = [newValue doubleValue];
+                      return [NSValue valueWithSize:aValue];
+                  }
+                  }
+          ,
+          @(@encode(NSRange))   :   @{
+                  @"location":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSRange aValue = [value rangeValue];
+                      aValue.location = [newValue doubleValue];
+                      return [NSValue valueWithRange:aValue];
+                  } ,
+                  @"length":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSRange aValue = [value rangeValue];
+                      aValue.length = [newValue doubleValue];
+                      return [NSValue valueWithRange:aValue];
+                  }
+                  }
+          ,
+          @(@encode(NSEdgeInsets))   :   @{
+                  @"top":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSEdgeInsets aValue = [value edgeInsetsValue];
+                      aValue.top = [newValue doubleValue];
+                      return [NSValue valueWithEdgeInsets:aValue];
+                  } ,
+                  @"left":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSEdgeInsets aValue = [value edgeInsetsValue];
+                      aValue.left = [newValue doubleValue];
+                      return [NSValue valueWithEdgeInsets:aValue];
+                  } ,
+                  @"bottom":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSEdgeInsets aValue = [value edgeInsetsValue];
+                      aValue.bottom = [newValue doubleValue];
+                      return [NSValue valueWithEdgeInsets:aValue];
+                  } ,
+                  @"right":^(NSValue* value, NSNumber* newValue){
+                      
+                      NSEdgeInsets aValue = [value edgeInsetsValue];
+                      aValue.right = [newValue doubleValue];
+                      return [NSValue valueWithEdgeInsets:aValue];
+                  }
+                  }
+          ,
+          @(@encode(CATransform3D))    :   @{
+                  @"m11":Block_SetStructValueForPath(CATransform3D,m11,double),
+                  @"m12":Block_SetStructValueForPath(CATransform3D,m12,double),
+                  @"m13":Block_SetStructValueForPath(CATransform3D,m13,double),
+                  @"m14":Block_SetStructValueForPath(CATransform3D,m14,double),
+                  @"m21":Block_SetStructValueForPath(CATransform3D,m21,double),
+                  @"m22":Block_SetStructValueForPath(CATransform3D,m22,double),
+                  @"m23":Block_SetStructValueForPath(CATransform3D,m23,double),
+                  @"m24":Block_SetStructValueForPath(CATransform3D,m24,double),
+                  @"m31":Block_SetStructValueForPath(CATransform3D,m31,double),
+                  @"m32":Block_SetStructValueForPath(CATransform3D,m32,double),
+                  @"m33":Block_SetStructValueForPath(CATransform3D,m33,double),
+                  @"m34":Block_SetStructValueForPath(CATransform3D,m34,double),
+                  @"m41":Block_SetStructValueForPath(CATransform3D,m41,double),
+                  @"m42":Block_SetStructValueForPath(CATransform3D,m42,double),
+                  @"m43":Block_SetStructValueForPath(CATransform3D,m43,double),
+                  @"m44":Block_SetStructValueForPath(CATransform3D,m44,double),
+                  }
+          };
         
 #endif
     }

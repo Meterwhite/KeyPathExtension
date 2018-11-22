@@ -10,8 +10,6 @@
 #import <Foundation/Foundation.h>
 
 
-
-
 @interface NSObject(AkvcClass)
 
 /**

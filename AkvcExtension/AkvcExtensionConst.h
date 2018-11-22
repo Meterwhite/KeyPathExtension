@@ -30,24 +30,9 @@
 /**
  *  Types
  */
-FOUNDATION_EXPORT NSString *const AkvcTypeInt;
-FOUNDATION_EXPORT NSString *const AkvcTypeShort;
-FOUNDATION_EXPORT NSString *const AkvcTypeFloat;
-FOUNDATION_EXPORT NSString *const AkvcTypeDouble;
-FOUNDATION_EXPORT NSString *const AkvcTypeLong;
-FOUNDATION_EXPORT NSString *const AkvcTypeLongLong;
-FOUNDATION_EXPORT NSString *const AkvcTypeChar;
-FOUNDATION_EXPORT NSString *const AkvcTypeBOOL1;
-FOUNDATION_EXPORT NSString *const AkvcTypeBOOL2;
-FOUNDATION_EXPORT NSString *const AkvcTypePointer;
-
 FOUNDATION_EXPORT NSString *const AkvcTypeIvar;
 FOUNDATION_EXPORT NSString *const AkvcTypeMethod;
-FOUNDATION_EXPORT NSString *const AkvcTypeBlock;
-FOUNDATION_EXPORT NSString *const AkvcTypeClass;
 FOUNDATION_EXPORT NSString *const AkvcTypeSEL;
-FOUNDATION_EXPORT NSString *const AkvcTypeId;
-
 FOUNDATION_EXPORT NSString *const AkvcPropertyReadonly;
 FOUNDATION_EXPORT NSString *const AkvcPropertyVoid;
 

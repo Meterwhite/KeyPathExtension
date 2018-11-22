@@ -295,7 +295,7 @@
 
 - (BOOL)isKeyPath
 {
-    return strchr([_stringValue UTF8String], '.');
+    return !!strchr([_stringValue UTF8String], '.');
 }
 
 
