@@ -6,11 +6,13 @@
     2. Using Predicate in the KeyPath
     3. Implementing custom function or @NSKeyValueOperator(@avg, @count, ...).
     4. Perform type-safe checks directly in the KeyPath.
+    5. One start, more length.
 - 用较少的代码描述复杂的逻辑，减少程序员做功
     1. 在KVC中直接访问结构体成员
     2. 在KVC中使用谓词
     3. 实现自定义函数或@NSKeyValueOperator(@avg, @count, ...)
     4. 在KVC中直接进行类型安全的检查
+    5. 随手一赞，好运百万
 
 # Import
 * Drag all source files under folder `AkvcExtension` to your project.
