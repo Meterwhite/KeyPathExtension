@@ -26,9 +26,11 @@ pod 'AkvcExtension'
 ### Examples
 ```objc
 
-[... akvc_valueForExtensionPath:@"....frame->size->width"];
+[... akvc_setValue:@(100) forExtensionPath:@"....frame->size->width"];
 
 [... akvc_setValue:@(YES) forExtensionPath:@"...dogs.@:age<1!.smallDog"];
+
+[... akvc_valueForExtensionPath:@"view.subviews.@:hidden == YES!.@removeFromSuperview"];
 
 ```
 
@@ -36,7 +38,7 @@ pod 'AkvcExtension'
 + [ExtensionPath](#ExtensionPath)
     + [StructPath](#StructPath)
     + [Indexer](#Indexer)
-    + [PathFunction](#PathFunction) , [Regist PathFunction](#Regist_PathFunction) , [Default PathFunction](#Default_PathFunction)
+    + [PathFunction](#PathFunction) , [Regist PathFunction](#Regist_PathFunction) , [Default PathFunction](#Default_PathFunction) , [Default behavior](#Default_behavior)
     + [Subkey](#Subkey)
     + [Regkey](#Regkey)
     + [SELInspector](#SELInspector)
@@ -109,14 +111,25 @@ It's wrong : @[0,!1] ;
 name
 --------------------
 @nslog
-@firstObject
-@lastObject
 @isNSNull
-@isTure
-@isFalse
 @isAllEqual
 @isAllDifferent
 --------------------
+```
+### <a id="Default_behavior"></a>Default behavior
+- When an unregistered method is called, the function name is called as selector name. Returns if there is a return value, if no returns the target itself.
+```objc
+id viewThatRemoved = [... akvc_valueForExtensionPath:@"view.@removeFromSuperview"];
+```
+- It is legal to use a method with parameters, but it is not recommended. All parameters are the default values.
+```objc
+id mulArraySelf = [mulArray akvc_valueForExtensionPath:@"@removeObjectAtIndex:.@removeObjectAtIndex:"];
+
+Equivalent ==> 
+
+[mulArray removeObjectAtIndex:0];
+[mulArray removeObjectAtIndex:0];
+id mulArraySelf = mulArray;
 ```
 
 ## <a id="Subkey"></a> Subkey

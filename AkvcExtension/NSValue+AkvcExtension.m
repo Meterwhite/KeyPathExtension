@@ -8,31 +8,36 @@
 //
 
 #import "NSValue+AkvcExtension.h"
-#import <UIKit/UIKit.h>
+#import "AkvcExtensionConst.h"
 
 
-#ifndef Block_GetStructValueForPath_ReValue
-#define Block_GetStructValueForPath_ReValue(from,path,to)\
+
+#define Block_GetStructValueForPath_ReValue(from,path,to)   \
+\
 ^(NSValue* value){\
+    \
     return [NSValue valueWith##to:[value from##Value].path];\
 }
-#endif
 
-#ifndef Block_GetStructValueForPath_ReNumber
-#define Block_GetStructValueForPath_ReNumber(from,path,to)\
+
+
+#define Block_GetStructValueForPath_ReNumber(from,path,to)  \
+\
 ^(NSValue* value){\
+    \
     return [NSNumber numberWith##to:[value from##Value].path];\
 }
-#endif
 
-#ifndef Block_SetStructValueForPath
-#define Block_SetStructValueForPath(type,path,vType)\
+
+
+#define Block_SetStructValueForPath(type,path,vType)    \
+\
 ^(NSValue* _self,id value){\
-    type identify = [_self type##Value];\
-    identify.path = [value vType##Value];\
-    return [NSValue valueWith##type:identify];\
+    \
+    type identify = [_self type##Value];        \
+    identify.path = [value vType##Value];       \
+    return [NSValue valueWith##type:identify];  \
 }
-#endif
 
 
 @implementation NSValue(NSValueAkvcExtension)
@@ -231,6 +236,7 @@ static NSDictionary* _akvc_struct_getmap;
 {
     if(!_akvc_struct_getmap){
         
+#if TARGET_OS_IPHONE || TARGET_OS_TV
         _akvc_struct_getmap =
         @{
           @(@encode(CGRect))    :   @{
@@ -306,6 +312,65 @@ static NSDictionary* _akvc_struct_getmap;
               };
             _akvc_struct_getmap = map.copy;
         }
+        
+#elif TARGET_OS_MAC
+        _akvc_struct_getmap =
+        @{
+          @(@encode(NSRect))   :   @{
+                  @"size":^(NSValue* value){
+                      return [NSValue valueWithSize:[value rectValue].size];
+                  } ,
+                  @"origin":^(NSValue* value){
+                      return [NSValue valueWithPoint:[value rectValue].origin];
+                  }
+                  }
+          ,
+          @(@encode(NSPoint))   :   @{
+                  @"x":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value pointValue].x];
+                  } ,
+                  @"y":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value pointValue].y];
+                  }
+                  }
+          ,
+          @(@encode(NSSize))   :   @{
+                  @"width":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value sizeValue].width];
+                  } ,
+                  @"height":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value sizeValue].height];
+                  }
+                  }
+          ,
+          @(@encode(NSRange))   :   @{
+                  @"location":^(NSValue* value){
+                      return [NSNumber numberWithUnsignedInteger:[value rangeValue].location];
+                  } ,
+                  @"length":^(NSValue* value){
+                      return [NSNumber numberWithUnsignedInteger:[value rangeValue].length];
+                  }
+                  }
+          ,
+          @(@encode(NSEdgeInsets))   :   @{
+                  @"top":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value edgeInsetsValue].top];
+                  } ,
+                  @"left":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value edgeInsetsValue].left];
+                  } ,
+                  @"bottom":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value edgeInsetsValue].bottom];
+                  } ,
+                  @"right":^(NSValue* value){
+                      return [NSNumber numberWithDouble:[value edgeInsetsValue].right];
+                  }
+                  }
+          // <>_<>
+          };
+        
+        
+#endif
     }
     return _akvc_struct_getmap;
 }
@@ -314,6 +379,8 @@ static NSDictionary* _akvc_struct_setmap;
 + (NSDictionary*)pathMapForSetStructValue_AKVC
 {
     if(!_akvc_struct_setmap){
+        
+#if TARGET_OS_IPHONE || TARGET_OS_TV
         
         _akvc_struct_setmap =
         @{
@@ -411,6 +478,11 @@ static NSDictionary* _akvc_struct_setmap;
               };
             _akvc_struct_setmap = map.copy;
         }
+        
+#elif TARGET_OS_MAC
+        
+        
+#endif
     }
     return _akvc_struct_setmap;
 }

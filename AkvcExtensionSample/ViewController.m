@@ -17,6 +17,7 @@
 
 @interface ViewController ()
 @property (nonatomic,strong) id warning;
+@property (nonatomic,weak) id dog;
 @end
 
 @implementation ViewController
@@ -25,6 +26,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    Person* alice = [Person new];
+    Dog* dog = [Dog new];
+    self.dog = dog;
+    dog.name = @"SB";
+    alice.dogs = [NSMutableArray arrayWithObjects:dog,nil];
+    
+    
+    __weak id xx = [alice akvc_valueForExtensionPath:@"dogs.@retainCount"];
+    
+    NSLog(@"retainCount = %@", [xx valueForKey:@"retainCount"]);
+    NSLog(@"END");
 }
 
 

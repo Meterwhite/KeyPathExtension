@@ -75,8 +75,11 @@
         if([self superclass] == [NSObject class]       ||
            [self superclass] == [AKVC_RESPONDER class] ||
            [self superclass] == [AKVC_VIEW class]      ||
-           [self superclass] == [CALayer class]        ||
-           [self superclass] == [CAAnimation class]    
+           [self superclass] == [CALayer class]
+           #if TARGET_OS_IPHONE || TARGET_OS_TV
+                                                       ||
+           [self superclass] == [CAAnimation class]
+           #endif
            ){
             
             if(([object isEqualToString:@"NS"])     ||

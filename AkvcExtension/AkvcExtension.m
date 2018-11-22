@@ -7,6 +7,7 @@
 //  https://github.com/qddnovo/AkvcExtension
 //
 
+#import "NSObject+AkvcCategory.h"
 #import "AkvcExtensionPath.h"
 #import "AkvcExtension.h"
 
@@ -62,24 +63,13 @@ static NSMutableDictionary* _akvc_path_function_map;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        _akvc_block_pathFunction = ^id(id target){
+        _akvc_block_pathFunction = ^id (id target){
             
-            SEL sel = NSSelectorFromString(name);
-            NSMethodSignature *signature = [[target class] instanceMethodSignatureForSelector:sel];
+            return
             
-            NSAssert(signature != nil, @"AkvcExtension:\n Unknown Method: %@", name);
-            
-            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-            invocation.target = target;
-            invocation.selector = sel;
-            [invocation invoke];
-            id __unsafe_unretained returnValue;
-            if (signature.methodReturnLength) {
-                
-                [invocation getReturnValue:&returnValue];
-            }
-            
-            return returnValue?:target;
+            [target akvc_performSelector:NSSelectorFromString(name)]
+            ?:
+            target;
         };
         
     });
@@ -90,13 +80,6 @@ static NSMutableDictionary* _akvc_path_function_map;
 + (void)_akvc_regist_privateFunction
 {
     
-//    [self registFunction:@"firstObject" withBlock:^id(id target) {
-//        return [target firstObject];
-//    }];
-//    
-//    [self registFunction:@"lastObject" withBlock:^id(id target) {
-//        return [target lastObject];
-//    }];
     
     [self registFunction:@"isNSNull" withBlock:^id(id target) {
         return @(target == [NSNull null]);
