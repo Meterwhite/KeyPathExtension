@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "AkvcExtension"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = 'An extension of KeyPath for KVC.Describe complex logic with less code in KeyPath.Reduce programmer doing work.'
   s.homepage     = 'https://github.com/qddnovo/AkvcExtension'
   s.license      = 'MIT'

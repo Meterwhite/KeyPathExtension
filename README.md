@@ -249,7 +249,7 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 ```
 
 # <a id="Chain_programming"></a> Chain programming
-## `NSObject+AkvcExtensionChain.h` defines the API for chained programming.The return value of all setter is target itself.
+-  `NSObject+AkvcExtensionChain.h` defines the API for chained programming.The return value of all setter is target itself.
 ```objc
 _NonnullObject.akvcSetValueForExtensionPath(...)akvcSetValueForExtensionPath(...)...
 ```
