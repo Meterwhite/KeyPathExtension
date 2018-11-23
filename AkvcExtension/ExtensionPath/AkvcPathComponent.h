@@ -110,7 +110,7 @@ typedef enum AkvcPathComponentType{
 
 
 #pragma mark - Path function component
-- (id _Nullable)callFunctionByTarget:(id _Nullable)target;
+- (id _Nullable)callPathFunctionByTarget:(id _Nullable)target;
 
 
 #pragma mark - Keys component

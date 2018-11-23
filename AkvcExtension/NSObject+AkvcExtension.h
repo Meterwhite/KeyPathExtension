@@ -207,6 +207,14 @@
  Refer to : akvc_valueForExtensionPathWithPredicateFormat:
  */
 - (void)akvc_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
+
+/**
+ Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ */
+- (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(1,0);
+
+/**
+ Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ */
+- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(2,0);
 @end
-
-

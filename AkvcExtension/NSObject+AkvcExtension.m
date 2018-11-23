@@ -195,15 +195,16 @@
     if(extendPathWithPredicateFormat == nil)
         return;
     
-    NSMutableArray*         argObjects;
+    NSMutableArray*         argObjects  = nil;
     if(!!arguments){
         
         ///ArgumentList
         argObjects = [NSMutableArray new];
-        id                  argObject;
+        id                  argObject   = nil;
         while ((argObject = va_arg(arguments, id))) {
             [argObjects addObject:argObject];
         }
+        va_end(arguments);
     }
     
     NSUInteger  indexForArgument    = 0;
@@ -341,7 +342,7 @@
             
             if(nextComponent){
                 
-                _self = [currentComponent callFunctionByTarget:_self];
+                _self = [currentComponent callPathFunctionByTarget:_self];
             }else{
                 
                 NSAssert(NO, @"AkvcExtension:\n  PathFunction unable be set.");
@@ -380,8 +381,6 @@
             }
         }
     }
-    
-    va_end(arguments);
 }
 
 - (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments
@@ -389,13 +388,15 @@
     if(extendPathWithPredicateFormat == nil) return nil;
     
     ///ArgumentList
-    NSMutableArray* argObjects = [NSMutableArray new];
-    id              argObject;
-    while ((argObject = va_arg(arguments, id))) {
-        [argObjects addObject:argObject];
+    NSMutableArray*     argObjects  = nil;
+    if(!!arguments){
+        argObjects = [NSMutableArray new];
+        id              argObject   = nil;
+        while ((argObject = va_arg(arguments, id))) {
+            [argObjects addObject:argObject];
+        }
+        va_end(arguments);
     }
-    
-    
     
     NSUInteger   indexForArgument = 0;
     id          _self             = self;
@@ -486,7 +487,7 @@
         }
         else if(currentComponent.componentType & AkvcPathComponentPathFunction){
             
-            _self = [currentComponent callFunctionByTarget:_self];
+            _self = [currentComponent callPathFunctionByTarget:_self];
         }
         else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
             
@@ -521,8 +522,6 @@
             }
         }
     }
-    
-    va_end(arguments);
     
     return _self;
 }

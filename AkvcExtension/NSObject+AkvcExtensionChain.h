@@ -11,16 +11,24 @@
 
 #define AkvcBlock (nonatomic,copy,readonly)
 
+/**
+ This file defines the API for chained programming.The return value of all setter is target itself.
+ 
+ Example -
+ :
+ _NonnullObject.akvcSetValueForExtensionPath(...)akvcSetValueForExtensionPath(...)...
+ 
+ */
 @interface NSObject(NSObjectAkvcExtensionChain)
 
 @property AkvcBlock NSObject*(^akvcValueForFullPath)(NSString* _Nonnull fullPath);
 @property AkvcBlock NSObject*(^akvcSetValueForFullPath)(id _Nullable value, NSString* _Nonnull fullPath);
 
 
-@property AkvcBlock NSObject*(^akvcValueForSubkey)(NSString* _Nonnull subkey);
+@property AkvcBlock NSArray *(^akvcValuesForSubkey)(NSString* _Nonnull subkey);
 @property AkvcBlock NSObject*(^akvcSetValueForSubkey)(id _Nullable value, NSString* _Nonnull subkey);
 
-@property AkvcBlock NSObject*(^akvcValueForRegkey)(NSString* _Nonnull regkey);
+@property AkvcBlock NSArray *(^akvcValuesForRegkey)(NSString* _Nonnull regkey);
 @property AkvcBlock NSObject*(^akvcSetValueForRegkey)(id _Nullable value, NSString* _Nonnull regkey);
 
 @property AkvcBlock NSObject*(^akvcValueForExtensionPath)(NSString* _Nonnull extensionPath);

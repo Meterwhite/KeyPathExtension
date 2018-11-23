@@ -7,6 +7,7 @@
 //  https://github.com/qddnovo/AkvcExtension
 //
 
+#import "NSObject+AkvcExtensionChain.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import "NSObject+AkvcExtension.h"
 #import "NSValue+AkvcExtension.h"
@@ -46,7 +47,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  @param name Function name
  @param block Target is the object that calls this block.
  */
-+ (void)registFunction:(NSString* _Nonnull)name withBlock:(id(^)(id _Nullable target))block;
++ (void)registFunction:(NSString* _Nonnull)name withBlock:(id (^) (id _Nullable target))block;
 
 
 /**
@@ -98,5 +99,5 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
 /**
  Get path function from AkvcExtension
  */
-+ (id(^)(id target))pathFunctionNamed:(NSString* _Nonnull)name;
++ (id (^) (id target))pathFunctionNamed:(NSString* _Nonnull)name;
 @end

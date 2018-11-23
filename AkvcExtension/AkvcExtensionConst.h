@@ -6,20 +6,22 @@
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 
 #import <UIKit/UIKit.h>
-#define AKVC_VIEW UIView
-#define AKVC_RESPONDER UIResponder
+#define AKVC_VIEW           UIView
+#define AKVC_RESPONDER      UIResponder
+#define AKVC_EDGEINSETS     UIEdgeInsets
 
 #elif TARGET_OS_MAC
 
 #import <AppKit/AppKit.h>
-#define AKVC_VIEW NSView
-#define AKVC_RESPONDER NSResponder
+#define AKVC_VIEW           NSView
+#define AKVC_RESPONDER      NSResponder
+#define AKVC_EDGEINSETS     NSEdgeInsets
 
 #endif
 
 //Log
 #ifdef DEBUG
-#define AkvcLog(...) NSLog(__VA_ARGS__)
+#define AkvcLog(...)        NSLog(__VA_ARGS__)
 #else
 #define AkvcLog(...)
 #endif
@@ -94,10 +96,54 @@ NS_INLINE id Akvc_boxValue(const char *type, ...) {
     } else if (strcmp(type, @encode(unsigned short)) == 0) {
         unsigned short actual = (unsigned short)va_arg(v, unsigned int);
         obj = [NSNumber numberWithUnsignedShort:actual];
+    } else if (strcmp(type, @encode(AKVC_EDGEINSETS)) == 0) {
+        AKVC_EDGEINSETS actual = (AKVC_EDGEINSETS)va_arg(v, AKVC_EDGEINSETS);
+        obj = [NSValue value:&actual withObjCType:type];
+    } else if (strcmp(type, @encode(CATransform3D)) == 0) {
+        CATransform3D actual = (CATransform3D)va_arg(v, CATransform3D);
+        obj = [NSValue value:&actual withObjCType:type];
     }
+#if TARGET_OS_IPHONE || TARGET_OS_TV
+    else if (strcmp(type, @encode(UIOffset)) == 0) {
+        UIOffset actual = (UIOffset)va_arg(v, UIOffset);
+        obj = [NSValue value:&actual withObjCType:type];
+    } else if (strcmp(type, @encode(CGVector)) == 0) {
+        CGVector actual = (CGVector)va_arg(v, CGVector);
+        obj = [NSValue value:&actual withObjCType:type];
+    } else if (strcmp(type, @encode(CGAffineTransform)) == 0) {
+        CGAffineTransform actual = (CGAffineTransform)va_arg(v, CGAffineTransform);
+        obj = [NSValue value:&actual withObjCType:type];
+    } else if (@available(iOS 11.0, *)) {
+        
+        if (strcmp(type, @encode(NSDirectionalEdgeInsets)) == 0) {
+            NSDirectionalEdgeInsets actual = (NSDirectionalEdgeInsets)va_arg(v, NSDirectionalEdgeInsets);
+            obj = [NSValue value:&actual withObjCType:type];
+        }
+    }
+    
+#endif
+    
     va_end(v);
     return obj;
 }
+
+
+#define akvcValueForExtensionPathWithFormat(path,args...)\
+    \
+    akvcValueForExtensionPathWithFormat(path,##args,nil)
+
+#define akvcSetValueForExtensionPathWithFormat(value,path,args...)\
+    \
+    akvcSetValueForExtensionPathWithFormat(value,path,##args,nil)
+
+#define akvcValueForExtensionPathWithPredicateFormat(path,args...)\
+    \
+    akvcValueForExtensionPathWithPredicateFormat(path,##args,nil)
+
+#define akvcSetValueForExtensionPathWithPredicateFormat(value,path,args...)\
+    \
+    akvcSetValueForExtensionPathWithPredicateFormat(value,path,##args,nil)
+
 
 #endif
 

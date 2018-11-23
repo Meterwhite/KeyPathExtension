@@ -35,6 +35,11 @@ pod 'AkvcExtension'
 
 [... akvc_valueForExtensionPath:@"view.subviews.@:hidden == YES!.@removeFromSuperview"];
 
+///myStarts is outlet collections
+myStarts
+.akvcSetValueForExtensionPath(@(NO), @"seleced")
+.akvcSetValueForExtensionPathWithFormat(@(YES), @"@:tag <= %ld!.seleced", sender.tag);
+
 ```
 
 # Content
@@ -51,6 +56,7 @@ pod 'AkvcExtension'
     + [PredicateEvaluate](#PredicateEvaluate)
 + [Regist custom struct](#Regist_custom_struct)
 + [Clean cache](#Clean_cache)
++ [Chain programming](#Chain_programming)
 
 ---
 
@@ -242,6 +248,11 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 [AkvcExtension cleanCache];
 ```
 
+# <a id="Chain_programming"></a> Chain programming
+## `NSObject+AkvcExtensionChain.h` defines the API for chained programming.The return value of all setter is target itself.
+```objc
+_NonnullObject.akvcSetValueForExtensionPath(...)akvcSetValueForExtensionPath(...)...
+```
 
 # Author
 - Contact or join AkvcExtension : quxingyi@outlook.com

@@ -57,7 +57,6 @@
             dog1.food2 = food;
             
             alice.dogs = [NSMutableArray arrayWithObjects:dog0,dog1,nil];
-            alice.dogs = [NSMutableArray arrayWithObjects:dog0,nil];
         }
     }
     

@@ -8,6 +8,7 @@
 //
 
 #import "NSObject+AkvcCategory.h"
+#import "AkvcPathComponent.h"
 #import "AkvcExtensionPath.h"
 #import "AkvcExtension.h"
 
@@ -21,6 +22,7 @@
 + (void)cleanCache
 {
     [AkvcExtensionPath performSelector:@selector(cleanCache)];
+    [AkvcPathComponent performSelector:@selector(cleanCache)];
 }
 
 static NSMutableDictionary* _akvc_path_function_map;

@@ -53,7 +53,7 @@
     return results;
 }
 
- - (id)callFunctionByTarget:(id)target
+ - (id)callPathFunctionByTarget:(id)target
 {
     if(!target)
         return nil;
@@ -114,10 +114,25 @@
     _functionName = nil;
 }
 
++ (void)cleanCache
+{
+    static dispatch_semaphore_t signalSemaphore;
+    static dispatch_once_t onceTokenSemaphore;
+    dispatch_once(&onceTokenSemaphore, ^{
+        signalSemaphore = dispatch_semaphore_create(1);
+    });
+    
+    dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
+    
+    [_cachedFormatCount removeAllObjects];
+    
+    dispatch_semaphore_signal(signalSemaphore);
+}
+
+static NSMutableDictionary* _cachedFormatCount;
 
 - (NSUInteger)predicateArgumentCount
 {
-    static NSMutableDictionary* _cachedFormatCount;
     
     static NSCharacterSet* _formatKeyChars;
     static NSCharacterSet* _formatNumberChars;
