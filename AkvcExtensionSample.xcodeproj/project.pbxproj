@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		451B7B0821A681EA00C0F754 /* NSObject+AkvcCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 451B7B0721A681EA00C0F754 /* NSObject+AkvcCategory.m */; };
+		451B7BD421A8036000C0F754 /* NSObject+AkvcExtensionChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 451B7BD321A8036000C0F754 /* NSObject+AkvcExtensionChain.m */; };
 		45E2D65321A2A3CE00212CBB /* AkvcExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */; };
 		9F7D4C41219FDC9A002B2B48 /* AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */; };
 		9F7D4C42219FDC9A002B2B48 /* NSValue+AkvcExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D4C27219FDC9A002B2B48 /* NSValue+AkvcExtension.m */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		451B7B0621A681EA00C0F754 /* NSObject+AkvcCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+AkvcCategory.h"; sourceTree = "<group>"; };
 		451B7B0721A681EA00C0F754 /* NSObject+AkvcCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AkvcCategory.m"; sourceTree = "<group>"; };
+		451B7BD221A8036000C0F754 /* NSObject+AkvcExtensionChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+AkvcExtensionChain.h"; sourceTree = "<group>"; };
+		451B7BD321A8036000C0F754 /* NSObject+AkvcExtensionChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AkvcExtensionChain.m"; sourceTree = "<group>"; };
 		45E2D65121A2A3CE00212CBB /* AkvcExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtensionConst.m; sourceTree = "<group>"; };
 		45E2D65221A2A3CE00212CBB /* AkvcExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AkvcExtensionConst.h; sourceTree = "<group>"; };
 		9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AkvcExtension.m; sourceTree = "<group>"; };
@@ -109,6 +112,8 @@
 				9F7D4C25219FDC9A002B2B48 /* AkvcExtension.m */,
 				9F7D4C26219FDC9A002B2B48 /* NSObject+AkvcExtension.h */,
 				9F7D4C29219FDC9A002B2B48 /* NSObject+AkvcExtension.m */,
+				451B7BD221A8036000C0F754 /* NSObject+AkvcExtensionChain.h */,
+				451B7BD321A8036000C0F754 /* NSObject+AkvcExtensionChain.m */,
 				9F7D4C39219FDC9A002B2B48 /* NSValue+AkvcExtension.h */,
 				9F7D4C27219FDC9A002B2B48 /* NSValue+AkvcExtension.m */,
 				45E2D65221A2A3CE00212CBB /* AkvcExtensionConst.h */,
@@ -325,6 +330,7 @@
 				9F7D4C43219FDC9A002B2B48 /* NSObject+AkvcExtension.m in Sources */,
 				9F7D4C46219FDC9A002B2B48 /* AkvcPathReadNode.m in Sources */,
 				9F7D4C4A219FDC9A002B2B48 /* Person.m in Sources */,
+				451B7BD421A8036000C0F754 /* NSObject+AkvcExtensionChain.m in Sources */,
 				9F7D4C44219FDC9A002B2B48 /* AkvcClass.m in Sources */,
 				9F7D4C4C219FDC9A002B2B48 /* Dog.m in Sources */,
 				45E2D65321A2A3CE00212CBB /* AkvcExtensionConst.m in Sources */,

@@ -136,49 +136,75 @@
 
 - (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPath, nil];
+    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPath arguments:nil];
 }
 
 - (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPath, nil];
+    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPath arguments:nil];
 }
 
 - (id)akvc_valueForExtensionPathWithFormat:(NSString *)extensionPathWithFormat, ...
 {
-    va_list args;
-    va_start(args, extensionPathWithFormat);
-    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:args];
-    va_arg(args, id);
+    va_list arguments;
     
-    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
+    va_start(arguments, extensionPathWithFormat);
+    
+    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:arguments];
+    
+    
+    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
 }
 
 - (void)akvc_setValue:(id)value forExtensionPathWithFormat:(NSString * _Nonnull)extensionPathWithFormat, ...
 {
-    va_list args;
-    va_start(args, extensionPathWithFormat);
-    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:args];
-    va_arg(args, id);
+    va_list arguments;
     
-    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat, nil];
+    va_start(arguments, extensionPathWithFormat);
+    
+    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:arguments];
+    
+    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
 }
 
 - (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
 {
     
+    va_list     args;
+    
+    va_start(args, extendPathWithPredicateFormat);
+    
+    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
+              arguments:args];
+}
+
+
+- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
+{
+    va_list     args;
+
+    va_start(args, extendPathWithPredicateFormat);
+    
+    return [self akvc_valueForExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
+                                                     arguments:args];
+}
+
+
+- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments
+{
     if(extendPathWithPredicateFormat == nil)
         return;
     
-    ///ArgumentList
-    NSMutableArray*     arguments = [NSMutableArray new];
-    va_list             args;
-    id                  arg;
-    va_start(args, extendPathWithPredicateFormat);
-    while ((arg = va_arg(args, id))) {
-        [arguments addObject:arg];
+    NSMutableArray*         argObjects;
+    if(!!arguments){
+        
+        ///ArgumentList
+        argObjects = [NSMutableArray new];
+        id                  argObject;
+        while ((argObject = va_arg(arguments, id))) {
+            [argObjects addObject:argObject];
+        }
     }
-    va_arg(args, id);
     
     NSUInteger  indexForArgument    = 0;
     
@@ -295,7 +321,7 @@
                 NSUInteger argCount = currentComponent.predicateArgumentCount;
                 NSPredicate* predicate =
                 [NSPredicate predicateWithFormat:currentComponent.predicateString
-                                   argumentArray:[arguments subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
+                                   argumentArray:[argObjects subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
                 indexForArgument += argCount;
                 
                 if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
@@ -314,7 +340,7 @@
         else if(currentComponent.componentType & AkvcPathComponentPathFunction){
             
             if(nextComponent){
-            
+                
                 _self = [currentComponent callFunctionByTarget:_self];
             }else{
                 
@@ -355,22 +381,20 @@
         }
     }
     
-    va_end(args);
+    va_end(arguments);
 }
 
-- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
+- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments
 {
     if(extendPathWithPredicateFormat == nil) return nil;
     
     ///ArgumentList
-    NSMutableArray* arguments = [NSMutableArray new];
-    va_list         args;
-    id              arg;
-    va_start(args, extendPathWithPredicateFormat);
-    while ((arg = va_arg(args, id))) {
-        [arguments addObject:arg];
+    NSMutableArray* argObjects = [NSMutableArray new];
+    id              argObject;
+    while ((argObject = va_arg(arguments, id))) {
+        [argObjects addObject:argObject];
     }
-    va_arg(args, id);
+    
     
     
     NSUInteger   indexForArgument = 0;
@@ -411,7 +435,7 @@
             _self = [_self valueForKey:currentComponent.stringValue];
         }
         else if(currentComponent.componentType & AkvcPathComponentStructKeyPath){
-
+            
             ///Get struct value for NSValue.
             if(currentComponent.isKeyPath){
                 
@@ -438,7 +462,7 @@
             NSUInteger      argCount    = currentComponent.predicateArgumentCount;
             NSPredicate*    predicate
             = [NSPredicate predicateWithFormat:currentComponent.predicateString
-                                 argumentArray:[arguments subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
+                                 argumentArray:[argObjects subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
             indexForArgument += argCount;
             
             if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
@@ -477,7 +501,7 @@
                 
                 if([currentComponent callSELInspectorByTarget:_self])
                     continue;
-                    
+                
                 _self = nil;
                 break;
             }
@@ -491,14 +515,14 @@
                 
                 if([currentComponent callClassInspectorByTarget:_self])
                     continue;
-                    
+                
                 _self = nil;
                 break;
             }
         }
     }
     
-    va_end(args);
+    va_end(arguments);
     
     return _self;
 }
