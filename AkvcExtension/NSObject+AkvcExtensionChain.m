@@ -14,236 +14,122 @@
 
 - (NSObject *(^)(NSString * _Nonnull))akvcValueForFullPath
 {
-    static id _akvc_block_akvcValueForFullPath;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^id(NSString* k){
         
-        _akvc_block_akvcValueForFullPath = ^id(NSString* k){
-            
-            return [self akvc_valueForFullPath:k];
-        };
-    });
-    
-    return _akvc_block_akvcValueForFullPath;
+        return [self akvc_valueForFullPath:k];
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForFullPath
 {
-    static id _akvc_block_akvcSetValueForFullPath;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^id(id v, NSString* k){
         
-        _akvc_block_akvcSetValueForFullPath = ^id(id v, NSString* k){
-            
-            [self akvc_setValue:v forFullPath:k];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForFullPath;
+        [self akvc_setValue:v forFullPath:k];
+        return self;
+    };
 }
 
 - (NSArray *(^)(NSString * _Nonnull))akvcValuesForSubkey
 {
-    static id _akvc_block_akvcValuesForSubkey;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (NSString* k) {
         
-        _akvc_block_akvcValuesForSubkey
-        
-        = ^ id (NSString* k) {
-            
-            return [self akvc_valuesForSubkey:k];
-        };
-    });
-    
-    return _akvc_block_akvcValuesForSubkey;
+        return [self akvc_valuesForSubkey:k];
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForSubkey
 {
-    static id _akvc_block_akvcSetValueForSubkey;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (id v, NSString* k) {
         
-        _akvc_block_akvcSetValueForSubkey
-        
-        = ^ id (id v, NSString* k) {
-            
-            [self akvc_setValue:v forSubkey:k];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForSubkey;
+        [self akvc_setValue:v forSubkey:k];
+        return self;
+    };
 }
 
 - (NSArray *(^)(NSString * _Nonnull))akvcValuesForRegkey
 {
-    static id _akvc_block_akvcValuesForRegkey;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (NSString* k) {
         
-        _akvc_block_akvcValuesForRegkey
-        
-        = ^ id (NSString* k) {
-            
-            return [self akvc_valuesForRegkey:k];
-        };
-    });
-    
-    return _akvc_block_akvcValuesForRegkey;
+        return [self akvc_valuesForRegkey:k];
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForRegkey
 {
-    static id _akvc_block_akvcSetValueForRegkey;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (id v, NSString* k) {
         
-        _akvc_block_akvcSetValueForRegkey
-        
-        = ^ id (id v, NSString* k) {
-            
-            [self akvc_setValue:v forRegkey:k];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForRegkey;
+        [self akvc_setValue:v forRegkey:k];
+        return self;
+    };
 }
 
 - (NSObject *(^)(NSString * _Nonnull))akvcValueForExtensionPath
 {
-    static id _akvc_block_akvcValuesForExtensionPath;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (NSString* k) {
         
-        _akvc_block_akvcValuesForExtensionPath
-        
-        = ^ id (NSString* k) {
-            
-            return [self akvc_valueForExtensionPath:k];
-        };
-    });
-    
-    return _akvc_block_akvcValuesForExtensionPath;
+        return [self akvc_valueForExtensionPath:k];
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForExtensionPath
 {
-    static id _akvc_block_akvcSetValueForExtensionPath;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (id v, NSString* k) {
         
-        _akvc_block_akvcSetValueForExtensionPath
-        
-        = ^ id (id v, NSString* k) {
-            
-            [self akvc_setValue:v forExtensionPath:k];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForExtensionPath;
+        [self akvc_setValue:v forExtensionPath:k];
+        return self;
+    };
 }
 
 - (NSObject *(^)(NSString * _Nonnull, ...))akvcValueForExtensionPathWithFormat
 {
-    static id _akvc_block_akvcValueForExtensionPathWithFormat;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^ id (NSString* k, ...) {
         
-        _akvc_block_akvcValueForExtensionPathWithFormat
+        va_list arguments;
         
-        = ^ id (NSString* k, ...) {
-            
-            va_list arguments;
-            
-            va_start(arguments, k);
-            
-            return [self akvc_valueForExtensionPathWithPredicateFormat:k arguments:arguments];
-        };
-    });
-    
-    return _akvc_block_akvcValueForExtensionPathWithFormat;
+        va_start(arguments, k);
+        
+        return [self akvc_valueForExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments] arguments:nil];
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))akvcSetValueForExtensionPathWithFormat
 {
-    static id _akvc_block_akvcSetValueForExtensionPathWithFormat;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^id(id v, NSString* k, ...){
         
-        _akvc_block_akvcSetValueForExtensionPathWithFormat = ^id(id v, NSString* k, ...){
-            
-            va_list arguments;
-            
-            va_start(arguments, k);
-            
-            [self akvc_setValue:v forExtensionPathWithPredicateFormat:k
-                      arguments:arguments];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForExtensionPathWithFormat;
+        va_list arguments;
+        
+        va_start(arguments, k);
+        
+        [self akvc_setValue:v forExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments]
+                  arguments:nil];
+        return self;
+    };
 }
 
 - (NSObject *(^)(NSString * _Nonnull, ...))akvcValueForExtensionPathWithPredicateFormat
 {
-    static id _akvc_block_akvcValueForExtensionPathWithPredicateFormat;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^id (NSString* k, ...) {
         
-        _akvc_block_akvcValueForExtensionPathWithPredicateFormat
+        va_list arguments;
         
-        = ^id (NSString* k, ...) {
-            
-            va_list arguments;
-            
-            va_start(arguments, k);
-            
-            return [self akvc_valueForExtensionPathWithPredicateFormat:k
-                             arguments:arguments];;
-        };
-    });
-    
-    return _akvc_block_akvcValueForExtensionPathWithPredicateFormat;
+        va_start(arguments, k);
+        
+        return [self akvc_valueForExtensionPathWithPredicateFormat:k
+                                                         arguments:arguments];;
+    };
 }
 
 - (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))akvcSetValueForExtensionPathWithPredicateFormat
 {
-    static id _akvc_block_akvcSetValueForExtensionPathWithPredicateFormat;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    return ^id(id v, NSString* k, ...){
         
-        _akvc_block_akvcSetValueForExtensionPathWithPredicateFormat
+        va_list arguments;
         
-        = ^id(id v, NSString* k, ...){
-            
-            va_list arguments;
-            
-            va_start(arguments, k);
-            
-            [self akvc_setValue:v forExtensionPathWithPredicateFormat:k
-                      arguments:arguments];
-            return self;
-        };
-    });
-    
-    return _akvc_block_akvcSetValueForExtensionPathWithPredicateFormat;
+        va_start(arguments, k);
+        
+        [self akvc_setValue:v forExtensionPathWithPredicateFormat:k
+                  arguments:arguments];
+        return self;
+    };
 }
 @end

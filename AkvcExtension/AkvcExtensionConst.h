@@ -128,13 +128,6 @@ NS_INLINE id Akvc_boxValue(const char *type, ...) {
 }
 
 
-#define akvcValueForExtensionPathWithFormat(path,args...)\
-    \
-    akvcValueForExtensionPathWithFormat(path,##args,nil)
-
-#define akvcSetValueForExtensionPathWithFormat(value,path,args...)\
-    \
-    akvcSetValueForExtensionPathWithFormat(value,path,##args,nil)
 
 #define akvcValueForExtensionPathWithPredicateFormat(path,args...)\
     \
