@@ -12,6 +12,20 @@
 
 @implementation NSObject(NSObjectAkvcExtensionChain)
 
+- (NSString *(^)(id _Nullable path))akvcPathAppend
+{
+    return ^id(id _Nullable path){
+        
+        NSString* _self = (id)self;
+        if([_self isKindOfClass:NSString.class] == NO){
+            
+            _self = [_self description];
+        }
+        
+        return [_self stringByAppendingFormat:@".%@",path];
+    };
+}
+
 - (NSObject *(^)(NSString * _Nonnull))akvcValueForFullPath
 {
     return ^id(NSString* k){

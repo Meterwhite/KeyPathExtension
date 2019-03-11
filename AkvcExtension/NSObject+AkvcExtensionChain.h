@@ -9,7 +9,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define AkvcBlock (nonatomic,copy,readonly)
+#define AkvcBlock       (nonatomic,copy,readonly)
+
+#define AkvcBlockG(g) (nonatomic,copy,readonly,getter=g)
 
 /**
  This file defines the API for chained programming.The return value of all setter is target itself.
@@ -20,6 +22,8 @@
  
  */
 @interface NSObject(NSObjectAkvcExtensionChain)
+
+@property AkvcBlock NSString*(^akvcPathAppend)(id _Nullable path);
 
 @property AkvcBlock NSObject*(^akvcValueForFullPath)(NSString* _Nonnull fullPath);
 @property AkvcBlock NSObject*(^akvcSetValueForFullPath)(id _Nullable value, NSString* _Nonnull fullPath);
@@ -39,5 +43,9 @@
 
 @property AkvcBlock NSObject*(^akvcValueForExtensionPathWithPredicateFormat)(NSString* _Nonnull extensionPath, ...);
 @property AkvcBlock NSObject*(^akvcSetValueForExtensionPathWithPredicateFormat)(id _Nullable value, NSString* _Nonnull extensionPath, ...);
+
+@property AkvcBlockG(akvcPathAppend)
+NSString*(^akvcAppendCode)(id code);
+
 @end
 

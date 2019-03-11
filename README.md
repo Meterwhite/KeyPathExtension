@@ -40,6 +40,9 @@ myStarts
 .akvcSetValueForExtensionPath(@(NO), @"seleced")
 .akvcSetValueForExtensionPathWithFormat(@(YES), @"@:tag <= %ld!.seleced", sender.tag);
 
+///Get the path in a different way.
+@akvcGetPath(object, a.b.c.d).akvcPathAppend(@"e.f.g.h").akvcPathAppendCode(h.i.j.k);
+
 ```
 
 # Content
