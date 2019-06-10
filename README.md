@@ -1,6 +1,6 @@
 ![Logo](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)KeyPathExtension
 ===
-- A kvc extension of KeyPath for objc runtime.
+- An extension of KeyPath in KVC for objc runtime.
 - Describe complex logic with less code in KeyPath.Reduce programmer doing work.
     1. Access  structural value in the KeyPath.
     2. Using Predicate in the KeyPath
