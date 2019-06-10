@@ -14,7 +14,7 @@
     4. 在KVC中直接进行类型安全的检查
     5. 随手一赞，好运百万
     
-    - Key words : `KeyPath Extension` `KVC Extension` `sort in key path`
+- Key words : `KeyPath Extension` `KVC Extension` `sort in key path`
 
 # Import
 * Drag all source files under folder `KeyPathExtension` to your project.
