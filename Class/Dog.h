@@ -1,13 +1,13 @@
 //
 //  Dog.h
-//  AkvcExtensionSample
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/11/1.
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "AkvcExtensionConst.h"
+#import "KeyPathExtensionConst.h"
 
 @class Person;
 @class Food;

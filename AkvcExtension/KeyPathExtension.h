@@ -4,28 +4,28 @@
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSObject+AkvcExtensionChain.h"
+#import "NSObject+KeyPathExtensionChain.h"
 #import <CoreGraphics/CoreGraphics.h>
-#import "NSObject+AkvcExtension.h"
-#import "NSValue+AkvcExtension.h"
-#import "AkvcExtensionConst.h"
+#import "NSObject+KeyPathExtension.h"
+#import "NSValue+KeyPathExtension.h"
+#import "KeyPathExtensionConst.h"
 
 
 /**
  Given a scalar or struct value, wraps it in NSValue
  Base on : https://github.com/SnapKit/Masonry
  */
-#define AkvcBoxValue(value)    \
+#define KPEBoxValue(value)    \
     \
-Akvc_boxValue(@encode(__typeof__((value))), (value))
+kpe_boxValue(@encode(__typeof__((value))), (value))
 
-@interface AkvcExtension : NSProxy
+@interface KeyPathExtension : NSProxy
 
 /**
- Regist a path function for user in AkvcExtension.
+ Regist a path function for user in KeyPathExtension.
  注册自定义的PathFunction
  Example -
  :
@@ -47,11 +47,11 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  @param name Function name
  @param block Target is the object that calls this block.
  */
-+ (void)registFunction:(NSString* _Nonnull)name withBlock:(id (^) (id _Nullable target))block;
++ (void)registFunction:(nonnull NSString*)name withBlock:(id _Nullable(^_Nonnull) (id _Nullable target))block;
 
 
 /**
- Regist a structure in AkvcExtension(Getter).
+ Regist a structure in KeyPathExtension(Getter).
  
  GetBlockType -
  :
@@ -59,7 +59,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  
  Example -
  :
- [AkvcExtension registStruct:@(\@encode(CGSize))
+ [KeyPathExtension registStruct:@(\@encode(CGSize))
                    getterMap:@{
                                 @"size"   : ^(NSValue* value){ Get value and return ... }
                                           ,
@@ -67,11 +67,11 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  }];
  
  */
-+ (void)registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap;
++ (void)registStruct:(nonnull NSString*)encode getterMap:(nonnull NSDictionary*)getterMap;
 
 
 /**
- Regist a structure in AkvcExtension(Setter).
+ Regist a structure in KeyPathExtension(Setter).
  
  SetBlockType -
  :
@@ -79,7 +79,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  
  Example -
  :
- [AkvcExtension registStruct:@(\@encode(CGSize))
+ [KeyPathExtension registStruct:@(\@encode(CGSize))
                    setterMap:@{
                                 @"size"   : ^(NSValue* value, id newValue){ ...Set value and return... }
                                           ,
@@ -87,7 +87,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
  }];
  
  */
-+ (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap;
++ (void)registStruct:(nonnull NSString*)encode setterMap:(nonnull NSDictionary*)setterMap;
 
 
 /**
@@ -97,7 +97,7 @@ Akvc_boxValue(@encode(__typeof__((value))), (value))
 
 
 /**
- Get path function from AkvcExtension
+ Get path function from KeyPathExtension
  */
-+ (id (^) (id target))pathFunctionNamed:(NSString* _Nonnull)name;
++ (id _Nullable (^_Nonnull) (id _Nonnull target))pathFunctionNamed:(NSString* _Nonnull)name;
 @end

@@ -1,16 +1,16 @@
 //
-//  NSObject+AkvcExtensionChain.m
-//  AkvcExtensionSample
+//  NSObject+KeyPathExtensionChain.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSObject+AkvcExtensionChain.h"
-#import "NSObject+AkvcExtension.h"
+#import "NSObject+KeyPathExtensionChain.h"
+#import "NSObject+KeyPathExtension.h"
 
-@implementation NSObject(NSObjectAkvcExtensionChain)
+@implementation NSObject(NSObject_KPEChain)
 
 - (NSString *(^)(id _Nullable path))akvcPathAppend
 {
@@ -30,7 +30,7 @@
 {
     return ^id(NSString* k){
         
-        return [self akvc_valueForFullPath:k];
+        return [self kpe_valueForFullPath:k];
     };
 }
 
@@ -38,7 +38,7 @@
 {
     return ^id(id v, NSString* k){
         
-        [self akvc_setValue:v forFullPath:k];
+        [self kpe_setValue:v forFullPath:k];
         return self;
     };
 }
@@ -47,7 +47,7 @@
 {
     return ^ id (NSString* k) {
         
-        return [self akvc_valuesForSubkey:k];
+        return [self kpe_valuesForSubkey:k];
     };
 }
 
@@ -55,7 +55,7 @@
 {
     return ^ id (id v, NSString* k) {
         
-        [self akvc_setValue:v forSubkey:k];
+        [self kpe_setValue:v forSubkey:k];
         return self;
     };
 }
@@ -64,7 +64,7 @@
 {
     return ^ id (NSString* k) {
         
-        return [self akvc_valuesForRegkey:k];
+        return [self kpe_valuesForRegkey:k];
     };
 }
 
@@ -72,7 +72,7 @@
 {
     return ^ id (id v, NSString* k) {
         
-        [self akvc_setValue:v forRegkey:k];
+        [self kpe_setValue:v forRegkey:k];
         return self;
     };
 }
@@ -81,7 +81,7 @@
 {
     return ^ id (NSString* k) {
         
-        return [self akvc_valueForExtensionPath:k];
+        return [self kpe_valueForExtensionPath:k];
     };
 }
 
@@ -89,7 +89,7 @@
 {
     return ^ id (id v, NSString* k) {
         
-        [self akvc_setValue:v forExtensionPath:k];
+        [self kpe_setValue:v forExtensionPath:k];
         return self;
     };
 }
@@ -102,7 +102,7 @@
         
         va_start(arguments, k);
         
-        return [self akvc_valueForExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments] arguments:nil];
+        return [self kpe_valueForExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments] arguments:nil];
     };
 }
 
@@ -114,7 +114,7 @@
         
         va_start(arguments, k);
         
-        [self akvc_setValue:v forExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments]
+        [self kpe_setValue:v forExtensionPathWithPredicateFormat:[[NSString alloc] initWithFormat:k arguments:arguments]
                   arguments:nil];
         return self;
     };
@@ -128,7 +128,7 @@
         
         va_start(arguments, k);
         
-        return [self akvc_valueForExtensionPathWithPredicateFormat:k
+        return [self kpe_valueForExtensionPathWithPredicateFormat:k
                                                          arguments:arguments];;
     };
 }
@@ -141,7 +141,7 @@
         
         va_start(arguments, k);
         
-        [self akvc_setValue:v forExtensionPathWithPredicateFormat:k
+        [self kpe_setValue:v forExtensionPathWithPredicateFormat:k
                   arguments:arguments];
         return self;
     };

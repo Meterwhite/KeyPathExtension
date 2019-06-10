@@ -1,37 +1,37 @@
 //
-//  AkvcPathReader.m
-//  AkvcExtensionSample
+//  KPEPathReader.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcPathReadBiList.h"
-#import "AkvcPathComponent.h"
-#import "AkvcPathReadNode.h"
-#import "AkvcPathReader.h"
+#import "KPEPathReadBiList.h"
+#import "KPEPathComponent.h"
+#import "KPEPathReadNode.h"
+#import "KPEPathReader.h"
 
-@interface AkvcPathReader ()
+@interface KPEPathReader ()
 
-@property (nonatomic,strong) NSMutableArray<AkvcPathComponent*>* resultList;
-@property (nonatomic,strong) AkvcPathReadNode* node;
+@property (nonatomic,strong) NSMutableArray<KPEPathComponent*>* resultList;
+@property (nonatomic,strong) KPEPathReadNode* node;
 @property (nonatomic,strong) NSMutableString* currentValue;
 
 /** Singleton */
-@property (nonatomic,weak) AkvcPathReadBiList* defaultList;
+@property (nonatomic,weak) KPEPathReadBiList* defaultList;
 
 @end
 
-@implementation AkvcPathReader
+@implementation KPEPathReader
 
 + (instancetype)defaultReder
 {
-    return [[AkvcPathReader alloc] init];
+    return [[KPEPathReader alloc] init];
 }
 
 
-- (AkvcPathComponent*)readValueFast:(NSString*)value
+- (KPEPathComponent*)readValueFast:(NSString*)value
 {
     if(!value) return nil;
     
@@ -47,9 +47,9 @@
     if([self.node compareWithValue:value] == YES){
         
         ///Finished,retuen
-        if(self.node.matchFeature & AkvcPathSearchFinished){
+        if(self.node.matchFeature & KPEPathSearchFinished){
             
-            AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
+            KPEPathComponent* result = [[KPEPathComponent alloc] init];
             result.stringValue      = self.currentValue.copy;
             result.componentType    = self.node.resultType;
             result.suffixLength     = self.node.suffixLenth;
@@ -71,11 +71,11 @@ CALL_ENUMERATE_FALSE_NODE:
         ///Error node or no falseNode
         if(self.node.falseNode == nil
            ||
-           (self.node.falseNode.matchFeature & AkvcPathSearchError)){
+           (self.node.falseNode.matchFeature & KPEPathSearchError)){
             
-            AkvcPathComponent* result   = [[AkvcPathComponent alloc] init];
+            KPEPathComponent* result   = [[KPEPathComponent alloc] init];
             result.stringValue          = self.currentValue.copy;
-            result.componentType        = AkvcPathComponentError;
+            result.componentType        = KPEPathComponentError;
             [self clean];
             return result;
         }
@@ -85,9 +85,9 @@ CALL_ENUMERATE_FALSE_NODE:
         if([self.node compareWithValue:value]){
             
             ///Finished,retuen
-            if(self.node.matchFeature & AkvcPathSearchFinished){
+            if(self.node.matchFeature & KPEPathSearchFinished){
                 
-                AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
+                KPEPathComponent* result = [[KPEPathComponent alloc] init];
                 result.stringValue      = self.currentValue.copy;
                 result.componentType    = self.node.resultType;
                 result.suffixLength     = self.node.suffixLenth;
@@ -103,15 +103,15 @@ CALL_ENUMERATE_FALSE_NODE:
     goto CALL_ENUMERATE_FALSE_NODE;
 }
 
-- (AkvcPathComponent *)endRead
+- (KPEPathComponent *)endRead
 {
-    AkvcPathComponent* result = [[AkvcPathComponent alloc] init];
+    KPEPathComponent* result = [[KPEPathComponent alloc] init];
     
     result.stringValue = self.currentValue.copy;
     
-    if(!(self.node.matchFeature & AkvcPathSearchFinishable)){
+    if(!(self.node.matchFeature & KPEPathSearchFinishable)){
         
-        result.componentType = AkvcPathComponentError;
+        result.componentType = KPEPathComponentError;
     }else{
         
         result.componentType = self.node.resultType;
@@ -132,10 +132,10 @@ CALL_ENUMERATE_FALSE_NODE:
     [self.resultList removeAllObjects];
 }
 
-- (AkvcPathReadBiList *)defaultList
+- (KPEPathReadBiList *)defaultList
 {
     if(!_defaultList){
-        _defaultList = [AkvcPathReadBiList defaultList];
+        _defaultList = [KPEPathReadBiList defaultList];
     }
     return _defaultList;
 }
@@ -148,7 +148,7 @@ CALL_ENUMERATE_FALSE_NODE:
     return _currentValue;
 }
 
-- (NSMutableArray<AkvcPathComponent *> *)resultList
+- (NSMutableArray<KPEPathComponent *> *)resultList
 {
     if(!_resultList){
         _resultList = [NSMutableArray new];

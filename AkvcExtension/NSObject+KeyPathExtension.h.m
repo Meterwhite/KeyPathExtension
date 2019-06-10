@@ -4,20 +4,20 @@
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSObject+AkvcExtension.h"
-#import "NSValue+AkvcExtension.h"
-#import "AkvcExtensionConst.h"
-#import "AkvcExtensionPath.h"
-#import "AkvcPathComponent.h"
+#import "NSObject+KeyPathExtension.h"
+#import "NSValue+KeyPathExtension.h"
+#import "KeyPathExtensionConst.h"
+#import "KPEExtensionPath.h"
+#import "KPEPathComponent.h"
 #import <objc/runtime.h>
-#import "AkvcClass.h"
+#import "KPEClass.h"
 
-@implementation NSObject(NSObjectAkvcExtension)
+@implementation NSObject(NSObjectKeyPathExtension)
 
-- (id _Nullable)akvc_valueForFullPath:(NSString* _Nonnull)fullPath;
+- (id _Nullable)kpe_valueForFullPath:(NSString* _Nonnull)fullPath;
 {
     if(!fullPath){
         
@@ -36,7 +36,7 @@
         NSEnumerator    *enumerator  = [(id)self objectEnumerator];
         while ((item = enumerator.nextObject)) {
             
-            [rets addObject:[item akvc_valueForFullPath:fullPath]];
+            [rets addObject:[item kpe_valueForFullPath:fullPath]];
         }
         return [rets copy];
     }
@@ -47,8 +47,8 @@
         /// <CGRect> ==> @"size"
         if([self isKindOfClass:NSValue.class]){
             
-            if([((NSValue*)self) akvc_valueIsStructRepresentation]){
-                return [((NSValue*)self) akvc_structValueForKey:fullPath];
+            if([((NSValue*)self) kpe_valueIsStructRepresentation]){
+                return [((NSValue*)self) kpe_structValueForKey:fullPath];
             }
         }
         
@@ -68,10 +68,10 @@
     
     ///Adjust oprator : @"->" => @"."
     structPath = [structPath stringByReplacingOccurrencesOfString:@"->" withString:@"."];
-    return [keyPathValue akvc_structValueForKeyPath:structPath];
+    return [keyPathValue kpe_structValueForKeyPath:structPath];
 }
 
-- (void)akvc_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath
+- (void)kpe_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath
 {
     if(!fullPath) return;
     
@@ -83,7 +83,7 @@
         NSEnumerator*   enumerator  = [(id)self objectEnumerator];
         while ((item = enumerator.nextObject)) {
             
-            [item akvc_setValue:value forFullPath:fullPath];
+            [item kpe_setValue:value forFullPath:fullPath];
         }
     }
     
@@ -114,49 +114,37 @@
     return;
 }
 
-- (void)akvc_setValue:(id)value forSubkey:(NSString *)subkey
+- (void)kpe_setValue:(id)value forSubkey:(NSString *)subkey
 {
-    [self _akvc_setValue:value forSearchingKey:subkey option:NSCaseInsensitiveSearch];
+    [self _kpe_setValue:value forSearchingKey:subkey option:NSCaseInsensitiveSearch];
 }
 
-- (NSArray *)akvc_valuesForSubkey:(NSString *)subkey
+- (NSArray *)kpe_valuesForSubkey:(NSString *)subkey
 {
-    return [self _akvc_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch];
+    return [self _kpe_valuesForSearchingKey:subkey option:NSCaseInsensitiveSearch];
 }
 
-- (void)akvc_setValue:(id)value forRegkey:(NSString*)regkey
+- (void)kpe_setValue:(id)value forRegkey:(NSString*)regkey
 {
-    [self _akvc_setValue:value forSearchingKey:regkey option:NSRegularExpressionSearch];
+    [self _kpe_setValue:value forSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
-- (NSArray *)akvc_valuesForRegkey:(NSString *)regkey
+- (NSArray *)kpe_valuesForRegkey:(NSString *)regkey
 {
-    return [self _akvc_valuesForSearchingKey:regkey option:NSRegularExpressionSearch];
+    return [self _kpe_valuesForSearchingKey:regkey option:NSRegularExpressionSearch];
 }
 
-- (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath
+- (id _Nullable)kpe_valueForExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPath arguments:nil];
+    return [self kpe_valueForExtensionPathWithPredicateFormat:extensionPath arguments:nil];
 }
 
-- (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
+- (void)kpe_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath
 {
-    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPath arguments:nil];
+    [self kpe_setValue:value forExtensionPathWithPredicateFormat:extensionPath arguments:nil];
 }
 
-- (id)akvc_valueForExtensionPathWithFormat:(NSString *)extensionPathWithFormat, ...
-{
-    va_list arguments;
-    
-    va_start(arguments, extensionPathWithFormat);
-    
-    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:arguments];
-    
-    
-    return [self akvc_valueForExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
-}
-
-- (void)akvc_setValue:(id)value forExtensionPathWithFormat:(NSString * _Nonnull)extensionPathWithFormat, ...
+- (id)kpe_valueForExtensionPathWithFormat:(NSString *)extensionPathWithFormat, ...
 {
     va_list arguments;
     
@@ -164,33 +152,45 @@
     
     extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:arguments];
     
-    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
+    
+    return [self kpe_valueForExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
 }
 
-- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
+- (void)kpe_setValue:(id)value forExtensionPathWithFormat:(NSString * _Nonnull)extensionPathWithFormat, ...
+{
+    va_list arguments;
+    
+    va_start(arguments, extensionPathWithFormat);
+    
+    extensionPathWithFormat = [[NSString alloc] initWithFormat:extensionPathWithFormat arguments:arguments];
+    
+    [self kpe_setValue:value forExtensionPathWithPredicateFormat:extensionPathWithFormat arguments:nil];
+}
+
+- (void)kpe_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat, ...
 {
     
     va_list     args;
     
     va_start(args, extendPathWithPredicateFormat);
     
-    [self akvc_setValue:value forExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
+    [self kpe_setValue:value forExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
               arguments:args];
 }
 
 
-- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
+- (id)kpe_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat, ...
 {
     va_list     args;
 
     va_start(args, extendPathWithPredicateFormat);
     
-    return [self akvc_valueForExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
+    return [self kpe_valueForExtensionPathWithPredicateFormat:extendPathWithPredicateFormat
                                                      arguments:args];
 }
 
 
-- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments
+- (void)kpe_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments
 {
     if(extendPathWithPredicateFormat == nil)
         return;
@@ -211,10 +211,10 @@
     
     id          _self               = self;
     
-    NSEnumerator<AkvcPathComponent*>* enumerator = [AkvcExtensionPath pathFast:extendPathWithPredicateFormat].componentEnumerator;
-    AkvcPathComponent*  currentComponent;
-    AkvcPathComponent*  nextComponent = enumerator.nextObject;
-    AkvcPathComponent*  componentBeforeStructPath;
+    NSEnumerator<KPEPathComponent*>* enumerator = [KPEExtensionPath pathFast:extendPathWithPredicateFormat].componentEnumerator;
+    KPEPathComponent*  currentComponent;
+    KPEPathComponent*  nextComponent = enumerator.nextObject;
+    KPEPathComponent*  componentBeforeStructPath;
     id                  objectBeforeStructPath;
     while (nextComponent && _self) {
         
@@ -230,14 +230,14 @@
          *  第一次设置值仅仅针对结构体内部
          *  第二次设置值需要针对持有结构体的对象，把第一步获取的对象设置给它，这里需要记录持有对象的相关信息
          */
-        if(nextComponent.componentType & AkvcPathComponentStructKeyPath){
+        if(nextComponent.componentType & KPEPathComponentStructKeyPath){
             
             objectBeforeStructPath = _self;
             componentBeforeStructPath = currentComponent;
         }
         
     CALL_COMPONENT:
-        if(currentComponent.componentType & AkvcPathComponentNSKeyPath){
+        if(currentComponent.componentType & KPEPathComponentNSKeyPath){
             
             if(nextComponent){
                 
@@ -247,7 +247,7 @@
                 [_self setValue:value forKeyPath:currentComponent.stringValue];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentNSKey){
+        else if(currentComponent.componentType & KPEPathComponentNSKey){
             
             if(nextComponent){
                 
@@ -257,7 +257,7 @@
                 [_self setValue:value forKey:currentComponent.stringValue];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentStructKeyPath){
+        else if(currentComponent.componentType & KPEPathComponentStructKeyPath){
             
             if(!nextComponent){
                 
@@ -279,43 +279,43 @@
                 }
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  Wrong path component after StructPath!");
+                NSAssert(NO, @"KeyPathExtension:\n  Wrong path component after StructPath!");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentSubkey){
+        else if(currentComponent.componentType & KPEPathComponentSubkey){
             
             if(!nextComponent){
                 
-                [_self akvc_setValue:value forSubkey:currentComponent.subkey];
+                [_self kpe_setValue:value forSubkey:currentComponent.subkey];
             }else{
                 
-                _self = [_self akvc_valuesForSubkey:currentComponent.regkey];
+                _self = [_self kpe_valuesForSubkey:currentComponent.regkey];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentRegkey){
+        else if(currentComponent.componentType & KPEPathComponentRegkey){
             
             if(!nextComponent){
                 
-                [_self akvc_setValue:value forRegkey:currentComponent.regkey];
+                [_self kpe_setValue:value forRegkey:currentComponent.regkey];
             }else{
                 
-                _self = [_self akvc_valuesForRegkey:currentComponent.regkey];
+                _self = [_self kpe_valuesForRegkey:currentComponent.regkey];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentIndexer){
+        else if(currentComponent.componentType & KPEPathComponentIndexer){
             
             if(nextComponent){
                 
-                NSAssert([_self isKindOfClass:NSArray.class], @"AkvcExtension:\n  Indexer must be used for NSArray:%@",_self);
+                NSAssert([_self isKindOfClass:NSArray.class], @"KeyPathExtension:\n  Indexer must be used for NSArray:%@",_self);
                 
                 _self = [currentComponent indexerSubarray:_self];
             }else{
                 
-                NSAssert([_self isKindOfClass:NSMutableArray.class], @"AkvcExtension:\n  Setter for Indexer must be used for NSMutableArray:%@",_self);
+                NSAssert([_self isKindOfClass:NSMutableArray.class], @"KeyPathExtension:\n  Setter for Indexer must be used for NSMutableArray:%@",_self);
                 [currentComponent indexerSetValue:value forMutableArray:_self];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentIsPredicate){
+        else if(currentComponent.componentType & KPEPathComponentIsPredicate){
             
             if(nextComponent){
                 
@@ -325,7 +325,7 @@
                                    argumentArray:[argObjects subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
                 indexForArgument += argCount;
                 
-                if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
+                if(currentComponent.componentType & KPEPathComponentPredicateFilter){
                     
                     _self = [_self filteredArrayUsingPredicate:predicate];
                 }else {
@@ -335,30 +335,30 @@
                         break;
                 }
             }else{
-                NSAssert(NO, @"AkvcExtension:\n  Predicate component unable be used to setter.");
+                NSAssert(NO, @"KeyPathExtension:\n  Predicate component unable be used to setter.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentPathFunction){
+        else if(currentComponent.componentType & KPEPathComponentPathFunction){
             
             if(nextComponent){
                 
                 _self = [currentComponent callPathFunctionByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  PathFunction unable be set.");
+                NSAssert(NO, @"KeyPathExtension:\n  PathFunction unable be set.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
+        else if(currentComponent.componentType & KPEPathComponentKeysAccessor){
             
             if(nextComponent){
                 
                 _self = [currentComponent callKeysAccessorByTarget:_self];
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  KeysAccessor unable be set.");
+                NSAssert(NO, @"KeyPathExtension:\n  KeysAccessor unable be set.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentClassInspector){
+        else if(currentComponent.componentType & KPEPathComponentClassInspector){
             
             if(nextComponent){
                 
@@ -366,10 +366,10 @@
                     break;
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  ClassInspector unable be set.");
+                NSAssert(NO, @"KeyPathExtension:\n  ClassInspector unable be set.");
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentSELInspector){
+        else if(currentComponent.componentType & KPEPathComponentSELInspector){
             
             if(nextComponent){
                 
@@ -377,13 +377,13 @@
                     break;
             }else{
                 
-                NSAssert(NO, @"AkvcExtension:\n  SELInspector unable be set.");
+                NSAssert(NO, @"KeyPathExtension:\n  SELInspector unable be set.");
             }
         }
     }
 }
 
-- (id)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments
+- (id)kpe_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments
 {
     if(extendPathWithPredicateFormat == nil) return nil;
     
@@ -401,12 +401,12 @@
     NSUInteger   indexForArgument = 0;
     id          _self             = self;
     
-    NSEnumerator<AkvcPathComponent*>* enumerator  = [AkvcExtensionPath pathFast:extendPathWithPredicateFormat].componentEnumerator;
+    NSEnumerator<KPEPathComponent*>* enumerator  = [KPEExtensionPath pathFast:extendPathWithPredicateFormat].componentEnumerator;
     
     id                 objectBeforeStructPath     = nil;
-    AkvcPathComponent* componentBeforeStructPath  = nil;
-    AkvcPathComponent* currentComponent           = nil;
-    AkvcPathComponent* nextComponent              = enumerator.nextObject;
+    KPEPathComponent* componentBeforeStructPath  = nil;
+    KPEPathComponent* currentComponent           = nil;
+    KPEPathComponent* nextComponent              = enumerator.nextObject;
     while (nextComponent && _self) {
         
         currentComponent = nextComponent;
@@ -420,45 +420,45 @@
          *  第一次设置值仅仅针对结构体内部
          *  第二次设置值需要针对持有结构体的对象，把第一步获取的对象设置给它，这里需要记录持有对象的相关信息
          */
-        if(nextComponent.componentType & AkvcPathComponentStructKeyPath){
+        if(nextComponent.componentType & KPEPathComponentStructKeyPath){
             
             objectBeforeStructPath = _self;
             componentBeforeStructPath = currentComponent;
         }
         
     CALL_COMPONENT:
-        if(currentComponent.componentType & AkvcPathComponentNSKeyPath){
+        if(currentComponent.componentType & KPEPathComponentNSKeyPath){
             
             _self = [_self valueForKeyPath:currentComponent.stringValue];
         }
-        else if(currentComponent.componentType & AkvcPathComponentNSKey){
+        else if(currentComponent.componentType & KPEPathComponentNSKey){
             
             _self = [_self valueForKey:currentComponent.stringValue];
         }
-        else if(currentComponent.componentType & AkvcPathComponentStructKeyPath){
+        else if(currentComponent.componentType & KPEPathComponentStructKeyPath){
             
             ///Get struct value for NSValue.
             if(currentComponent.isKeyPath){
                 
-                _self = [_self akvc_structValueForKeyPath:currentComponent.stringValue];
+                _self = [_self kpe_structValueForKeyPath:currentComponent.stringValue];
             }else{
                 
-                _self = [_self akvc_structValueForKey:currentComponent.stringValue];
+                _self = [_self kpe_structValueForKey:currentComponent.stringValue];
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentSubkey){
+        else if(currentComponent.componentType & KPEPathComponentSubkey){
             
-            _self = [_self akvc_valuesForSubkey:currentComponent.subkey];
+            _self = [_self kpe_valuesForSubkey:currentComponent.subkey];
         }
-        else if(currentComponent.componentType & AkvcPathComponentRegkey){
+        else if(currentComponent.componentType & KPEPathComponentRegkey){
             
-            _self = [_self akvc_valuesForRegkey:currentComponent.regkey];
+            _self = [_self kpe_valuesForRegkey:currentComponent.regkey];
         }
-        else if(currentComponent.componentType & AkvcPathComponentIndexer){
+        else if(currentComponent.componentType & KPEPathComponentIndexer){
             
             _self = [currentComponent indexerSubarray:_self];
         }
-        else if(currentComponent.componentType & AkvcPathComponentIsPredicate){
+        else if(currentComponent.componentType & KPEPathComponentIsPredicate){
             
             NSUInteger      argCount    = currentComponent.predicateArgumentCount;
             NSPredicate*    predicate
@@ -466,12 +466,12 @@
                                  argumentArray:[argObjects subarrayWithRange:NSMakeRange(indexForArgument, argCount)]];
             indexForArgument += argCount;
             
-            if(currentComponent.componentType & AkvcPathComponentPredicateFilter){
+            if(currentComponent.componentType & KPEPathComponentPredicateFilter){
                 
                 _self = [_self filteredArrayUsingPredicate:predicate];
             }else {
                 
-                ///AkvcPathComponentPredicateEvaluate
+                ///KPEPathComponentPredicateEvaluate
                 if(nextComponent == nil){
                     
                     _self = @([predicate evaluateWithObject:_self]);
@@ -485,15 +485,15 @@
                 }
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentPathFunction){
+        else if(currentComponent.componentType & KPEPathComponentPathFunction){
             
             _self = [currentComponent callPathFunctionByTarget:_self];
         }
-        else if(currentComponent.componentType & AkvcPathComponentKeysAccessor){
+        else if(currentComponent.componentType & KPEPathComponentKeysAccessor){
             
             _self = [currentComponent callKeysAccessorByTarget:_self];
         }
-        else if(currentComponent.componentType & AkvcPathComponentSELInspector){
+        else if(currentComponent.componentType & KPEPathComponentSELInspector){
             
             if(nextComponent == nil){
                 
@@ -507,7 +507,7 @@
                 break;
             }
         }
-        else if(currentComponent.componentType & AkvcPathComponentClassInspector){
+        else if(currentComponent.componentType & KPEPathComponentClassInspector){
             
             if(nextComponent == nil){
                 
@@ -528,9 +528,9 @@
 
 #pragma mark - private methos
 
-- (void)_akvc_setValue:(id)value forSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
+- (void)_kpe_setValue:(id)value forSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
 {
-    NSAssert(key != nil, @"AkvcExtension:\n  Key can not be nil!");
+    NSAssert(key != nil, @"KeyPathExtension:\n  Key can not be nil!");
     
     if([self respondsToSelector:@selector(objectEnumerator)] == YES){
         
@@ -540,7 +540,7 @@
         ///Key value pairs
         if([self respondsToSelector:@selector(keyEnumerator)] == YES){
             
-            NSAssert([self respondsToSelector:@selector(setObject:forKey:)], @"AkvcExtension:\n  object:%@ for key:%@ is not mutable object!",self , key);
+            NSAssert([self respondsToSelector:@selector(setObject:forKey:)], @"KeyPathExtension:\n  object:%@ for key:%@ is not mutable object!",self , key);
             
             enumerator  = [(id)self keyEnumerator];
             while ((object = enumerator.nextObject)) {
@@ -559,7 +559,7 @@
             
             while ((object = enumerator.nextObject)) {
                 
-                [object _akvc_setValue:value forSearchingKey:key option:option];
+                [object _kpe_setValue:value forSearchingKey:key option:option];
             }
         }
     }
@@ -567,7 +567,7 @@
     __block objc_property_t* properties;
     @try {
         
-        [self.class akvc_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
+        [self.class kpe_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
             
             unsigned int outCount, i;
             properties = class_copyPropertyList(clazz, &outCount);
@@ -593,10 +593,10 @@
                     code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
-                if([attrInfos containsObject:AkvcPropertyReadonly]){
+                if([attrInfos containsObject:KPEPropertyReadonly]){
                     //Readonly
                     continue;
-                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:AkvcPropertyVoid]){
+                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:KPEPropertyVoid]){
                     //void
                     continue;
                 }
@@ -605,9 +605,9 @@
                 if (code.length == 0) {
                     continue;
                 }else if (
-                          [code isEqualToString:AkvcTypeSEL]    ||
-                          [code isEqualToString:AkvcTypeIvar]   ||
-                          [code isEqualToString:AkvcTypeMethod]
+                          [code isEqualToString:KPETypeSEL]    ||
+                          [code isEqualToString:KPETypeIvar]   ||
+                          [code isEqualToString:KPETypeMethod]
                           ) {
                     continue;
                 }
@@ -620,14 +620,14 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        AkvcLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
+        KPELog(@"KeyPathExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
 }
 
-- (NSArray* _Nonnull)_akvc_valuesForSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
+- (NSArray* _Nonnull)_kpe_valuesForSearchingKey:(NSString*)key option:(NSStringCompareOptions)option
 {
     
-    NSAssert(key != nil, @"AkvcExtension:\n  Key can not be nil!");
+    NSAssert(key != nil, @"KeyPathExtension:\n  Key can not be nil!");
     
     if([self respondsToSelector:@selector(objectEnumerator)] == YES){
         
@@ -656,7 +656,7 @@
             
             while ((object = enumerator.nextObject)) {
                 
-                [rets addObject:[object _akvc_valuesForSearchingKey:key option:option]];
+                [rets addObject:[object _kpe_valuesForSearchingKey:key option:option]];
             }
         }
         
@@ -669,7 +669,7 @@
     NSMutableArray*              retValues = [NSMutableArray array];
     @try {
         
-        [self.class akvc_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
+        [self.class kpe_classEnumerateUsingBlock:^(Class clazz, BOOL *stop) {
             
             unsigned int outCount, i;
             properties = class_copyPropertyList(clazz, &outCount);
@@ -695,7 +695,7 @@
                     code = [attrs substringWithRange:NSMakeRange(1, dotLoc - 1)];
                 }
                 
-                if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:AkvcPropertyVoid]){
+                if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:KPEPropertyVoid]){
                     //void
                     continue;
                 }
@@ -704,9 +704,9 @@
                 if (code.length == 0) {
                     continue;
                 }else if (
-                          [code isEqualToString:AkvcTypeSEL]    ||
-                          [code isEqualToString:AkvcTypeIvar]   ||
-                          [code isEqualToString:AkvcTypeMethod]
+                          [code isEqualToString:KPETypeSEL]    ||
+                          [code isEqualToString:KPETypeIvar]   ||
+                          [code isEqualToString:KPETypeMethod]
                           ) {
                     continue;
                 }
@@ -720,7 +720,7 @@
     } @catch (NSException *exception) {
         
         free(properties);
-        AkvcLog(@"AkvcExtension:\n  %s;NSException=%@;",__func__,[exception description]);
+        KPELog(@"KeyPathExtension:\n  %s;NSException=%@;",__func__,[exception description]);
     }
     
     return [retValues copy];

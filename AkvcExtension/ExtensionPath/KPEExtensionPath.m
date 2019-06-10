@@ -1,21 +1,21 @@
 //
-//  AkvcExtensionPath.m
-//  AkvcExtensionSample
+//  KPEExtensionPath.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/27.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcExtensionPath.h"
-#import "AkvcPathComponent.h"
-#import "AkvcPathReader.h"
+#import "KPEExtensionPath.h"
+#import "KPEPathComponent.h"
+#import "KPEPathReader.h"
 
-@interface AkvcExtensionPath ()
-@property (nonatomic,strong) NSMutableArray<AkvcPathComponent*>* components;
+@interface KPEExtensionPath ()
+@property (nonatomic,strong) NSMutableArray<KPEPathComponent*>* components;
 @end
 
-@implementation AkvcExtensionPath
+@implementation KPEExtensionPath
 
 
 /**
@@ -23,10 +23,10 @@
  */
 + (instancetype)pathFast:(NSString *)path
 {
-    NSAssert(path != nil, @"AkvcExtension:\n  Path can not be nil!");
+    NSAssert(path != nil, @"KeyPathExtension:\n  Path can not be nil!");
     
     ///Try get data from cache first.
-    AkvcExtensionPath* _self = [self cachedExtensionPath:path];
+    KPEExtensionPath* _self = [self cachedExtensionPath:path];
     
     if(_self) return _self;
     
@@ -34,8 +34,8 @@
     _self               = [[self alloc] init];
     _self->_stringValue = path;
     
-    __block AkvcPathComponent*  component;
-    AkvcPathReader*             reader   = [AkvcPathReader defaultReder];
+    __block KPEPathComponent*  component;
+    KPEPathReader*             reader   = [KPEPathReader defaultReder];
     ///This objects need to be reassembled.需要重组
     NSMutableArray* unfinishedComponents = [NSMutableArray new];
     [path enumerateSubstringsInRange:NSMakeRange(0, path.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString* value, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
@@ -44,7 +44,7 @@
         
         if(component != nil){
             
-            NSAssert(component.componentType != AkvcPathComponentError, @"AkvcExtension:\n  Unrecognize path:%@",component.stringValue);
+            NSAssert(component.componentType != KPEPathComponentError, @"KeyPathExtension:\n  Unrecognize path:%@",component.stringValue);
             [unfinishedComponents addObject:component];
         }
     }];
@@ -52,21 +52,21 @@
     component = [reader endRead];
     if(component){
         
-        NSAssert(component.componentType != AkvcPathComponentError, @"AkvcExtension:\n  Unrecognize path:%@",component.stringValue);
+        NSAssert(component.componentType != KPEPathComponentError, @"KeyPathExtension:\n  Unrecognize path:%@",component.stringValue);
         
-        if([unfinishedComponents.lastObject componentType] == AkvcPathComponentStructKeyPath){
+        if([unfinishedComponents.lastObject componentType] == KPEPathComponentStructKeyPath){
             
-            component.componentType = AkvcPathComponentStructKeyPath;
+            component.componentType = KPEPathComponentStructKeyPath;
         }
         [unfinishedComponents addObject:component];
     }
     
     
     NSUInteger              suffixLength        = 0;
-    AkvcPathComponent*      reorganizedComponents;
+    KPEPathComponent*      reorganizedComponents;
     NSMutableArray*         finishedComponents  = [NSMutableArray new];
-    AkvcPathComponentType   lastComponentType   = AkvcPathComponentNon;
-    AkvcPathComponentType   componentType       = AkvcPathComponentNon;
+    KPEPathComponentType   lastComponentType   = KPEPathComponentNon;
+    KPEPathComponentType   componentType       = KPEPathComponentNon;
     BOOL                    reorganizationNeedFinish = NO;
     BOOL                    componentNeedFinish = NO;
     for (NSUInteger i = 0; i < unfinishedComponents.count; i++) {
@@ -77,7 +77,7 @@
         componentNeedFinish = YES;
         
         ///Mark NSKeyValueOperatorForFunction and users.
-        if (componentType == AkvcPathComponentIsFunction){
+        if (componentType == KPEPathComponentIsFunction){
             
             
             ///`\@Function.`
@@ -85,11 +85,11 @@
             
             componentType = ([self.class isNSKeyValueOperatorForFunction:funcName])
             ?
-            AkvcPathComponentNSKeyValueOperator:AkvcPathComponentPathFunction;
+            KPEPathComponentNSKeyValueOperator:KPEPathComponentPathFunction;
             component.componentType = componentType;
         }
         
-        if(lastComponentType & AkvcPathComponentStructKeyPath){
+        if(lastComponentType & KPEPathComponentStructKeyPath){
             
             if(component.suffixLength == 0){
                 /**
@@ -106,7 +106,7 @@
                 goto CALL_END;
             }
             
-            if(componentType & AkvcPathComponentStructKeyPath){
+            if(componentType & KPEPathComponentStructKeyPath){
                 
                 /**
                  StructPath in body
@@ -123,18 +123,19 @@
                  (StructPath->)(?)
                  :
                  */
-                NSAssert(NO, @"AkvcExtension:\n  StructPath of ExtensionPath must be the last one.");
+                @throw [NSException exceptionWithName:(NSGenericException) reason:@"KeyPathExtension:\n  StructPath of ExtensionPath must be the last one." userInfo:nil];
                 /**
                  reorganizationNeedFinish = NO;
                  componentNeedFinish = YES;
                  */
+                
             }
         }
-        else if (lastComponentType & (AkvcPathComponentNSKey|AkvcPathComponentNSKeyValueOperator|AkvcPathComponentStructKeyPath))
+        else if (lastComponentType & (KPEPathComponentNSKey|KPEPathComponentNSKeyValueOperator|KPEPathComponentStructKeyPath))
         {
             
             
-            if(componentType & AkvcPathComponentStructKeyPath)
+            if(componentType & KPEPathComponentStructKeyPath)
             {
                 if(reorganizedComponents)
                 {
@@ -159,7 +160,7 @@
                     continue;
                 }
             }
-            else if(componentType & (AkvcPathComponentNSKey|AkvcPathComponentNSKeyValueOperator|AkvcPathComponentStructKeyPath)){
+            else if(componentType & (KPEPathComponentNSKey|KPEPathComponentNSKeyValueOperator|KPEPathComponentStructKeyPath)){
                 
                 /**
                  (NSKeyPath.)(NSKey[.])
@@ -167,7 +168,7 @@
                  Append and continue
                  */
                 reorganizedComponents.stringValue = [reorganizedComponents.stringValue stringByAppendingString:component.stringValue];
-                reorganizedComponents.componentType = AkvcPathComponentNSKeyPath;
+                reorganizedComponents.componentType = KPEPathComponentNSKeyPath;
                 lastComponentType = componentType;
                 
                 if(component.suffixLength == 0){
@@ -208,7 +209,7 @@
         else
         {
             
-            if(componentType & AkvcPathComponentStructKeyPath){
+            if(componentType & KPEPathComponentStructKeyPath){
                 /**
                  Struct head (NSKey)
                  (Single.)(StructPath->) ==> (Single.)(NSKey)
@@ -221,11 +222,11 @@
                 reorganizedComponents       = [component copy];
                 reorganizedComponents.stringValue = [NSString string];
                 
-                component.componentType     = AkvcPathComponentNSKey;
+                component.componentType     = KPEPathComponentNSKey;
                 reorganizationNeedFinish    = NO;
                 componentNeedFinish         = YES;
             }
-            else if (componentType & (AkvcPathComponentNSKey|AkvcPathComponentNSKeyValueOperator)){
+            else if (componentType & (KPEPathComponentNSKey|KPEPathComponentNSKeyValueOperator)){
                 /**
                  NSKey Head
                  (Single.)(NSKey.) or (NSKey)
@@ -291,7 +292,7 @@
     return _self;
 }
 
-- (NSEnumerator<AkvcPathComponent*>*)componentEnumerator
+- (NSEnumerator<KPEPathComponent*>*)componentEnumerator
 {
     return self.components.objectEnumerator;
 }
@@ -348,7 +349,7 @@ static NSMutableDictionary* _cachedComponent;
     
     dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
     
-    AkvcExtensionPath* component = _cachedComponent[_stringValue];
+    KPEExtensionPath* component = _cachedComponent[_stringValue];
     if(component == nil){
         _cachedComponent[_stringValue] = self;
     }

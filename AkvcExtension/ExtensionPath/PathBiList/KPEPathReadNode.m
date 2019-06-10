@@ -1,15 +1,15 @@
 //
-//  AkvcPathReadNode.m
-//  AkvcExtensionSample
+//  KPEPathReadNode.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcPathReadNode.h"
+#import "KPEPathReadNode.h"
 
-@implementation AkvcPathReadNode
+@implementation KPEPathReadNode
 - (instancetype)init
 {
     self = [super init];
@@ -22,7 +22,7 @@
 {
     self = [super init];
     if (self) {
-        _matchFeature = AkvcPathSearchForMatchingValue;
+        _matchFeature = KPEPathSearchForMatchingValue;
         _value = value;
     }
     return self;
@@ -33,107 +33,107 @@
 }
 + (instancetype)nodeMatchAnyChar
 {
-    AkvcPathReadNode* _self = [[self alloc] init];
-    _self->_matchFeature = AkvcPathSearchForAnyCharacterSet;
+    KPEPathReadNode* _self = [[self alloc] init];
+    _self->_matchFeature = KPEPathSearchForAnyCharacterSet;
     return _self;
 }
 + (instancetype)nodeMatchSelector
 {
-    AkvcPathReadNode* _self = [[self alloc] init];
-    _self->_matchFeature = AkvcPathSearchForSelectorCharacterSet;
+    KPEPathReadNode* _self = [[self alloc] init];
+    _self->_matchFeature = KPEPathSearchForSelectorCharacterSet;
     return _self;
 }
 + (instancetype)nodeMatchIndexer
 {
-    AkvcPathReadNode* _self = [[self alloc] init];
-    _self->_matchFeature = AkvcPathSearchForIndexerCharacterSet;
+    KPEPathReadNode* _self = [[self alloc] init];
+    _self->_matchFeature = KPEPathSearchForIndexerCharacterSet;
     return _self;
 }
 + (instancetype)nodeMatchBaseName
 {
-    AkvcPathReadNode* _self = [[self alloc] init];
-    _self->_matchFeature = AkvcPathSearchForBaseNameCharacterSet;
+    KPEPathReadNode* _self = [[self alloc] init];
+    _self->_matchFeature = KPEPathSearchForBaseNameCharacterSet;
     return _self;
 }
 
-- (AkvcPathReadNode*)thatFinished
+- (KPEPathReadNode*)thatFinished
 {
-    _matchFeature |= (AkvcPathSearchFinished|AkvcPathSearchFinishable);
+    _matchFeature |= (KPEPathSearchFinished|KPEPathSearchFinishable);
     _suffixLenth = 1;
     return self;
 }
-- (AkvcPathReadNode *)thatFinishedStructPath
+- (KPEPathReadNode *)thatFinishedStructPath
 {
-    _matchFeature |= (AkvcPathSearchFinished|AkvcPathSearchFinishable);
+    _matchFeature |= (KPEPathSearchFinished|KPEPathSearchFinishable);
     _suffixLenth = 2;
     return self;
 }
-- (AkvcPathReadNode *)thatTrueNodeSelf
+- (KPEPathReadNode *)thatTrueNodeSelf
 {
     _trueNode = self;
     return self;
 }
-- (AkvcPathReadNode *)thatFinishable
+- (KPEPathReadNode *)thatFinishable
 {
-    _matchFeature |= AkvcPathSearchFinishable;
+    _matchFeature |= KPEPathSearchFinishable;
     _suffixLenth = 0;
     return self;
 }
-- (AkvcPathReadNode*)thatError
+- (KPEPathReadNode*)thatError
 {
-    _matchFeature |= (AkvcPathSearchFinished|AkvcPathSearchError);
+    _matchFeature |= (KPEPathSearchFinished|KPEPathSearchError);
     return self;
 }
-- (AkvcPathReadNode *(^)(AkvcPathReadNode *))thatFalseNode
+- (KPEPathReadNode *(^)(KPEPathReadNode *))thatFalseNode
 {
-    return ^(AkvcPathReadNode * node){
+    return ^(KPEPathReadNode * node){
         self.falseNode = node;
         return self;
     };
 }
-- (AkvcPathReadNode *(^)(AkvcPathReadNode *))thatTrueNode
+- (KPEPathReadNode *(^)(KPEPathReadNode *))thatTrueNode
 {
-    return ^(AkvcPathReadNode * node){
+    return ^(KPEPathReadNode * node){
         self.trueNode = node;
         return self;
     };
 }
-- (AkvcPathReadNode *(^)(NSString *))thatBanCharacters
+- (KPEPathReadNode *(^)(NSString *))thatBanCharacters
 {
     return ^(NSString *banCharacters){
         
         self.banCharacterSet = [NSCharacterSet characterSetWithCharactersInString:banCharacters];
-        self.matchFeature |= AkvcPathSearchBanCharacterSet;
+        self.matchFeature |= KPEPathSearchBanCharacterSet;
         return self;
     };
 }
 
-- (AkvcPathReadNode *(^)(AkvcPathReadNode *))asTrueNodeFor
+- (KPEPathReadNode *(^)(KPEPathReadNode *))asTrueNodeFor
 {
-    return ^(AkvcPathReadNode * node){
+    return ^(KPEPathReadNode * node){
         node.trueNode = self;
         return self;
     };
 }
-- (AkvcPathReadNode *(^)(AkvcPathReadNode *))asFalseNodeFor
+- (KPEPathReadNode *(^)(KPEPathReadNode *))asFalseNodeFor
 {
-    return ^(AkvcPathReadNode * node){
+    return ^(KPEPathReadNode * node){
         node.falseNode = self;
         return self;
     };
 }
 
-- (AkvcPathReadNode *(^)(AkvcPathComponentType))thatResultType
+- (KPEPathReadNode *(^)(KPEPathComponentType))thatResultType
 {
-    return ^(AkvcPathComponentType resultType){
+    return ^(KPEPathComponentType resultType){
         self.resultType = resultType;
         return self;
     };
 }
 
-//- (AkvcPathReadNode*)nodeForIndexPath:(NSIndexPath*)indexPath
+//- (KPEPathReadNode*)nodeForIndexPath:(NSIndexPath*)indexPath
 //{
-//    AkvcPathReadNode* currentNode = self;
+//    KPEPathReadNode* currentNode = self;
 //    NSUInteger col = 0;
 //    for (NSUInteger row=0; row<indexPath.length && currentNode; row++) {
 //        
@@ -150,18 +150,18 @@
 - (BOOL)compareWithValue:(NSString * _Nonnull)value
 {
     ///Single node
-    if(_matchFeature & AkvcPathSearchForMatchingValue)
+    if(_matchFeature & KPEPathSearchForMatchingValue)
         return [value isEqualToString:_value];
     
     
-    if(!(_matchFeature & AkvcPathIsSearchForCharacterSet))
+    if(!(_matchFeature & KPEPathIsSearchForCharacterSet))
         return NO;
     
     
     ///character set node
     unichar asUnchar = [value characterAtIndex:0];
     
-    if((_matchFeature & AkvcPathSearchBanCharacterSet)
+    if((_matchFeature & KPEPathSearchBanCharacterSet)
        &&
        [_banCharacterSet characterIsMember:asUnchar]){
         
@@ -169,7 +169,7 @@
         return NO;
     }
     
-    if(_matchFeature & AkvcPathSearchForIndexerCharacterSet){
+    if(_matchFeature & KPEPathSearchForIndexerCharacterSet){
         
         if(asUnchar != '<'
            &&

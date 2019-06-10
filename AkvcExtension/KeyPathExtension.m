@@ -1,38 +1,38 @@
 //
-//  AkvcExtension.m
-//  AkvcExtensionSample
+//  KeyPathExtension.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/11/3.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSObject+AkvcCategory.h"
-#import "AkvcPathComponent.h"
-#import "AkvcExtensionPath.h"
-#import "AkvcExtension.h"
+#import "NSObject+KPECategory.h"
+#import "KPEPathComponent.h"
+#import "KPEExtensionPath.h"
+#import "KeyPathExtension.h"
 
-@implementation AkvcExtension
+@implementation KeyPathExtension
 
 + (void)load
 {
-    [self _akvc_regist_privateFunction];
+    [self _kpe_regist_privateFunction];
 }
 
 + (void)cleanCache
 {
-    [AkvcExtensionPath performSelector:@selector(cleanCache)];
-    [AkvcPathComponent performSelector:@selector(cleanCache)];
+    [KPEExtensionPath performSelector:@selector(cleanCache)];
+    [KPEPathComponent performSelector:@selector(cleanCache)];
 }
 
-static NSMutableDictionary* _akvc_path_function_map;
+static NSMutableDictionary* _kpe_path_function_map;
 + (void)registFunction:(NSString*)name withBlock:(id(^)(id target))block
 {
-    NSAssert(name && block, @"AkvcExtension:\n  Block or name can not be nil!");
+    NSAssert(name && block, @"KeyPathExtension:\n  Block or name can not be nil!");
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _akvc_path_function_map = [NSMutableDictionary dictionary];
+        _kpe_path_function_map = [NSMutableDictionary dictionary];
     });
     
     static dispatch_semaphore_t signalSemaphore;
@@ -42,44 +42,47 @@ static NSMutableDictionary* _akvc_path_function_map;
     });
     dispatch_semaphore_wait(signalSemaphore, DISPATCH_TIME_FOREVER);
     
-    _akvc_path_function_map[name] = block;///Regist function.
+    _kpe_path_function_map[name] = block;///Regist function.
     
     dispatch_semaphore_signal(signalSemaphore);
 }
 
 + (void)registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap
 {
-    [NSValue akvc_registStruct:encode getterMap:getterMap];
+    [NSValue kpe_registStruct:encode getterMap:getterMap];
 }
 
 + (void)registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap
 {
-    [NSValue akvc_registStruct:encode setterMap:setterMap];
+    [NSValue kpe_registStruct:encode setterMap:setterMap];
 }
 
 + (id(^)(id))pathFunctionNamed:(NSString*)name
 {
-    NSAssert(name, @"AkvcExtension:\n  Function name can not be nil!");
+    NSAssert(name, @"KeyPathExtension:\n  Function name can not be nil!");
     
-    static id _akvc_block_pathFunction;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    static id _kpe_block_pathFunction;
+    if(!_kpe_block_pathFunction){
         
-        _akvc_block_pathFunction = ^id (id target){
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
             
-            return
+            _kpe_block_pathFunction = ^id (id target){
+                
+                return
+                
+                [target kpe_performSelector:NSSelectorFromString(name)]
+                ?:
+                target;
+            };
             
-            [target akvc_performSelector:NSSelectorFromString(name)]
-            ?:
-            target;
-        };
-        
-    });
+        });
+    }
     
-    return _akvc_path_function_map[name]?:_akvc_block_pathFunction;
+    return _kpe_path_function_map[name]?:_kpe_block_pathFunction;
 }
 
-+ (void)_akvc_regist_privateFunction
++ (void)_kpe_regist_privateFunction
 {
     
     
@@ -128,7 +131,7 @@ static NSMutableDictionary* _akvc_path_function_map;
     
     [self registFunction:@"nslog" withBlock:^id(id target) {
         
-        AkvcLog(@"%@",[target description]);
+        KPELog(@"%@",[target description]);
         return target;
     }];
 }

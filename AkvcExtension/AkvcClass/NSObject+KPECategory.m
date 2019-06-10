@@ -1,23 +1,23 @@
 //
-//  NSObject+AkvcCategory.m
-//  AkvcExtensionSample
+//  NSObject+KPECategory.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/11/22.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSObject+AkvcCategory.h"
-#import "AkvcExtensionConst.h"
+#import "NSObject+KPECategory.h"
+#import "KeyPathExtensionConst.h"
 #import <objc/runtime.h>
 
-@implementation NSObject(NSObjectAkvcCategory)
+@implementation NSObject(NSObjectKPECategory)
 
-- (id)akvc_performSelector:(SEL)aSelector
+- (id)kpe_performSelector:(SEL)aSelector
 {
     NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:aSelector];
     
-    NSAssert(signature != nil, @"AkvcExtension:\n Unknown Method: %s", sel_getName(aSelector));
+    NSAssert(signature != nil, @"KeyPathExtension:\n Unknown Method: %s", sel_getName(aSelector));
     
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     invocation.target = self;

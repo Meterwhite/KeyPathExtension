@@ -1,28 +1,28 @@
 //
-//  AkvcPathReadBiList.m
-//  AkvcExtensionSample
+//  KPEPathReadBiList.m
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcPathReadBiList.h"
-#import "AkvcPathReadNode.h"
+#import "KPEPathReadBiList.h"
+#import "KPEPathReadNode.h"
 
-@interface AkvcPathReadBiList()
+@interface KPEPathReadBiList()
 
 @end
 
-@implementation AkvcPathReadBiList
+@implementation KPEPathReadBiList
 
 
-+ (AkvcPathReadBiList *)defaultList
++ (KPEPathReadBiList *)defaultList
 {
-    static AkvcPathReadBiList *_defaultList;
+    static KPEPathReadBiList *_defaultList;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _defaultList = [[AkvcPathReadBiList alloc] init];
+        _defaultList = [[KPEPathReadBiList alloc] init];
     });
     //Create semaphore
     static dispatch_semaphore_t signalSemaphore;
@@ -40,7 +40,7 @@
     return _defaultList;
 }
 
-#define ANode AkvcPathReadNode
+#define ANode KPEPathReadNode
 
 - (void)initWithDefaultList
 {
@@ -60,9 +60,9 @@
     .thatTrueNodeSelf;
     ANode* sel3 = [ANode nodeMatchValue:@")"].asFalseNodeFor(selContent).thatFalseNode(error);
     ANode* sel4 = [ANode nodeMatchValue:@"?"].asTrueNodeFor(sel3).thatFalseNode(error)
-    .thatFinishable.thatResultType(AkvcPathComponentSELInspector);
+    .thatFinishable.thatResultType(KPEPathComponentSELInspector);
     [ANode nodeMatchValue:@"."].asTrueNodeFor(sel4).thatFalseNode(error)
-    .thatFinished.thatResultType(AkvcPathComponentSELInspector);//Node at end
+    .thatFinished.thatResultType(KPEPathComponentSELInspector);//Node at end
     /// SEL-END ///
     ///////////////
     
@@ -78,9 +78,9 @@
     ANode* classContent = [ANode nodeMatchBaseName].asTrueNodeFor(class4).thatBanCharacters(@")").thatTrueNodeSelf;
     ANode* class5 = [ANode nodeMatchValue:@")"].asFalseNodeFor(classContent).thatFalseNode(error);
     ANode* class6 = [ANode nodeMatchValue:@"?"].asTrueNodeFor(class5).thatFalseNode(error)
-    .thatFinishable.thatResultType(AkvcPathComponentClassInspector);
+    .thatFinishable.thatResultType(KPEPathComponentClassInspector);
     [ANode nodeMatchValue:@"."].asTrueNodeFor(class6).thatFalseNode(error)
-    .thatFinished.thatResultType(AkvcPathComponentClassInspector);//Node at end
+    .thatFinished.thatResultType(KPEPathComponentClassInspector);//Node at end
     ///Class-END///
     ///////////////
     
@@ -92,14 +92,14 @@
     {
         ANode* fullPathContent = [ANode nodeMatchBaseName].asTrueNodeFor(fullPath).thatTrueNodeSelf
         .thatBanCharacters(@".-!?}")
-        .thatFinishable.thatResultType(AkvcPathComponentNSKey);
+        .thatFinishable.thatResultType(KPEPathComponentNSKey);
         ///Key path : keyPath.
         ANode* keyPathEnd = [ANode nodeMatchValue:@"."].asFalseNodeFor(fullPathContent)
-        .thatFinished.thatResultType(AkvcPathComponentNSKey);
+        .thatFinished.thatResultType(KPEPathComponentNSKey);
         ///Struct path : (NSKey->)(StructPath->)(StructPath->)...NSKey
         ANode* structPath0 = [ANode nodeMatchValue:@"-"].thatFalseNode(error).asFalseNodeFor(keyPathEnd);
         [ANode nodeMatchValue:@">"].thatFalseNode(error).asTrueNodeFor(structPath0)
-        .thatFinishedStructPath.thatResultType(AkvcPathComponentStructKeyPath);
+        .thatFinishedStructPath.thatResultType(KPEPathComponentStructKeyPath);
     }
     ///FullPath-END///
     //////////////////
@@ -111,21 +111,21 @@
         ///Function
         ANode* function = [ANode nodeMatchBaseName].asTrueNodeFor(at)
         .thatBanCharacters(@"[:")
-        .thatFinishable.thatResultType(AkvcPathComponentIsFunction);
+        .thatFinishable.thatResultType(KPEPathComponentIsFunction);
         ANode* functionContent = [ANode nodeMatchBaseName].thatTrueNodeSelf.asTrueNodeFor(function)
         .thatBanCharacters(@".")
-        .thatFinishable.thatResultType(AkvcPathComponentIsFunction);
+        .thatFinishable.thatResultType(KPEPathComponentIsFunction);
         [ANode nodeMatchValue:@"."].asFalseNodeFor(functionContent)
-        .thatFinished.thatResultType(AkvcPathComponentIsFunction);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentIsFunction);//Node at end
         
         ///Indexer
         ANode* indexer0 = [ANode nodeMatchValue:@"["].asFalseNodeFor(function);
         ANode* indexerContent = [ANode nodeMatchIndexer].thatTrueNodeSelf.asTrueNodeFor(indexer0)
         .thatBanCharacters(@"]");
         ANode* indexer1 = [ANode nodeMatchValue:@"]"].asFalseNodeFor(indexerContent).thatFalseNode(error)
-        .thatFinishable.thatResultType(AkvcPathComponentIndexer);
+        .thatFinishable.thatResultType(KPEPathComponentIndexer);
         [ANode nodeMatchValue:@"."].asTrueNodeFor(indexer1)
-        .thatFinished.thatResultType(AkvcPathComponentIndexer);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentIndexer);//Node at end
         
         ///Predicate
         ANode* predicate0 = [ANode nodeMatchValue:@":"].thatFalseNode(error).asFalseNodeFor(indexer0);
@@ -134,16 +134,16 @@
         .asTrueNodeFor(predicate0).thatTrueNodeSelf;
         
         ANode* predicateFilter = [ANode nodeMatchValue:@"!"].asFalseNodeFor(predicateContent)
-        .thatFinishable.thatResultType(AkvcPathComponentPredicateFilter);
+        .thatFinishable.thatResultType(KPEPathComponentPredicateFilter);
         [ANode nodeMatchValue:@"."].asTrueNodeFor(predicateFilter)
         .thatFalseNode(predicateContent)
-        .thatFinished.thatResultType(AkvcPathComponentPredicateFilter);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentPredicateFilter);//Node at end
         
         ANode* predicateEvaluate = [ANode nodeMatchValue:@"?"].asFalseNodeFor(predicateFilter)
-        .thatFinishable.thatResultType(AkvcPathComponentPredicateEvaluate);;
+        .thatFinishable.thatResultType(KPEPathComponentPredicateEvaluate);;
         [ANode nodeMatchValue:@"."].asTrueNodeFor(predicateEvaluate)
         .thatFalseNode(predicateContent)
-        .thatFinished.thatResultType(AkvcPathComponentPredicateEvaluate);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentPredicateEvaluate);//Node at end
     }
     /// @ //
     ////////
@@ -158,17 +158,17 @@
         .thatBanCharacters(@"$").thatTrueNodeSelf;
         ANode* regkey2 = [ANode nodeMatchValue:@"$"].asFalseNodeFor(regkeyContent);
         ANode* regkey3 = [ANode nodeMatchValue:@">"].asTrueNodeFor(regkey2).thatFalseNode(regkeyContent)
-        .thatFinishable.thatResultType(AkvcPathComponentRegkey);
+        .thatFinishable.thatResultType(KPEPathComponentRegkey);
         [ANode nodeMatchValue:@"."].asTrueNodeFor(regkey3).thatFalseNode(regkeyContent)
-        .thatFinished.thatResultType(AkvcPathComponentRegkey);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentRegkey);//Node at end
         
         
         ANode* subKeyContent = [ANode nodeMatchBaseName].thatBanCharacters(@">")
         .asFalseNodeFor(regkey).thatTrueNodeSelf;
         ANode* subKeyEndable = [ANode nodeMatchValue:@">"].asFalseNodeFor(subKeyContent).thatFalseNode(error)
-        .thatFinishable.thatResultType(AkvcPathComponentSubkey);
+        .thatFinishable.thatResultType(KPEPathComponentSubkey);
         [ANode nodeMatchValue:@"."].asTrueNodeFor(subKeyEndable).thatFalseNode(error)
-        .thatFinished.thatResultType(AkvcPathComponentSubkey);//Node at end
+        .thatFinished.thatResultType(KPEPathComponentSubkey);//Node at end
     }
     /// < ///
     /////////
@@ -182,10 +182,10 @@
         .thatBanCharacters(@"}").thatTrueNodeSelf;
         
         ANode* keys2 = [ANode nodeMatchValue:@"}"].asFalseNodeFor(keysContent)
-        .thatFinishable.thatResultType(AkvcPathComponentKeysAccessor);
+        .thatFinishable.thatResultType(KPEPathComponentKeysAccessor);
         
         [ANode nodeMatchValue:@"."].asTrueNodeFor(keys2).thatFalseNode(keysContent)
-        .thatFinished.thatResultType(AkvcPathComponentKeysAccessor);
+        .thatFinished.thatResultType(KPEPathComponentKeysAccessor);
     }
     /// { ///
     /////////

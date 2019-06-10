@@ -1,14 +1,14 @@
 //
 //  AKVCPathElementReader.h
-//  AkvcExtensionSample
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
 #import <Foundation/Foundation.h>
-@class AkvcPathComponent;
+@class KPEPathComponent;
 
 
 /**
@@ -16,7 +16,7 @@
  Call -[endRead] while read finished.
  逐字阅读逐小节解释
  */
-@interface AkvcPathReader : NSObject
+@interface KPEPathReader : NSObject
 
 + (instancetype)defaultReder;
 
@@ -27,12 +27,12 @@
  @param vale a string component.
  @return nil means continue.
  */
-- (AkvcPathComponent*)readValueFast:(NSString*)vale;
+- (KPEPathComponent*)readValueFast:(NSString*)vale;
 
 /**
  Notice reader read finished.
  */
-- (AkvcPathComponent*)endRead;
+- (KPEPathComponent*)endRead;
 
 
 @end

@@ -1,16 +1,16 @@
 //
 //  AKVCPathReadResult.m
-//  AkvcExtensionSample
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcPathComponent.h"
-#import "AkvcExtension.h"
+#import "KPEPathComponent.h"
+#import "KeyPathExtension.h"
 
-@implementation AkvcPathComponent
+@implementation KPEPathComponent
 {
     NSString* _functionName;
 }
@@ -28,7 +28,7 @@
 - (id)callKeysAccessorByTarget:(id)target
 {
     ///Empty keys : `{}`
-    NSAssert(_stringValue.length > 2, @"AkvcExtension:\n  Keys component must contain at least one key.");
+    NSAssert(_stringValue.length > 2, @"KeyPathExtension:\n  Keys component must contain at least one key.");
     ///Get content.
     NSString* content = [_stringValue substringWithRange:NSMakeRange(1, _stringValue.length - 2)];
     ///Check if illegal character sets are included.
@@ -38,7 +38,7 @@
              &&
              strchr(content.UTF8String, '$') == NULL
              ,
-             @"AkvcExtension:\n  Predicate, subkey, regkey are disable in KeysAccessor.");
+             @"KeyPathExtension:\n  Predicate, subkey, regkey are disable in KeysAccessor.");
     
     
     NSEnumerator*   enumerator  = [[content componentsSeparatedByString:@","] objectEnumerator];
@@ -46,7 +46,7 @@
     NSMutableArray* results     = [NSMutableArray array];
     while ((path = enumerator.nextObject)) {
         
-        ret = [target akvc_valueForExtensionPath:path];
+        ret = [target kpe_valueForExtensionPath:path];
         [results addObject:ret?:NSNull.null];
     }
     
@@ -58,7 +58,7 @@
     if(!target)
         return nil;
     
-    return [AkvcExtension pathFunctionNamed:self.functionName](target);
+    return [KeyPathExtension pathFunctionNamed:self.functionName](target);
 }
 
 - (BOOL)callClassInspectorByTarget:(id _Nullable)target
@@ -416,12 +416,12 @@ CALL_CONDITION_WORDS:;
                     
                     goto CALL_STEP_3;
                 }
-                NSAssert(NO, @"AkvcExtension:\n Wrong indexer format!");
+                NSAssert(NO, @"KeyPathExtension:\n Wrong indexer format!");
             }
         CALL_STEP_1:
             {
                 ///!><
-                NSAssert(aChar == '<' || aChar == '!' || aChar == '>', @"AkvcExtension:\n Wrong indexer format!");
+                NSAssert(aChar == '<' || aChar == '!' || aChar == '>', @"KeyPathExtension:\n Wrong indexer format!");
                 keyChar = aChar;
                 step = 2;
                 continue;
@@ -435,7 +435,7 @@ CALL_CONDITION_WORDS:;
             }
         CALL_STEP_3:
             {
-                NSAssert(aChar >= '0' && aChar <= '9', @"AkvcExtension:\n Wrong indexer format ! The character '%c' is forbidden " , aChar);
+                NSAssert(aChar >= '0' && aChar <= '9', @"KeyPathExtension:\n Wrong indexer format ! The character '%c' is forbidden " , aChar);
                 
                 NSInteger number = [[NSString stringWithUTF8String:charString + i] integerValue];
                 switch (keyChar)
@@ -511,13 +511,13 @@ CALL_CONDITION_WORDS:;
         return nil;
     }
     
-    NSAssert(idxSet.count <= array.count, @"AkvcExtension:\n Array overflow!");
+    NSAssert(idxSet.count <= array.count, @"KeyPathExtension:\n Array overflow!");
     return [array objectsAtIndexes:idxSet];
 }
 
 - (instancetype)copy
 {
-    AkvcPathComponent* _copy = [[self.class alloc] init];
+    KPEPathComponent* _copy = [[self.class alloc] init];
     
     _copy.stringValue   = _stringValue;
     _copy.suffixLength  = _suffixLength;

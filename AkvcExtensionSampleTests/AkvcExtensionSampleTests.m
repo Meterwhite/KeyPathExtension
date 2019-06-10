@@ -1,28 +1,28 @@
 //
-//  AkvcExtensionSampleTests.m
-//  AkvcExtensionSampleTests
+//  KeyPathExtensionSampleTests.m
+//  KeyPathExtensionSampleTests
 //
 //  Created by NOVO on 2018/11/7.
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
-#import "AkvcExtensionPath.h"
-#import "AkvcPathComponent.h"
-#import "AkvcExtension.h"
+#import "KPEExtensionPath.h"
+#import "KPEPathComponent.h"
+#import "KeyPathExtension.h"
 #import <XCTest/XCTest.h>
-#import "AkvcClass.h"
+#import "KPEClass.h"
 #import "Person.h"
 #import "Food.h"
 #import "Dog.h"
 
-@interface AkvcExtensionSampleTests : XCTestCase
+@interface KeyPathExtensionSampleTests : XCTestCase
 @property (nonatomic,strong) Person* jack;
 @property (nonatomic,strong) Person* alice;
 @property (nonatomic,strong) NSMutableDictionary* dictionary;
 @property (nonatomic,strong) NSMutableArray* array;
 @end
 
-@implementation AkvcExtensionSampleTests
+@implementation KeyPathExtensionSampleTests
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -112,13 +112,13 @@
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
 
-//    [self.alice akvc_valueForExtensionPath:@"dogs"];
+//    [self.alice kpe_valueForExtensionPath:@"dogs"];
     
     [self measureBlock:^{
         
         //no chache
         //0.001421, 0.000446, 0.000279, 0.000307, 0.000260, 0.000246, 0.000224, 0.000224, 0.000193, 0.000229
-//        [self.alice akvc_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
+//        [self.alice kpe_valueForExtensionPath:@"dogs.@:name == 'Amy'!"];
         //cache
         //0.000094, 0.000030, 0.000021, 0.000018, 0.000017, 0.000017, 0.000017, 0.000016, 0.000016, 0.000015
     }];

@@ -1,16 +1,16 @@
 //
-//  NSObject+AkvcExtension.h
+//  NSObject+KeyPathExtension.h
 //  KVCExtensionProgram
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
 #import <Foundation/Foundation.h>
 
 
-@interface NSObject(NSObjectAkvcExtension)
+@interface NSObject(NSObjectKeyPathExtension)
 
 
 /**
@@ -27,9 +27,9 @@
 
  @return The return values are boxed.返回值都是装箱的
  */
-- (id _Nullable)akvc_valueForFullPath:(NSString* _Nonnull)fullPath;
-/** Refer to : akvc_valueForFullPath: . */
-- (void)akvc_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath;
+- (id _Nullable)kpe_valueForFullPath:(NSString* _Nonnull)fullPath;
+/** Refer to : kpe_valueForFullPath: . */
+- (void)kpe_setValue:(id _Nullable)value forFullPath:(NSString* _Nonnull)fullPath;
 
 
 /**
@@ -47,9 +47,9 @@
  @param subkey substring of key.Search is ignoring Case.
  @return The properties that match to are unordered.匹配到的属性是无序的
  */
-- (NSArray* _Nonnull)akvc_valuesForSubkey:(NSString* _Nonnull)subkey;
-/** Refer to akvc_valuesForSubkey: */
-- (void)akvc_setValue:(id _Nullable)value forSubkey:(NSString* _Nonnull)subkey;
+- (NSArray* _Nonnull)kpe_valuesForSubkey:(NSString* _Nonnull)subkey;
+/** Refer to kpe_valuesForSubkey: */
+- (void)kpe_setValue:(id _Nullable)value forSubkey:(NSString* _Nonnull)subkey;
 
 
 /**
@@ -68,9 +68,9 @@
  @param regkey Regular expressions to match properties.
  @return The properties that match to are unordered.匹配到的属性是无序的
  */
-- (NSArray* _Nonnull)akvc_valuesForRegkey:(NSString* _Nonnull)regkey;
-/** Refer to akvc_valuesForRegkey: */
-- (void)akvc_setValue:(id _Nullable)value forRegkey:(NSString* _Nonnull)regkey;
+- (NSArray* _Nonnull)kpe_valuesForRegkey:(NSString* _Nonnull)regkey;
+/** Refer to kpe_valuesForRegkey: */
+- (void)kpe_setValue:(id _Nullable)value forRegkey:(NSString* _Nonnull)regkey;
 
 
 /**
@@ -93,7 +93,7 @@
  
  StructPath -
  :
- Refer to akvc_valueForFullPath:
+ Refer to kpe_valueForFullPath:
  
  Indexer -
  :
@@ -112,7 +112,7 @@
  PathFunction -
  :
  Defining some special function to enable Extensionpath to handle more complex things.
- [AkvcExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
+ [KeyPathExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
  
     ... ...
     return result;
@@ -121,11 +121,11 @@
  
  Subkey -
  :
- Refer to akvc_valuesForSubkey:
+ Refer to kpe_valuesForSubkey:
  
  Regkey -
  :
- Refer to akvc_valuesForRegkey:
+ Refer to kpe_valuesForRegkey:
  
  SELInspector -
  :
@@ -159,16 +159,16 @@
  
  @return All return values are boxed,except nil.除nil,所有返回值都是装箱的.
  */
-- (id _Nullable)akvc_valueForExtensionPath:(NSString* _Nonnull)extensionPath;
+- (id _Nullable)kpe_valueForExtensionPath:(NSString* _Nonnull)extensionPath;
 
 /**
- Refer to akvc_valueForExtensionPath:
+ Refer to kpe_valueForExtensionPath:
  
  KeysAccessor -
  :
  Discussion : In current method ,you can only use KeysAccessor for mutable object.Like NSMutableArray, NSMutableOrderedSet.
  */
-- (void)akvc_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;
+- (void)kpe_setValue:(id _Nullable)value forExtensionPath:(NSString* _Nonnull)extensionPath;
 
 
 /**
@@ -176,14 +176,14 @@
  
  Example -
  :
- [anyObject akvc_valueForExtensionPathWithFormat:@"...@[%d]...",index];
+ [anyObject kpe_valueForExtensionPathWithFormat:@"...@[%d]...",index];
  */
-- (id _Nullable)akvc_valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
+- (id _Nullable)kpe_valueForExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(1,2);
 
 /**
- Refer to akvc_valueForExtensionPathWithFormat:
+ Refer to kpe_valueForExtensionPathWithFormat:
  */
-- (void)akvc_setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
+- (void)kpe_setValue:(id _Nullable)value forExtensionPathWithFormat:(NSString* _Nonnull)extensionPathWithFormat, ... NS_FORMAT_FUNCTION(2,3);
 
 
 /**
@@ -191,7 +191,7 @@
  
  Example -
  :
- [anObject akvc_valueForExtensionPathWithPredicateFormat:@"...@:SELF != %@!...", anyObject];
+ [anObject kpe_valueForExtensionPathWithPredicateFormat:@"...@:SELF != %@!...", anyObject];
  
  Discussion :
  The parameter list accepts only boxed values.
@@ -199,22 +199,22 @@
  If you need to do this, please call these two different methods separately.
  Format和Predicateformat不能同时在一条路径中使用，请拆成两个方法实现.
  
- @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or boxed  value.Use `AkvcBoxValue(...)` to wrap scalar or struct.只接受装箱参数不接受基础值类型
+ @param extendPathWithPredicateFormat Please note that : This format is limited to accepting `id` type or boxed  value.Use `KPEBoxValue(...)` to wrap scalar or struct.只接受装箱参数不接受基础值类型
  */
-- (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
+- (id _Nullable)kpe_valueForExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat,...NS_REQUIRES_NIL_TERMINATION;
 
 /**
- Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ Refer to : kpe_valueForExtensionPathWithPredicateFormat:
  */
-- (void)akvc_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
+- (void)kpe_setValue:(id _Nullable)value forExtensionPathWithPredicateFormat:(NSString* _Nonnull)extendPathWithPredicateFormat, ...NS_REQUIRES_NIL_TERMINATION;
 
 /**
- Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ Refer to : kpe_valueForExtensionPathWithPredicateFormat:
  */
-- (id _Nullable)akvc_valueForExtensionPathWithPredicateFormat:(NSString *)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(1,0);
+- (id _Nullable)kpe_valueForExtensionPathWithPredicateFormat:(NSString *_Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(1,0);
 
 /**
- Refer to : akvc_valueForExtensionPathWithPredicateFormat:
+ Refer to : kpe_valueForExtensionPathWithPredicateFormat:
  */
-- (void)akvc_setValue:(id)value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(2,0);
+- (void)kpe_setValue:(id _Nonnull )value forExtensionPathWithPredicateFormat:(NSString * _Nonnull)extendPathWithPredicateFormat arguments:(va_list)arguments NS_FORMAT_FUNCTION(2,0);
 @end

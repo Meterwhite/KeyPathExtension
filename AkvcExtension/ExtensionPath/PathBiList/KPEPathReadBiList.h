@@ -1,15 +1,15 @@
 //
-//  AkvcPathReadBiList.h
-//  AkvcExtensionSample
+//  KPEPathReadBiList.h
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/22.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
 #import <Foundation/Foundation.h>
 
-@class AkvcPathReadNode;
+@class KPEPathReadNode;
 
 
 /**
@@ -24,11 +24,11 @@
  ⇣
  ...
  */
-@interface AkvcPathReadBiList : NSObject
+@interface KPEPathReadBiList : NSObject
 
-+ (AkvcPathReadBiList* _Nonnull)defaultList;
++ (KPEPathReadBiList* _Nonnull)defaultList;
 
-@property (nonatomic,strong,readonly) AkvcPathReadNode* rootNode;
+@property (nonatomic,strong,readonly,nonnull) KPEPathReadNode* rootNode;
 
 @end
 

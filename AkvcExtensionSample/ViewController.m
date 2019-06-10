@@ -1,13 +1,13 @@
 //
 //  ViewController.m
-//  AkvcExtensionSample
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "AkvcExtension.h"
+#import "KeyPathExtension.h"
 #import "Person.h"
 #import "Food.h"
 #import "Dog.h"

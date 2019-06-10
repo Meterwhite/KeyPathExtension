@@ -1,44 +1,44 @@
-#ifndef __AkvcExtensionConst__H__
-#define __AkvcExtensionConst__H__
+#ifndef __KeyPathExtensionConst__H__
+#define __KeyPathExtensionConst__H__
 
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 
 #import <UIKit/UIKit.h>
-#define AKVC_VIEW           UIView
-#define AKVC_RESPONDER      UIResponder
-#define AKVC_EDGEINSETS     UIEdgeInsets
+#define kpe_VIEW           UIView
+#define kpe_RESPONDER      UIResponder
+#define kpe_EDGEINSETS     UIEdgeInsets
 
 #elif TARGET_OS_MAC
 
 #import <AppKit/AppKit.h>
-#define AKVC_VIEW           NSView
-#define AKVC_RESPONDER      NSResponder
-#define AKVC_EDGEINSETS     NSEdgeInsets
+#define kpe_VIEW           NSView
+#define kpe_RESPONDER      NSResponder
+#define kpe_EDGEINSETS     NSEdgeInsets
 
 #endif
 
 //Log
 #ifdef DEBUG
-#define AkvcLog(...)        NSLog(__VA_ARGS__)
+#define KPELog(...)        NSLog(__VA_ARGS__)
 #else
-#define AkvcLog(...)
+#define KPELog(...)
 #endif
 
 //Deprecated
-#define AkvcDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+#define KPEDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
 /**
  *  Types
  */
-FOUNDATION_EXPORT NSString *const AkvcTypeIvar;
-FOUNDATION_EXPORT NSString *const AkvcTypeMethod;
-FOUNDATION_EXPORT NSString *const AkvcTypeSEL;
-FOUNDATION_EXPORT NSString *const AkvcPropertyReadonly;
-FOUNDATION_EXPORT NSString *const AkvcPropertyVoid;
+FOUNDATION_EXPORT NSString *const KPETypeIvar;
+FOUNDATION_EXPORT NSString *const KPETypeMethod;
+FOUNDATION_EXPORT NSString *const KPETypeSEL;
+FOUNDATION_EXPORT NSString *const KPEPropertyReadonly;
+FOUNDATION_EXPORT NSString *const KPEPropertyVoid;
 
-NS_INLINE id Akvc_boxValue(const char *type, ...) {
+NS_INLINE id kpe_boxValue(const char *type, ...) {
     va_list v;
     va_start(v, type);
     id obj = nil;
@@ -96,8 +96,8 @@ NS_INLINE id Akvc_boxValue(const char *type, ...) {
     } else if (strcmp(type, @encode(unsigned short)) == 0) {
         unsigned short actual = (unsigned short)va_arg(v, unsigned int);
         obj = [NSNumber numberWithUnsignedShort:actual];
-    } else if (strcmp(type, @encode(AKVC_EDGEINSETS)) == 0) {
-        AKVC_EDGEINSETS actual = (AKVC_EDGEINSETS)va_arg(v, AKVC_EDGEINSETS);
+    } else if (strcmp(type, @encode(kpe_EDGEINSETS)) == 0) {
+        kpe_EDGEINSETS actual = (kpe_EDGEINSETS)va_arg(v, kpe_EDGEINSETS);
         obj = [NSValue value:&actual withObjCType:type];
     } else if (strcmp(type, @encode(CATransform3D)) == 0) {
         CATransform3D actual = (CATransform3D)va_arg(v, CATransform3D);

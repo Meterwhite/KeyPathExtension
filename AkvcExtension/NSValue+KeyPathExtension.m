@@ -4,11 +4,11 @@
 //
 //  Created by NOVO on 2018/10/19.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "NSValue+AkvcExtension.h"
-#import "AkvcExtensionConst.h"
+#import "NSValue+KeyPathExtension.h"
+#import "KeyPathExtensionConst.h"
 
 
 
@@ -40,9 +40,9 @@
 }
 
 
-@implementation NSValue(NSValueAkvcExtension)
+@implementation NSValue(NSValueKeyPathExtension)
 
-- (BOOL)akvc_valueIsNumberRepresentation
+- (BOOL)kpe_valueIsNumberRepresentation
 {
     if([self isKindOfClass:[NSNumber class]]){
         return YES;
@@ -69,7 +69,7 @@
     
     return NO;
 }
-- (BOOL)akvc_valueIsStructRepresentation
+- (BOOL)kpe_valueIsStructRepresentation
 {
     if([self isKindOfClass:[NSNumber class]]){
         return NO;
@@ -97,7 +97,7 @@
     return (idxOfEq>1 && idxOfEq<len-2);
 }
 
-- (__kindof NSValue* _Nullable)akvc_structValueForKey:(NSString* _Nonnull)key
+- (__kindof NSValue* _Nullable)kpe_structValueForKey:(NSString* _Nonnull)key
 {
     if(!key) {//only key
         
@@ -116,7 +116,7 @@
 }
 
 
-- (__kindof NSValue* _Nullable)akvc_structValueForKeyPath:(NSString* _Nonnull)keyPath
+- (__kindof NSValue* _Nullable)kpe_structValueForKeyPath:(NSString* _Nonnull)keyPath
 {
     NSArray* pathNodes = [keyPath componentsSeparatedByString:@"."];
     
@@ -143,7 +143,7 @@
     if(dotIdx >= keyPath.length) return nil;///next path wrong
     
     NSString* nextPath = [keyPath substringFromIndex:dotIdx];
-    return [newValue akvc_structValueForKeyPath:nextPath];
+    return [newValue kpe_structValueForKeyPath:nextPath];
 }
 
 - (NSValue* _Nonnull)setStructValue:(id _Nullable)value forKey:(NSString* _Nonnull)key
@@ -193,7 +193,7 @@
 }
 
 
-+ (void)akvc_registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap
++ (void)kpe_registStruct:(NSString*)encode getterMap:(NSDictionary*)getterMap
 {
     static dispatch_semaphore_t signalSemaphore;
     static dispatch_once_t onceTokenSemaphore;
@@ -206,12 +206,12 @@
     id map = [[self pathMapForGetStructValue_AKVC] mutableCopy];
     map[encode] = getterMap;
     
-    _akvc_struct_getmap = [map copy];
+    _kpe_struct_getmap = [map copy];
     
     dispatch_semaphore_signal(signalSemaphore);
 }
 
-+ (void)akvc_registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap
++ (void)kpe_registStruct:(NSString*)encode setterMap:(NSDictionary*)setterMap
 {
     static dispatch_semaphore_t signalSemaphore;
     static dispatch_once_t onceTokenSemaphore;
@@ -224,20 +224,20 @@
     id map = [[self pathMapForSetStructValue_AKVC] mutableCopy];
     map[encode] = setterMap;
     
-    _akvc_struct_setmap = [map copy];
+    _kpe_struct_setmap = [map copy];
     
     dispatch_semaphore_signal(signalSemaphore);
 }
 
 
 
-static NSDictionary* _akvc_struct_getmap;
+static NSDictionary* _kpe_struct_getmap;
 + (NSDictionary*)pathMapForGetStructValue_AKVC
 {
-    if(!_akvc_struct_getmap){
+    if(!_kpe_struct_getmap){
         
 #if TARGET_OS_IPHONE || TARGET_OS_TV
-        _akvc_struct_getmap =
+        _kpe_struct_getmap =
         @{
           @(@encode(CGRect))    :   @{
                   @"size":Block_GetStructValueForPath_ReValue(CGRect,size,CGSize),
@@ -302,7 +302,7 @@ static NSDictionary* _akvc_struct_getmap;
         
         if (@available(iOS 11.0, *)) {
             
-            NSMutableDictionary* map = _akvc_struct_getmap.mutableCopy;
+            NSMutableDictionary* map = _kpe_struct_getmap.mutableCopy;
             map[@(@encode(NSDirectionalEdgeInsets))] =
             @{
               @"top"     :Block_GetStructValueForPath_ReNumber(directionalEdgeInsets,top,Double),
@@ -310,11 +310,11 @@ static NSDictionary* _akvc_struct_getmap;
               @"bottom"  :Block_GetStructValueForPath_ReNumber(directionalEdgeInsets,bottom,Double),
               @"trailing":Block_GetStructValueForPath_ReNumber(directionalEdgeInsets,trailing,Double),
               };
-            _akvc_struct_getmap = map.copy;
+            _kpe_struct_getmap = map.copy;
         }
         
 #elif TARGET_OS_MAC
-        _akvc_struct_getmap =
+        _kpe_struct_getmap =
         @{
           @(@encode(NSRect))   :   @{
                   @"size":^(NSValue* value){
@@ -388,17 +388,17 @@ static NSDictionary* _akvc_struct_getmap;
           };
 #endif
     }
-    return _akvc_struct_getmap;
+    return _kpe_struct_getmap;
 }
 
-static NSDictionary* _akvc_struct_setmap;
+static NSDictionary* _kpe_struct_setmap;
 + (NSDictionary*)pathMapForSetStructValue_AKVC
 {
-    if(!_akvc_struct_setmap){
+    if(!_kpe_struct_setmap){
         
 #if TARGET_OS_IPHONE || TARGET_OS_TV
         
-        _akvc_struct_setmap =
+        _kpe_struct_setmap =
         @{
           @(@encode(CGRect))    :   @{
                   @"size":Block_SetStructValueForPath(CGRect,size,CGSize),
@@ -468,7 +468,7 @@ static NSDictionary* _akvc_struct_setmap;
         
         if (@available(iOS 11.0, *)) {
             
-            NSMutableDictionary* map = _akvc_struct_setmap.mutableCopy;
+            NSMutableDictionary* map = _kpe_struct_setmap.mutableCopy;
             map[@(@encode(NSDirectionalEdgeInsets))] =
             @{
               @"top":^(NSValue* _self,id value){
@@ -492,12 +492,12 @@ static NSDictionary* _akvc_struct_setmap;
                   return [NSValue valueWithDirectionalEdgeInsets:identify];
               },
               };
-            _akvc_struct_setmap = map.copy;
+            _kpe_struct_setmap = map.copy;
         }
         
 #elif TARGET_OS_MAC
         
-        _akvc_struct_setmap =
+        _kpe_struct_setmap =
         @{
           @(@encode(NSRect))   :   @{
                   @"size":^(NSValue* value, NSValue* newValue){
@@ -608,6 +608,6 @@ static NSDictionary* _akvc_struct_setmap;
         
 #endif
     }
-    return _akvc_struct_setmap;
+    return _kpe_struct_setmap;
 }
 @end

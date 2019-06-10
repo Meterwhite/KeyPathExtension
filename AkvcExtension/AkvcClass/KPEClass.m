@@ -1,20 +1,20 @@
 //
 //  AKVCAppleClass.m
-//  AkvcExtensionSample
+//  KeyPathExtensionSample
 //
 //  Created by NOVO on 2018/10/21.
 //  Copyright © 2018 NOVO. All rights reserved.
-//  https://github.com/qddnovo/AkvcExtension
+//  https://github.com/qddnovo/KeyPathExtension
 //
 
-#import "AkvcExtensionConst.h"
+#import "KeyPathExtensionConst.h"
 #import <CoreData/CoreData.h>
 #import <objc/runtime.h>
-#import "AkvcClass.h"
+#import "KPEClass.h"
 
-@implementation  NSObject(AkvcClass)
+@implementation  NSObject(KPEClass)
 
-+ (void)akvc_classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
++ (void)kpe_classEnumerateUsingBlock:(void (^)(__unsafe_unretained Class, BOOL *))block
                    includeBaseClass:(BOOL)includeBaseClass
 {
     if(block == nil)
@@ -27,13 +27,13 @@
         
         block(clazz , &stop);
         clazz = class_getSuperclass(clazz);
-        if(includeBaseClass == NO && [clazz akvc_isBaseClass] == YES)
+        if(includeBaseClass == NO && [clazz kpe_isBaseClass] == YES)
             break;
     }
 }
 
 
-+ (BOOL)akvc_isBaseClass
++ (BOOL)kpe_isBaseClass
 {
     
     static NSSet *_baseDataClasses;
@@ -73,8 +73,8 @@
         object = [object substringToIndex:2];
         
         if([self superclass] == [NSObject class]       ||
-           [self superclass] == [AKVC_RESPONDER class] ||
-           [self superclass] == [AKVC_VIEW class]      ||
+           [self superclass] == [kpe_RESPONDER class] ||
+           [self superclass] == [kpe_VIEW class]      ||
            [self superclass] == [CALayer class]
            #if TARGET_OS_IPHONE || TARGET_OS_TV
                                                        ||
