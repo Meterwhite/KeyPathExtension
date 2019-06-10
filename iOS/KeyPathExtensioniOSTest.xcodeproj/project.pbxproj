@@ -1,0 +1,604 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9F734ACE22AE8127003124A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734ACD22AE8127003124A0 /* AppDelegate.m */; };
+		9F734AD122AE8127003124A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734AD022AE8127003124A0 /* ViewController.m */; };
+		9F734AD622AE8134003124A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F734AD522AE8134003124A0 /* Assets.xcassets */; };
+		9F734ADC22AE8134003124A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734ADB22AE8134003124A0 /* main.m */; };
+		9F734AE622AE8135003124A0 /* KeyPathExtensioniOSTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734AE522AE8135003124A0 /* KeyPathExtensioniOSTestTests.m */; };
+		9F734B3222AE869E003124A0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F734B3122AE869E003124A0 /* Default-568h@2x.png */; };
+		9F734BE322AE8A7D003124A0 /* KPEClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BC922AE8A7D003124A0 /* KPEClass.m */; };
+		9F734BE422AE8A7D003124A0 /* KPEClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BC922AE8A7D003124A0 /* KPEClass.m */; };
+		9F734BE522AE8A7D003124A0 /* NSObject+KPECategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BCA22AE8A7D003124A0 /* NSObject+KPECategory.m */; };
+		9F734BE622AE8A7D003124A0 /* NSObject+KPECategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BCA22AE8A7D003124A0 /* NSObject+KPECategory.m */; };
+		9F734BE722AE8A7D003124A0 /* KeyPathExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BCD22AE8A7D003124A0 /* KeyPathExtensionConst.m */; };
+		9F734BE822AE8A7D003124A0 /* KeyPathExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BCD22AE8A7D003124A0 /* KeyPathExtensionConst.m */; };
+		9F734BE922AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m */; };
+		9F734BEA22AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m */; };
+		9F734BEB22AE8A7D003124A0 /* KeyPathExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD322AE8A7D003124A0 /* KeyPathExtension.m */; };
+		9F734BEC22AE8A7D003124A0 /* KeyPathExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD322AE8A7D003124A0 /* KeyPathExtension.m */; };
+		9F734BED22AE8A7D003124A0 /* NSValue+KeyPathExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD422AE8A7D003124A0 /* NSValue+KeyPathExtension.m */; };
+		9F734BEE22AE8A7D003124A0 /* NSValue+KeyPathExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD422AE8A7D003124A0 /* NSValue+KeyPathExtension.m */; };
+		9F734BEF22AE8A7D003124A0 /* KPEPathReadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD922AE8A7D003124A0 /* KPEPathReadNode.m */; };
+		9F734BF022AE8A7D003124A0 /* KPEPathReadNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BD922AE8A7D003124A0 /* KPEPathReadNode.m */; };
+		9F734BF122AE8A7D003124A0 /* KPEPathReadBiList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDA22AE8A7D003124A0 /* KPEPathReadBiList.m */; };
+		9F734BF222AE8A7D003124A0 /* KPEPathReadBiList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDA22AE8A7D003124A0 /* KPEPathReadBiList.m */; };
+		9F734BF322AE8A7D003124A0 /* KPEExtensionPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDC22AE8A7D003124A0 /* KPEExtensionPath.m */; };
+		9F734BF422AE8A7D003124A0 /* KPEExtensionPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDC22AE8A7D003124A0 /* KPEExtensionPath.m */; };
+		9F734BF522AE8A7D003124A0 /* KPEPathComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDD22AE8A7D003124A0 /* KPEPathComponent.m */; };
+		9F734BF622AE8A7D003124A0 /* KPEPathComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDD22AE8A7D003124A0 /* KPEPathComponent.m */; };
+		9F734BF722AE8A7D003124A0 /* KPEPathReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDF22AE8A7D003124A0 /* KPEPathReader.m */; };
+		9F734BF822AE8A7D003124A0 /* KPEPathReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BDF22AE8A7D003124A0 /* KPEPathReader.m */; };
+		9F734BF922AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BE222AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m */; };
+		9F734BFA22AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BE222AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m */; };
+		9F734C0222AE8A8C003124A0 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BFF22AE8A8C003124A0 /* Person.m */; };
+		9F734C0322AE8A8C003124A0 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734BFF22AE8A8C003124A0 /* Person.m */; };
+		9F734C0422AE8A8C003124A0 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734C0022AE8A8C003124A0 /* Food.m */; };
+		9F734C0522AE8A8C003124A0 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734C0022AE8A8C003124A0 /* Food.m */; };
+		9F734C0622AE8A8C003124A0 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734C0122AE8A8C003124A0 /* Dog.m */; };
+		9F734C0722AE8A8C003124A0 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F734C0122AE8A8C003124A0 /* Dog.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9F734AE222AE8135003124A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F734AC122AE8127003124A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F734AC822AE8127003124A0;
+			remoteInfo = KeyPathExtensioniOSTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9F734AC922AE8127003124A0 /* KeyPathExtensioniOSTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyPathExtensioniOSTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F734ACC22AE8127003124A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9F734ACD22AE8127003124A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9F734ACF22AE8127003124A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9F734AD022AE8127003124A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9F734AD522AE8134003124A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9F734ADA22AE8134003124A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F734ADB22AE8134003124A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9F734AE122AE8135003124A0 /* KeyPathExtensioniOSTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyPathExtensioniOSTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F734AE522AE8135003124A0 /* KeyPathExtensioniOSTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyPathExtensioniOSTestTests.m; sourceTree = "<group>"; };
+		9F734AE722AE8135003124A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F734B3122AE869E003124A0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9F734BC922AE8A7D003124A0 /* KPEClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEClass.m; sourceTree = "<group>"; };
+		9F734BCA22AE8A7D003124A0 /* NSObject+KPECategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KPECategory.m"; sourceTree = "<group>"; };
+		9F734BCB22AE8A7D003124A0 /* KPEClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEClass.h; sourceTree = "<group>"; };
+		9F734BCC22AE8A7D003124A0 /* NSObject+KPECategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KPECategory.h"; sourceTree = "<group>"; };
+		9F734BCD22AE8A7D003124A0 /* KeyPathExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyPathExtensionConst.m; sourceTree = "<group>"; };
+		9F734BCE22AE8A7D003124A0 /* NSValue+KeyPathExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+KeyPathExtension.h"; sourceTree = "<group>"; };
+		9F734BCF22AE8A7D003124A0 /* KeyPathExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyPathExtension.h; sourceTree = "<group>"; };
+		9F734BD022AE8A7D003124A0 /* NSObject+KeyPathExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KeyPathExtension.h"; sourceTree = "<group>"; };
+		9F734BD122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KeyPathExtensionChain.m"; sourceTree = "<group>"; };
+		9F734BD222AE8A7D003124A0 /* KeyPathExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyPathExtensionConst.h; sourceTree = "<group>"; };
+		9F734BD322AE8A7D003124A0 /* KeyPathExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyPathExtension.m; sourceTree = "<group>"; };
+		9F734BD422AE8A7D003124A0 /* NSValue+KeyPathExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+KeyPathExtension.m"; sourceTree = "<group>"; };
+		9F734BD722AE8A7D003124A0 /* KPEPathReadNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEPathReadNode.h; sourceTree = "<group>"; };
+		9F734BD822AE8A7D003124A0 /* KPEPathReadBiList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEPathReadBiList.h; sourceTree = "<group>"; };
+		9F734BD922AE8A7D003124A0 /* KPEPathReadNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEPathReadNode.m; sourceTree = "<group>"; };
+		9F734BDA22AE8A7D003124A0 /* KPEPathReadBiList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEPathReadBiList.m; sourceTree = "<group>"; };
+		9F734BDB22AE8A7D003124A0 /* KPEPathReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEPathReader.h; sourceTree = "<group>"; };
+		9F734BDC22AE8A7D003124A0 /* KPEExtensionPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEExtensionPath.m; sourceTree = "<group>"; };
+		9F734BDD22AE8A7D003124A0 /* KPEPathComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEPathComponent.m; sourceTree = "<group>"; };
+		9F734BDE22AE8A7D003124A0 /* KPEExtensionPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEExtensionPath.h; sourceTree = "<group>"; };
+		9F734BDF22AE8A7D003124A0 /* KPEPathReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPEPathReader.m; sourceTree = "<group>"; };
+		9F734BE022AE8A7D003124A0 /* KPEPathComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPEPathComponent.h; sourceTree = "<group>"; };
+		9F734BE122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KeyPathExtensionChain.h"; sourceTree = "<group>"; };
+		9F734BE222AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KeyPathExtension.h.m"; sourceTree = "<group>"; };
+		9F734BFC22AE8A8C003124A0 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		9F734BFD22AE8A8C003124A0 /* Dog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dog.h; sourceTree = "<group>"; };
+		9F734BFE22AE8A8C003124A0 /* Food.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
+		9F734BFF22AE8A8C003124A0 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		9F734C0022AE8A8C003124A0 /* Food.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Food.m; sourceTree = "<group>"; };
+		9F734C0122AE8A8C003124A0 /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9F734AC622AE8127003124A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F734ADE22AE8135003124A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9F734AC022AE8127003124A0 = {
+			isa = PBXGroup;
+			children = (
+				9F734B3122AE869E003124A0 /* Default-568h@2x.png */,
+				9F734ACB22AE8127003124A0 /* KeyPathExtensioniOSTest */,
+				9F734AE422AE8135003124A0 /* KeyPathExtensioniOSTestTests */,
+				9F734ACA22AE8127003124A0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9F734ACA22AE8127003124A0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9F734AC922AE8127003124A0 /* KeyPathExtensioniOSTest.app */,
+				9F734AE122AE8135003124A0 /* KeyPathExtensioniOSTestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F734ACB22AE8127003124A0 /* KeyPathExtensioniOSTest */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BFB22AE8A8C003124A0 /* TestClass */,
+				9F734BC722AE8A7D003124A0 /* KeyPathExtension */,
+				9F734ACC22AE8127003124A0 /* AppDelegate.h */,
+				9F734ACD22AE8127003124A0 /* AppDelegate.m */,
+				9F734ACF22AE8127003124A0 /* ViewController.h */,
+				9F734AD022AE8127003124A0 /* ViewController.m */,
+				9F734AD522AE8134003124A0 /* Assets.xcassets */,
+				9F734ADA22AE8134003124A0 /* Info.plist */,
+				9F734ADB22AE8134003124A0 /* main.m */,
+			);
+			path = KeyPathExtensioniOSTest;
+			sourceTree = "<group>";
+		};
+		9F734AE422AE8135003124A0 /* KeyPathExtensioniOSTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				9F734AE522AE8135003124A0 /* KeyPathExtensioniOSTestTests.m */,
+				9F734AE722AE8135003124A0 /* Info.plist */,
+			);
+			path = KeyPathExtensioniOSTestTests;
+			sourceTree = "<group>";
+		};
+		9F734BC722AE8A7D003124A0 /* KeyPathExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BC822AE8A7D003124A0 /* KPEClass */,
+				9F734BD522AE8A7D003124A0 /* ExtensionPath */,
+				9F734BCF22AE8A7D003124A0 /* KeyPathExtension.h */,
+				9F734BD322AE8A7D003124A0 /* KeyPathExtension.m */,
+				9F734BD222AE8A7D003124A0 /* KeyPathExtensionConst.h */,
+				9F734BCD22AE8A7D003124A0 /* KeyPathExtensionConst.m */,
+				9F734BD022AE8A7D003124A0 /* NSObject+KeyPathExtension.h */,
+				9F734BE222AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m */,
+				9F734BE122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.h */,
+				9F734BD122AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m */,
+				9F734BCE22AE8A7D003124A0 /* NSValue+KeyPathExtension.h */,
+				9F734BD422AE8A7D003124A0 /* NSValue+KeyPathExtension.m */,
+			);
+			name = KeyPathExtension;
+			path = ../../KeyPathExtension;
+			sourceTree = "<group>";
+		};
+		9F734BC822AE8A7D003124A0 /* KPEClass */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BC922AE8A7D003124A0 /* KPEClass.m */,
+				9F734BCA22AE8A7D003124A0 /* NSObject+KPECategory.m */,
+				9F734BCB22AE8A7D003124A0 /* KPEClass.h */,
+				9F734BCC22AE8A7D003124A0 /* NSObject+KPECategory.h */,
+			);
+			path = KPEClass;
+			sourceTree = "<group>";
+		};
+		9F734BD522AE8A7D003124A0 /* ExtensionPath */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BDE22AE8A7D003124A0 /* KPEExtensionPath.h */,
+				9F734BDC22AE8A7D003124A0 /* KPEExtensionPath.m */,
+				9F734BE022AE8A7D003124A0 /* KPEPathComponent.h */,
+				9F734BDD22AE8A7D003124A0 /* KPEPathComponent.m */,
+				9F734BDB22AE8A7D003124A0 /* KPEPathReader.h */,
+				9F734BDF22AE8A7D003124A0 /* KPEPathReader.m */,
+				9F734BD622AE8A7D003124A0 /* PathBiList */,
+			);
+			path = ExtensionPath;
+			sourceTree = "<group>";
+		};
+		9F734BD622AE8A7D003124A0 /* PathBiList */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BD822AE8A7D003124A0 /* KPEPathReadBiList.h */,
+				9F734BDA22AE8A7D003124A0 /* KPEPathReadBiList.m */,
+				9F734BD722AE8A7D003124A0 /* KPEPathReadNode.h */,
+				9F734BD922AE8A7D003124A0 /* KPEPathReadNode.m */,
+			);
+			path = PathBiList;
+			sourceTree = "<group>";
+		};
+		9F734BFB22AE8A8C003124A0 /* TestClass */ = {
+			isa = PBXGroup;
+			children = (
+				9F734BFD22AE8A8C003124A0 /* Dog.h */,
+				9F734C0122AE8A8C003124A0 /* Dog.m */,
+				9F734BFE22AE8A8C003124A0 /* Food.h */,
+				9F734C0022AE8A8C003124A0 /* Food.m */,
+				9F734BFC22AE8A8C003124A0 /* Person.h */,
+				9F734BFF22AE8A8C003124A0 /* Person.m */,
+			);
+			name = TestClass;
+			path = ../../TestClass;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9F734AC822AE8127003124A0 /* KeyPathExtensioniOSTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F734AEA22AE8135003124A0 /* Build configuration list for PBXNativeTarget "KeyPathExtensioniOSTest" */;
+			buildPhases = (
+				9F734AC522AE8127003124A0 /* Sources */,
+				9F734AC622AE8127003124A0 /* Frameworks */,
+				9F734AC722AE8127003124A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyPathExtensioniOSTest;
+			productName = KeyPathExtensioniOSTest;
+			productReference = 9F734AC922AE8127003124A0 /* KeyPathExtensioniOSTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9F734AE022AE8135003124A0 /* KeyPathExtensioniOSTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F734AED22AE8135003124A0 /* Build configuration list for PBXNativeTarget "KeyPathExtensioniOSTestTests" */;
+			buildPhases = (
+				9F734ADD22AE8135003124A0 /* Sources */,
+				9F734ADE22AE8135003124A0 /* Frameworks */,
+				9F734ADF22AE8135003124A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9F734AE322AE8135003124A0 /* PBXTargetDependency */,
+			);
+			name = KeyPathExtensioniOSTestTests;
+			productName = KeyPathExtensioniOSTestTests;
+			productReference = 9F734AE122AE8135003124A0 /* KeyPathExtensioniOSTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F734AC122AE8127003124A0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = Meterwhite;
+				TargetAttributes = {
+					9F734AC822AE8127003124A0 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					9F734AE022AE8135003124A0 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 9F734AC822AE8127003124A0;
+					};
+				};
+			};
+			buildConfigurationList = 9F734AC422AE8127003124A0 /* Build configuration list for PBXProject "KeyPathExtensioniOSTest" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9F734AC022AE8127003124A0;
+			productRefGroup = 9F734ACA22AE8127003124A0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9F734AC822AE8127003124A0 /* KeyPathExtensioniOSTest */,
+				9F734AE022AE8135003124A0 /* KeyPathExtensioniOSTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9F734AC722AE8127003124A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F734AD622AE8134003124A0 /* Assets.xcassets in Resources */,
+				9F734B3222AE869E003124A0 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F734ADF22AE8135003124A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9F734AC522AE8127003124A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F734C0622AE8A8C003124A0 /* Dog.m in Sources */,
+				9F734C0422AE8A8C003124A0 /* Food.m in Sources */,
+				9F734BED22AE8A7D003124A0 /* NSValue+KeyPathExtension.m in Sources */,
+				9F734BF922AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m in Sources */,
+				9F734BE522AE8A7D003124A0 /* NSObject+KPECategory.m in Sources */,
+				9F734AD122AE8127003124A0 /* ViewController.m in Sources */,
+				9F734ADC22AE8134003124A0 /* main.m in Sources */,
+				9F734BEF22AE8A7D003124A0 /* KPEPathReadNode.m in Sources */,
+				9F734BE722AE8A7D003124A0 /* KeyPathExtensionConst.m in Sources */,
+				9F734ACE22AE8127003124A0 /* AppDelegate.m in Sources */,
+				9F734BF722AE8A7D003124A0 /* KPEPathReader.m in Sources */,
+				9F734BF322AE8A7D003124A0 /* KPEExtensionPath.m in Sources */,
+				9F734C0222AE8A8C003124A0 /* Person.m in Sources */,
+				9F734BEB22AE8A7D003124A0 /* KeyPathExtension.m in Sources */,
+				9F734BE922AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m in Sources */,
+				9F734BF522AE8A7D003124A0 /* KPEPathComponent.m in Sources */,
+				9F734BF122AE8A7D003124A0 /* KPEPathReadBiList.m in Sources */,
+				9F734BE322AE8A7D003124A0 /* KPEClass.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F734ADD22AE8135003124A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F734C0522AE8A8C003124A0 /* Food.m in Sources */,
+				9F734BEA22AE8A7D003124A0 /* NSObject+KeyPathExtensionChain.m in Sources */,
+				9F734BE422AE8A7D003124A0 /* KPEClass.m in Sources */,
+				9F734C0322AE8A8C003124A0 /* Person.m in Sources */,
+				9F734BE622AE8A7D003124A0 /* NSObject+KPECategory.m in Sources */,
+				9F734BFA22AE8A7D003124A0 /* NSObject+KeyPathExtension.h.m in Sources */,
+				9F734BF022AE8A7D003124A0 /* KPEPathReadNode.m in Sources */,
+				9F734BF622AE8A7D003124A0 /* KPEPathComponent.m in Sources */,
+				9F734BF822AE8A7D003124A0 /* KPEPathReader.m in Sources */,
+				9F734AE622AE8135003124A0 /* KeyPathExtensioniOSTestTests.m in Sources */,
+				9F734C0722AE8A8C003124A0 /* Dog.m in Sources */,
+				9F734BEE22AE8A7D003124A0 /* NSValue+KeyPathExtension.m in Sources */,
+				9F734BF422AE8A7D003124A0 /* KPEExtensionPath.m in Sources */,
+				9F734BEC22AE8A7D003124A0 /* KeyPathExtension.m in Sources */,
+				9F734BF222AE8A7D003124A0 /* KPEPathReadBiList.m in Sources */,
+				9F734BE822AE8A7D003124A0 /* KeyPathExtensionConst.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9F734AE322AE8135003124A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F734AC822AE8127003124A0 /* KeyPathExtensioniOSTest */;
+			targetProxy = 9F734AE222AE8135003124A0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9F734AE822AE8135003124A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9F734AE922AE8135003124A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F734AEB22AE8135003124A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KeyPathExtensioniOSTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Meterwhite.KeyPathExtensioniOSTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9F734AEC22AE8135003124A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KeyPathExtensioniOSTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Meterwhite.KeyPathExtensioniOSTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9F734AEE22AE8135003124A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KeyPathExtensioniOSTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Meterwhite.KeyPathExtensioniOSTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeyPathExtensioniOSTest.app/KeyPathExtensioniOSTest";
+			};
+			name = Debug;
+		};
+		9F734AEF22AE8135003124A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KeyPathExtensioniOSTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Meterwhite.KeyPathExtensioniOSTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeyPathExtensioniOSTest.app/KeyPathExtensioniOSTest";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9F734AC422AE8127003124A0 /* Build configuration list for PBXProject "KeyPathExtensioniOSTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F734AE822AE8135003124A0 /* Debug */,
+				9F734AE922AE8135003124A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F734AEA22AE8135003124A0 /* Build configuration list for PBXNativeTarget "KeyPathExtensioniOSTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F734AEB22AE8135003124A0 /* Debug */,
+				9F734AEC22AE8135003124A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F734AED22AE8135003124A0 /* Build configuration list for PBXNativeTarget "KeyPathExtensioniOSTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F734AEE22AE8135003124A0 /* Debug */,
+				9F734AEF22AE8135003124A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F734AC122AE8127003124A0 /* Project object */;
+}

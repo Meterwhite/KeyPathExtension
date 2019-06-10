@@ -1,27 +1,29 @@
-![Logo](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)AkvcExtension
+![Logo](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)KeyPathExtension
 ===
-- An extension of KeyPath for KVC.
+- A kvc extension of KeyPath for objc runtime.
 - Describe complex logic with less code in KeyPath.Reduce programmer doing work.
     1. Access  structural value in the KeyPath.
     2. Using Predicate in the KeyPath
     3. Implementing custom function or @NSKeyValueOperator(@avg, @count, ...).
     4. Perform type-safe checks directly in the KeyPath.
     5. One start, more length.
-- 用较少的代码描述复杂的逻辑，减少程序员做功
+- 用较少的代码描述复杂的逻辑，减少做功
     1. 在KVC中直接访问结构体成员
     2. 在KVC中使用谓词
     3. 实现自定义函数或@NSKeyValueOperator(@avg, @count, ...)
     4. 在KVC中直接进行类型安全的检查
     5. 随手一赞，好运百万
+    
+    - Key words : `KeyPath Extension` `KVC Extension` `sort in key path`
 
 # Import
-* Drag all source files under folder `AkvcExtension` to your project.
+* Drag all source files under folder `KeyPathExtension` to your project.
 ```objc
-#import "AkvcExtension.h"
+#import "KeyPathExtension.h"
 ```
 * Or use `CocoaPods`.
 ```ruby
-pod 'AkvcExtension'
+pod 'KeyPathExtension'
 ```
 * `iOS` & `macOS`
 
@@ -29,11 +31,11 @@ pod 'AkvcExtension'
 ### Examples
 ```objc
 
-[... akvc_setValue:@(100) forExtensionPath:@"....frame->size->width"];
+[... kpe_setValue:@(100) forExtensionPath:@"....frame->size->width"];
 
-[... akvc_setValue:@(YES) forExtensionPath:@"...dogs.@:age<1!.smallDog"];
+[... kpe_setValue:@(YES) forExtensionPath:@"...dogs.@:age<1!.smallDog"];
 
-[... akvc_valueForExtensionPath:@"view.subviews.@:hidden == YES!.@removeFromSuperview"];
+[... kpe_valueForExtensionPath:@"view.subviews.@:hidden == YES!.@removeFromSuperview"];
 
 ///myStarts is outlet collections
 myStarts
@@ -110,11 +112,11 @@ It's wrong : @[0,!1] ;
 ## <a id="PathFunction"></a> PathFunction
 ### PathFunction is a custom NSKeyValueOperator.自定义路径函数
 ```objc
-[... akvc_valueForExtensionPath:@"...friendList.@sortFriends..."];
+[... kpe_valueForExtensionPath:@"...friendList.@sortFriends..."];
 ```
 ### <a id="Regist_PathFunction"></a> Regist PathFunction
 ```objc
-[AkvcExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
+[KeyPathExtension registFunction:@"sortFriends" withBlock:^id(id  _Nullable target) {
 
     //... ...
     //return result;
@@ -133,11 +135,11 @@ name
 ### <a id="Default_behavior"></a>Default behavior
 - When an unregistered method is called, the function name is called as selector name. Returns if there is a return value, if no returns the target itself.
 ```objc
-id viewThatRemoved = [... akvc_valueForExtensionPath:@"view.@removeFromSuperview"];
+id viewThatRemoved = [... kpe_valueForExtensionPath:@"view.@removeFromSuperview"];
 ```
 - It is legal to use a method with parameters, but it is not recommended. All parameters are the default values.
 ```objc
-id mulArraySelf = [mulArray akvc_valueForExtensionPath:@"@removeObjectAtIndex:.@removeObjectAtIndex:"];
+id mulArraySelf = [mulArray kpe_valueForExtensionPath:@"@removeObjectAtIndex:.@removeObjectAtIndex:"];
 
 Equivalent ==> 
 
@@ -152,7 +154,7 @@ id mulArraySelf = mulArray;
 ```objc
 `time` can match 'createTime' and 'modifyTime'.
 
-[... akvc_valueForExtensionPath:@"...<time>.@isAllEqual"];
+[... kpe_valueForExtensionPath:@"...<time>.@isAllEqual"];
 
 ```
 
@@ -163,7 +165,7 @@ id mulArraySelf = mulArray;
 
 `button\\d+` can match 'button0','button1', ...
 
-[... akvc_setValue:@(YES) forExtensionPath:@"...<button\\d+>.hidden"];
+[... kpe_setValue:@(YES) forExtensionPath:@"...<button\\d+>.hidden"];
 
 ```
 
@@ -171,22 +173,22 @@ id mulArraySelf = mulArray;
 ### If iSELInspector is the last component, it is equivalent to - respondsToSelector: .
 * Expressions :`SEL(...)?`
 ```objc
-NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
+NSNumber *value = [... kpe_valueForExtensionPath:@"...SEL(addObject:)?"];
 ```
 ### If SELInspector is not the last component,  it is a condition for whether execute next path.
 ```objc
-[... akvc_setValue:@"Trump" forExtensionPath:@"...friend.SEL(setNickName:)?.nickName"];
+[... kpe_setValue:@"Trump" forExtensionPath:@"...friend.SEL(setNickName:)?.nickName"];
 ```
 
 ## <a id="ClassInspector"></a> ClassInspector
 ### If ClassInspector is the last component, it is equivalent to isKindOfClass: .
 * Expressions :`Class(...)?`
 ```objc
-[... akvc_valueForExtensionPath:@"...Class(NSArray)?"];
+[... kpe_valueForExtensionPath:@"...Class(NSArray)?"];
 ```
 ### If ClassInspector is not the last component,  it is a condition for whether execute next path.
 ```objc
-[... akvc_setValue:@"Trump" forExtensionPath:@"...friend.Class(AkvcPerson)?.nickName"];
+[... kpe_setValue:@"Trump" forExtensionPath:@"...friend.Class(AkvcPerson)?.nickName"];
 ```
 
 ## <a id="KeysAccessor"></a> KeysAccessor
@@ -194,7 +196,7 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 -  Discussion : Predicate, Subkey, Regkey are disable in KeysAccessor!In addition,and the nil value will be replaced by NSNull.
 * Expressions :`{...}`
 ```objc
-[... akvc_valueForExtensionPath:@"{Breakfast.name, lunch.name, dinner.name}.@isAllEqual"];
+[... kpe_valueForExtensionPath:@"{Breakfast.name, lunch.name, dinner.name}.@isAllEqual"];
 ```
 
 ## <a id="PredicateFilter"></a> PredicateFilter
@@ -202,12 +204,12 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 * Expressions :`@:PredicateString!`
 - Discussion : Symbol `!.` or `?.` is forbidden to use, but `?`, `!` , `.` are available.
 ```objc
-[... akvc_valueForExtensionPath:@"...users.@:age>18 && sex == 0!"];
+[... kpe_valueForExtensionPath:@"...users.@:age>18 && sex == 0!"];
 ```
 ### Use placeholders in ExtensionPath for predicate component
 - Discussion : The parameter list accepts only boxed values.Use `AkvcBoxValue(...)` to wrap scalar.只接受装箱参数
 ```objc
-[... akvc_valueForExtensionPathWithPredicateFormat:@"...@:@K == %@!...@:SELF == %@?", object0, object1, object2];
+[... kpe_valueForExtensionPathWithPredicateFormat:@"...@:@K == %@!...@:SELF == %@?", object0, object1, object2];
 ```
 
 ## <a id="PredicateEvaluate"></a> PredicateEvaluate
@@ -248,14 +250,14 @@ NSNumber *value = [... akvc_valueForExtensionPath:@"...SEL(addObject:)?"];
 ```
 # <a id="Clean_cache"></a> Clean cache
 ```objc
-[AkvcExtension cleanCache];
+[KeyPathExtension cleanCache];
 ```
 
 # <a id="Chain_programming"></a> Chain programming
--  `NSObject+AkvcExtensionChain.h` defines the API for chained programming.The return value of all setter is target itself.
+-  `NSObject+KeyPathExtensionChain.h` defines the API for chained programming.The return value of all setter is target itself.
 ```objc
 _NonnullObject.akvcSetValueForExtensionPath(...)akvcSetValueForExtensionPath(...)...
 ```
 
-# Author
-- Contact or join AkvcExtension : quxingyi@outlook.com
+# Need expand KeyPathExtension
+-  Emergency: meterwhite@outlook.com
