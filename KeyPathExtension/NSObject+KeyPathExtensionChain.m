@@ -12,7 +12,7 @@
 
 @implementation NSObject(NSObject_KPEChain)
 
-- (NSString *(^)(id _Nullable path))akvcPathAppend
+- (NSString *(^)(id _Nullable path))kpePathAppend
 {
     return ^id(id _Nullable path){
         
@@ -26,7 +26,7 @@
     };
 }
 
-- (NSObject *(^)(NSString * _Nonnull))akvcValueForFullPath
+- (NSObject *(^)(NSString * _Nonnull))kpeValueForFullPath
 {
     return ^id(NSString* k){
         
@@ -34,7 +34,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForFullPath
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull))kpeSetValueForFullPath
 {
     return ^id(id v, NSString* k){
         
@@ -43,7 +43,7 @@
     };
 }
 
-- (NSArray *(^)(NSString * _Nonnull))akvcValuesForSubkey
+- (NSArray *(^)(NSString * _Nonnull))kpeValuesForSubkey
 {
     return ^ id (NSString* k) {
         
@@ -51,7 +51,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForSubkey
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull))kpeSetValueForSubkey
 {
     return ^ id (id v, NSString* k) {
         
@@ -60,7 +60,7 @@
     };
 }
 
-- (NSArray *(^)(NSString * _Nonnull))akvcValuesForRegkey
+- (NSArray *(^)(NSString * _Nonnull))kpeValuesForRegkey
 {
     return ^ id (NSString* k) {
         
@@ -68,7 +68,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForRegkey
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull))kpeSetValueForRegkey
 {
     return ^ id (id v, NSString* k) {
         
@@ -77,7 +77,7 @@
     };
 }
 
-- (NSObject *(^)(NSString * _Nonnull))akvcValueForExtensionPath
+- (NSObject *(^)(NSString * _Nonnull))kpeValueForExtensionPath
 {
     return ^ id (NSString* k) {
         
@@ -85,7 +85,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull))akvcSetValueForExtensionPath
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull))kpeSetValueForExtensionPath
 {
     return ^ id (id v, NSString* k) {
         
@@ -94,7 +94,7 @@
     };
 }
 
-- (NSObject *(^)(NSString * _Nonnull, ...))akvcValueForExtensionPathWithFormat
+- (NSObject *(^)(NSString * _Nonnull, ...))kpeValueForExtensionPathWithFormat
 {
     return ^ id (NSString* k, ...) {
         
@@ -106,7 +106,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))akvcSetValueForExtensionPathWithFormat
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))kpeSetValueForExtensionPathWithFormat
 {
     return ^id(id v, NSString* k, ...){
         
@@ -120,7 +120,7 @@
     };
 }
 
-- (NSObject *(^)(NSString * _Nonnull, ...))akvcValueForExtensionPathWithPredicateFormat
+- (NSObject *(^)(NSString * _Nonnull, ...))kpeValueForExtensionPathWithPredicateFormat
 {
     return ^id (NSString* k, ...) {
         
@@ -133,7 +133,7 @@
     };
 }
 
-- (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))akvcSetValueForExtensionPathWithPredicateFormat
+- (NSObject *(^)(id _Nullable, NSString * _Nonnull, ...))kpeSetValueForExtensionPathWithPredicateFormat
 {
     return ^id(id v, NSString* k, ...){
         

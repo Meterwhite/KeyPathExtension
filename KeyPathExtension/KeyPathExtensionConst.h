@@ -129,13 +129,13 @@ NS_INLINE id kpe_boxValue(const char *type, ...) {
 
 
 
-#define akvcValueForExtensionPathWithPredicateFormat(path,args...)\
+#define kpeValueForExtensionPathWithPredicateFormat(path,args...)\
     \
-    akvcValueForExtensionPathWithPredicateFormat(path,##args,nil)
+    kpeValueForExtensionPathWithPredicateFormat(path,##args,nil)
 
-#define akvcSetValueForExtensionPathWithPredicateFormat(value,path,args...)\
+#define kpeSetValueForExtensionPathWithPredicateFormat(value,path,args...)\
     \
-    akvcSetValueForExtensionPathWithPredicateFormat(value,path,##args,nil)
+    kpeSetValueForExtensionPathWithPredicateFormat(value,path,##args,nil)
 
 
 #endif
@@ -167,28 +167,28 @@ NS_INLINE id kpe_boxValue(const char *type, ...) {
  * refactoring, such that changing the name of the property will also update any
  * uses of \@aKPath.
  */
-#define akvcGetPath(...) \
-akvcmacro_if_eq(1, akvcmacro_argcount(__VA_ARGS__))(aKpath1(__VA_ARGS__))(aKpath2(__VA_ARGS__))
+#define kpeGetPath(...) \
+kpemacro_if_eq(1, kpemacro_argcount(__VA_ARGS__))(aKpath1(__VA_ARGS__))(aKpath2(__VA_ARGS__))
 
-#define akvcPathAppendCode(...) \
-    akvcPathAppend(akvcmacro_make_str_(__VA_ARGS__))
+#define kpePathAppendCode(...) \
+    kpePathAppend(kpemacro_make_str_(__VA_ARGS__))
 
-#define akvcmacro_make_str_(code) \
+#define kpemacro_make_str_(code) \
     @""#code""
 
-#define akvcmacro_concat_(A, B) A ## B
+#define kpemacro_concat_(A, B) A ## B
 
-#define akvcmacro_concat(A, B) \
-    akvcmacro_concat_(A, B)
+#define kpemacro_concat(A, B) \
+    kpemacro_concat_(A, B)
 
-#define akvcmacro_at(N, ...) \
-    akvcmacro_concat(akvcmacro_at, N)(__VA_ARGS__)
+#define kpemacro_at(N, ...) \
+    kpemacro_concat(kpemacro_at, N)(__VA_ARGS__)
 
-#define akvcmacro_argcount(...) \
-    akvcmacro_at(20, __VA_ARGS__, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+#define kpemacro_argcount(...) \
+    kpemacro_at(20, __VA_ARGS__, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 
-#define akvcmacro_if_eq(A, B) \
-    akvcmacro_concat(akvcmacro_if_eq, A)(B)
+#define kpemacro_if_eq(A, B) \
+    kpemacro_concat(kpemacro_if_eq, A)(B)
 
 #define aKpath1(PATH) \
     (((void)(NO && ((void)PATH, NO)), strchr(# PATH, '.') + 1))
@@ -197,85 +197,85 @@ akvcmacro_if_eq(1, akvcmacro_argcount(__VA_ARGS__))(aKpath1(__VA_ARGS__))(aKpath
     (((void)(NO && ((void)OBJ.PATH, NO)), # PATH))
 
 
-#define akvcmacro_head_(FIRST, ...) FIRST
+#define kpemacro_head_(FIRST, ...) FIRST
 
-#define akvcmacro_head(...) \
-    akvcmacro_head_(__VA_ARGS__, 0)
+#define kpemacro_head(...) \
+    kpemacro_head_(__VA_ARGS__, 0)
 
-// akvcmacro_at expansions
-#define akvcmacro_at0(...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at1(_0, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at2(_0, _1, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at3(_0, _1, _2, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at4(_0, _1, _2, _3, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at5(_0, _1, _2, _3, _4, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at6(_0, _1, _2, _3, _4, _5, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at7(_0, _1, _2, _3, _4, _5, _6, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at8(_0, _1, _2, _3, _4, _5, _6, _7, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at9(_0, _1, _2, _3, _4, _5, _6, _7, _8, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at10(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at11(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at12(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at13(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at14(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at15(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at16(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at17(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at18(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at19(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, ...) akvcmacro_head(__VA_ARGS__)
-#define akvcmacro_at20(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, ...) akvcmacro_head(__VA_ARGS__)
+// kpemacro_at expansions
+#define kpemacro_at0(...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at1(_0, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at2(_0, _1, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at3(_0, _1, _2, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at4(_0, _1, _2, _3, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at5(_0, _1, _2, _3, _4, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at6(_0, _1, _2, _3, _4, _5, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at7(_0, _1, _2, _3, _4, _5, _6, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at8(_0, _1, _2, _3, _4, _5, _6, _7, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at9(_0, _1, _2, _3, _4, _5, _6, _7, _8, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at10(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at11(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at12(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at13(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at14(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at15(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at16(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at17(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at18(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at19(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, ...) kpemacro_head(__VA_ARGS__)
+#define kpemacro_at20(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, ...) kpemacro_head(__VA_ARGS__)
 
 
-#define akvcmacro_consume_(...)
+#define kpemacro_consume_(...)
 
-#define akvcmacro_expand_(...) __VA_ARGS__
+#define kpemacro_expand_(...) __VA_ARGS__
 
-#define akvcmacro_dec(VAL) \
-    akvcmacro_at(VAL, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+#define kpemacro_dec(VAL) \
+    kpemacro_at(VAL, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
 
 // ak_if_eq expansions
-#define akvcmacro_if_eq0(VALUE) \
-    akvcmacro_concat(akvcmacro_if_eq0_, VALUE)
+#define kpemacro_if_eq0(VALUE) \
+    kpemacro_concat(kpemacro_if_eq0_, VALUE)
 
-#define akvcmacro_if_eq0_0(...) __VA_ARGS__ akvcmacro_consume_
-#define akvcmacro_if_eq0_1(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_2(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_3(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_4(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_5(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_6(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_7(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_8(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_9(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_10(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_11(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_12(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_13(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_14(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_15(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_16(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_17(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_18(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_19(...) akvcmacro_expand_
-#define akvcmacro_if_eq0_20(...) akvcmacro_expand_
+#define kpemacro_if_eq0_0(...) __VA_ARGS__ kpemacro_consume_
+#define kpemacro_if_eq0_1(...) kpemacro_expand_
+#define kpemacro_if_eq0_2(...) kpemacro_expand_
+#define kpemacro_if_eq0_3(...) kpemacro_expand_
+#define kpemacro_if_eq0_4(...) kpemacro_expand_
+#define kpemacro_if_eq0_5(...) kpemacro_expand_
+#define kpemacro_if_eq0_6(...) kpemacro_expand_
+#define kpemacro_if_eq0_7(...) kpemacro_expand_
+#define kpemacro_if_eq0_8(...) kpemacro_expand_
+#define kpemacro_if_eq0_9(...) kpemacro_expand_
+#define kpemacro_if_eq0_10(...) kpemacro_expand_
+#define kpemacro_if_eq0_11(...) kpemacro_expand_
+#define kpemacro_if_eq0_12(...) kpemacro_expand_
+#define kpemacro_if_eq0_13(...) kpemacro_expand_
+#define kpemacro_if_eq0_14(...) kpemacro_expand_
+#define kpemacro_if_eq0_15(...) kpemacro_expand_
+#define kpemacro_if_eq0_16(...) kpemacro_expand_
+#define kpemacro_if_eq0_17(...) kpemacro_expand_
+#define kpemacro_if_eq0_18(...) kpemacro_expand_
+#define kpemacro_if_eq0_19(...) kpemacro_expand_
+#define kpemacro_if_eq0_20(...) kpemacro_expand_
 
-#define akvcmacro_if_eq1(VALUE) akvcmacro_if_eq0(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq2(VALUE) akvcmacro_if_eq1(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq3(VALUE) akvcmacro_if_eq2(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq4(VALUE) akvcmacro_if_eq3(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq5(VALUE) akvcmacro_if_eq4(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq6(VALUE) akvcmacro_if_eq5(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq7(VALUE) akvcmacro_if_eq6(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq8(VALUE) akvcmacro_if_eq7(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq9(VALUE) akvcmacro_if_eq8(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq10(VALUE) akvcmacro_if_eq9(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq11(VALUE) akvcmacro_if_eq10(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq12(VALUE) akvcmacro_if_eq11(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq13(VALUE) akvcmacro_if_eq12(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq14(VALUE) akvcmacro_if_eq13(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq15(VALUE) akvcmacro_if_eq14(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq16(VALUE) akvcmacro_if_eq15(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq17(VALUE) akvcmacro_if_eq16(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq18(VALUE) akvcmacro_if_eq17(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq19(VALUE) akvcmacro_if_eq18(akvcmacro_dec(VALUE))
-#define akvcmacro_if_eq20(VALUE) akvcmacro_if_eq19(akvcmacro_dec(VALUE))
+#define kpemacro_if_eq1(VALUE) kpemacro_if_eq0(kpemacro_dec(VALUE))
+#define kpemacro_if_eq2(VALUE) kpemacro_if_eq1(kpemacro_dec(VALUE))
+#define kpemacro_if_eq3(VALUE) kpemacro_if_eq2(kpemacro_dec(VALUE))
+#define kpemacro_if_eq4(VALUE) kpemacro_if_eq3(kpemacro_dec(VALUE))
+#define kpemacro_if_eq5(VALUE) kpemacro_if_eq4(kpemacro_dec(VALUE))
+#define kpemacro_if_eq6(VALUE) kpemacro_if_eq5(kpemacro_dec(VALUE))
+#define kpemacro_if_eq7(VALUE) kpemacro_if_eq6(kpemacro_dec(VALUE))
+#define kpemacro_if_eq8(VALUE) kpemacro_if_eq7(kpemacro_dec(VALUE))
+#define kpemacro_if_eq9(VALUE) kpemacro_if_eq8(kpemacro_dec(VALUE))
+#define kpemacro_if_eq10(VALUE) kpemacro_if_eq9(kpemacro_dec(VALUE))
+#define kpemacro_if_eq11(VALUE) kpemacro_if_eq10(kpemacro_dec(VALUE))
+#define kpemacro_if_eq12(VALUE) kpemacro_if_eq11(kpemacro_dec(VALUE))
+#define kpemacro_if_eq13(VALUE) kpemacro_if_eq12(kpemacro_dec(VALUE))
+#define kpemacro_if_eq14(VALUE) kpemacro_if_eq13(kpemacro_dec(VALUE))
+#define kpemacro_if_eq15(VALUE) kpemacro_if_eq14(kpemacro_dec(VALUE))
+#define kpemacro_if_eq16(VALUE) kpemacro_if_eq15(kpemacro_dec(VALUE))
+#define kpemacro_if_eq17(VALUE) kpemacro_if_eq16(kpemacro_dec(VALUE))
+#define kpemacro_if_eq18(VALUE) kpemacro_if_eq17(kpemacro_dec(VALUE))
+#define kpemacro_if_eq19(VALUE) kpemacro_if_eq18(kpemacro_dec(VALUE))
+#define kpemacro_if_eq20(VALUE) kpemacro_if_eq19(kpemacro_dec(VALUE))

@@ -18,33 +18,33 @@
  
  Example -
  :
- _NonnullObject.akvcSetValueForExtensionPath(...)akvcSetValueForExtensionPath(...)...
+ _NonnullObject.kpeSetValueForExtensionPath(...)kpeSetValueForExtensionPath(...)...
  
  */
 @interface NSObject(NSObject_KPEChain)
 
-@property KPEBlock NSString*_Nullable(^akvcPathAppend)(id _Nullable path);
+@property KPEBlock NSString*_Nullable(^kpePathAppend)(id _Nullable path);
 
-@property KPEBlock NSObject*_Nullable(^akvcValueForFullPath)(NSString* _Nonnull fullPath);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForFullPath)(id _Nullable value, NSString* _Nonnull fullPath);
+@property KPEBlock NSObject*_Nullable(^kpeValueForFullPath)(NSString* _Nonnull fullPath);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForFullPath)(id _Nullable value, NSString* _Nonnull fullPath);
 
 
-@property KPEBlock NSArray *_Nullable(^akvcValuesForSubkey)(NSString* _Nonnull subkey);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForSubkey)(id _Nullable value, NSString* _Nonnull subkey);
+@property KPEBlock NSArray *_Nullable(^kpeValuesForSubkey)(NSString* _Nonnull subkey);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForSubkey)(id _Nullable value, NSString* _Nonnull subkey);
 
-@property KPEBlock NSArray *_Nullable(^akvcValuesForRegkey)(NSString* _Nonnull regkey);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForRegkey)(id _Nullable value, NSString* _Nonnull regkey);
+@property KPEBlock NSArray *_Nullable(^kpeValuesForRegkey)(NSString* _Nonnull regkey);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForRegkey)(id _Nullable value, NSString* _Nonnull regkey);
 
-@property KPEBlock NSObject*_Nullable(^akvcValueForExtensionPath)(NSString* _Nonnull extensionPath);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForExtensionPath)(id _Nullable value, NSString* _Nonnull extensionPath);
+@property KPEBlock NSObject*_Nullable(^kpeValueForExtensionPath)(NSString* _Nonnull extensionPath);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForExtensionPath)(id _Nullable value, NSString* _Nonnull extensionPath);
 
-@property KPEBlock NSObject*_Nullable(^akvcValueForExtensionPathWithFormat)(NSString* _Nonnull extensionPath, ...);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForExtensionPathWithFormat)(id _Nullable value, NSString* _Nonnull extensionPath, ...);
+@property KPEBlock NSObject*_Nullable(^kpeValueForExtensionPathWithFormat)(NSString* _Nonnull extensionPath, ...);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForExtensionPathWithFormat)(id _Nullable value, NSString* _Nonnull extensionPath, ...);
 
-@property KPEBlock NSObject*_Nullable(^akvcValueForExtensionPathWithPredicateFormat)(NSString* _Nonnull extensionPath, ...);
-@property KPEBlock NSObject*_Nullable(^akvcSetValueForExtensionPathWithPredicateFormat)(id _Nullable value, NSString* _Nonnull extensionPath, ...);
+@property KPEBlock NSObject*_Nullable(^kpeValueForExtensionPathWithPredicateFormat)(NSString* _Nonnull extensionPath, ...);
+@property KPEBlock NSObject*_Nullable(^kpeSetValueForExtensionPathWithPredicateFormat)(id _Nullable value, NSString* _Nonnull extensionPath, ...);
 
-@property KPEBlockG(akvcPathAppend)NSString*_Nullable(^akvcAppendCode)(id _Nonnull code);
+@property KPEBlockG(kpePathAppend)NSString*_Nullable(^kpeAppendCode)(id _Nonnull code);
 
 @end
 
