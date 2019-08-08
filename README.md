@@ -129,6 +129,8 @@ name
 @nslog
 @isNSNull
 @isAllEqual
+@lastObject
+@firstObject
 @isAllDifferent
 --------------------
 ```
