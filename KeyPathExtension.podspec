@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KeyPathExtension"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = 'An extension of KeyPath in KVC for objc runtime.Describe complex logic with less code in KeyPath.Reduce programmer doing work.'
   s.homepage     = 'https://github.com/Meterwhite/KeyPathExtension'
   s.license      = 'MIT'
