@@ -134,6 +134,16 @@ static NSMutableDictionary* _kpe_path_function_map;
         KPELog(@"%@",[target description]);
         return target;
     }];
+    
+    [self registFunction:@"firstObject" withBlock:^id(id target) {
+        
+        return [target firstObject];
+    }];
+    
+    [self registFunction:@"lastObject" withBlock:^id(id target) {
+        
+        return [target lastObject];
+    }];
 }
 
 @end
