@@ -1,4 +1,4 @@
-![Logo](http://ico.58pic.com/iconset01/Simple-Social-Media-Icons/gif/154298.gif)KeyPathExtension
+![Logo](https://www.easyicon.net/api/resizeApi.php?id=1168322&size=128)KeyPathExtension
 ===
 - An extension of KeyPath in KVC for objc runtime.
 - Describe complex logic with less code in KeyPath.Reduce programmer doing work.
