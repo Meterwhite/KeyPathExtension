@@ -596,7 +596,7 @@
                 if([attrInfos containsObject:KPEPropertyReadonly]){
                     //Readonly
                     continue;
-                }else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:KPEPropertyVoid]){
+                } else if (![[attrInfos.lastObject substringToIndex:1] isEqualToString:KPEPropertyVoid]){
                     //void
                     continue;
                 }
